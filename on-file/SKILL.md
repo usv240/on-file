@@ -57,7 +57,9 @@ Keep running counters and show them after every step, together with the legal du
 
 If the user has no restricted folder for requests, offer once to create one:
 
-`delegate --target file-agent --instruction 'Create a shared folder named Requests on the volume the user chooses, hidden in network places, hidden from users without permission, with its recycle bin enabled and the recycle bin open to administrators only.'`
+`delegate --target file-agent --instruction 'Create a shared folder named Requests on the volume the user chooses, hidden in network places, hidden from users without permission, with its recycle bin turned off.'`
+
+The recycle bin is off in this share so that closing an erasure case removes the erased passages for good.
 
 This asks for the platform's approval; who may open the folder is set by the user in the NAS settings.
 
@@ -83,7 +85,7 @@ Add every returned path to the candidate list with source "file name".
 
 ## Step 2. Candidates by content
 
-Build the search terms first: the full name as written, in surname-first order with a comma, and without accents, and also the given name and surname as separate terms so a middle name or initial in between is found (Sarah Louise Mitchell, SARAH L MITCHELL); each identifier as written; phone numbers also as digits only; an ID also without separators; a date of birth also in day-first, month-first and written-month forms.
+Build the search terms first: the full name as written, in surname-first order with a comma, and without accents; each identifier as written; phone numbers also as digits only; an ID also without separators; a date of birth also in day-first, month-first and written-month forms. A middle name or initial between given name and surname (Sarah Louise Mitchell, SARAH L MITCHELL) is recognised when returned text is read and by the document pass below. Given name and surname are never searched as separate terms, which would return every file with either name.
 
 For each folder in scope and for each search term (name forms first, then email, phone, ID, date of birth, address, nickname):
 
@@ -95,9 +97,9 @@ The content search may return only its best matches, so every document in scope 
 
 `delegate --target file-agent --instruction 'List the document files (docx, doc, xlsx, xls, odt, ods, rtf, txt, csv, eml, msg) in the folder the user named, recursively. Return their paths. If there are none, return an empty list.'`
 
-For the listed documents that are not already candidates, in batches of up to 50:
+For the listed documents that are not already candidates, in batches of up to 20, the most the document expert reads for one question. A file missing from an answer's coverage is asked about again on its own:
 
-`delegate --target document-agent --instruction 'Read each file at the given paths. For each file that mentions the person's full name in either order or any identifier listed, return the path and quote the exact line. List every file that could not be opened, with the reason. Return none if no file mentions the person.'`
+`delegate --target document-agent --instruction 'Read each file at the given paths. For each file that mentions the person's full name in either order, also with a middle name or initial between, or any identifier listed, return the path and quote the exact line. List every file that could not be opened, with the reason. Return none if no file mentions the person.'`
 
 A file found only this way gets source "document pass"; a content search limited to that file confirms its quote, or the file goes to the user. Archives are listed and never opened:
 
@@ -320,7 +322,7 @@ An erasure case should not keep the data it erased. When every item is decided a
 
 `delegate --target file-agent --instruction 'Delete the evidence index file at the given path in the case folder.'`
 
-The case record and audit log show what was done, not what the files said.
+The case record and audit log show what was done, not what the files said. In the Requests share from step 0 the recycle bin is off, so the deletion is final; if the case folder is elsewhere, the closing message tells the user to empty the index from that share's recycle bin.
 
 To restore on request:
 
@@ -348,4 +350,4 @@ Third-party components, the work developed for this Hackathon, and the AI tools 
 
 # Install, setup, removal and testing
 
-Markdown only; installs from the Skills page or the Skills Hub with nothing to download or configure. Setup is five NAS settings, removal leaves only the case folders, and testing uses two published synthetic corpora with a scorer. Steps, expected results and versions are in [install, setup, removal and testing](references/install-and-testing.md).
+Markdown only; installs from the Skills page or the Skills Hub with nothing to download or configure. Setup is five NAS settings, removal leaves only the case folders, and testing uses three published synthetic corpora, one written blind, with a scorer and an act-mode replay. Steps, expected results and versions are in [install, setup, removal and testing](references/install-and-testing.md).

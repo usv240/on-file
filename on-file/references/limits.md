@@ -4,7 +4,7 @@ These are the boundaries of what the Skill does. Where a number is given, it was
 
 ## Measured on the synthetic corpora (laptop stand-in models, 2026-11-07; to be re-measured on the NAS)
 
-Input was the requester's name only. Stand-ins: Qwen3 4B for text and Qwen3-VL 2B instruct for reading images, through Ollama on a laptop. Voicemails are real synthesized audio transcribed offline. Three corpora: Lakeside Dental (122 files), a harder Lakeside corpus (129 files) with a same-name mother at the same address and other cases written together with the rules, and Kestrel Bay Physiotherapy (65 files), written blind by a separate agent that never saw the rules.
+Input was the requester's name only. Stand-ins: Qwen3 4B for text and Qwen3-VL 2B instruct for reading images, through Ollama on a laptop. Voicemails are synthesized speech, transcribed offline. The stand-in runs the Skill's rules as Python code and uses the models for reading, OCR, quotes, checks and classification; whether the NAS assistant follows the same rules from this text is for the final round to show. Three corpora: Lakeside Dental (122 files), a harder Lakeside corpus (129 files) with a same-name mother at the same address and other cases written together with the rules, and Kestrel Bay Physiotherapy (65 files), written blind by a separate agent that never saw the rules.
 
 | Measure | Main | Hard | Blind |
 |---|---|---|---|
@@ -22,6 +22,8 @@ The blind corpus was first run before the fixes it led to, and that run is the u
 
 With a same-name person in the folders and no answer given, the run stops and asks which intake form is the requester's.
 
+Act mode was replayed on a copy of each corpus from the planned actions (`act_replay.py`). In all six cases (access and erasure on three corpora), only the planned files changed and every other file kept its checksum, a second run acted on nothing, restored files matched their original checksums, and no extract held a line that does not name the person. The replays used the approval counts stated above: 42 for the main access case and 14 for the main erasure case.
+
 
 ## Known gaps
 
@@ -36,9 +38,9 @@ With a same-name person in the folders and no answer given, the run stops and as
 - Surveillance face identities are reported, not removed; the platform offers no removal action to a Skill.
 - Video: the Skill reads subtitle files as text and searches the video library by title and description. The library search covers the whole library; results outside the folders in scope are discarded unread. Speech in a video without a subtitle file is transcribed only when the video is in the recordings list; a person seen but not named in a video is not found.
 - Approvals: a report-only run asks for four (saving the index and the enclosure list, drafting and saving the letter), plus one for a translation. An access hand-over asks for one per copy or extract, one per 10 files for the audit log and one for the hand-over folder: 42 for the main test case's 37 records. An erasure asks for one per deletion and one per 10 files for the audit log: 14 for the main test case's 12 deletions. The optional case tag adds up to three; closing an erasure case adds two. Each approval confirms one file the user has already seen on the enclosure list. The platform's copy action takes one file and its batch workflow documents no copy mode, so copies cannot share an approval; deletions are kept to one approval each on purpose, even though a batch deletion exists. The count is stated before the first approval and will be timed on the NAS in the final round.
-- Scale: reading scans and transcribing recordings are the slowest searches. Above 500 scans and images or 200 recordings in a folder, the Skill asks whether to process all, a date range, or none, and records the choice in the index.
+- Scale: reading documents and scans and transcribing recordings are the slowest searches. Above 2000 documents, 500 scans and images or 200 recordings in a folder, the Skill asks whether to process all, a date range, or none, and records the choice in the index.
 - Permissions: the Skill runs with the NAS account of the user who starts it. A folder that account cannot read is listed as not searched. The Skill never changes share or folder permissions; protecting the case folder is a setup step.
-- Models: the Skill never calls an outside service, but which model each NAS expert uses is a platform setting. The setup asks the user to confirm the on-device models, and the letter's sentence that records were not sent to an outside service is included only after that confirmation.
+- Models: the Skill never calls an outside service, but which model each NAS expert uses is a platform setting. The setup asks the user to confirm the on-device models, for the experts and for the assistant that runs the Skill, and the letter's sentence that records were not sent to an outside service is included only after that confirmation.
 - Identity: the Skill does not verify who the requester is. Before an access hand-over, the user confirms the identity check was done.
 - Search index: the content search depends on the NAS knowledge index covering the folders in scope. A file the index misses is still read by the document pass, but its quote cannot be confirmed by the index, so it goes to the user instead of being decided automatically.
 - The audit log is a plain append-only text file with its checksum reported at close. It shows later edits; it does not prevent them.
@@ -56,6 +58,8 @@ The catalog lists these actions, but what they return has not been seen on a dev
 | The delete returns the file's recycle-bin path | The original path is logged, and a restore looks for the file by name in the share's recycle-bin folder |
 | Saving a text file keeps the case name in the file name | The saved path returned by each save is shown at close and recorded in the audit log, and a re-run is pointed at it |
 | The photo expert answers a question about an image with a quote | Answers are checked against the OCR text; an answer that cannot be checked sends the photo to the user |
+| Transcription accepts video files (mp4, mov) as well as audio | Videos are still searched by subtitle file and by library title; a video that cannot be transcribed is listed as unreadable |
+| The document expert reads up to 20 files for one question | A file missing from an answer's coverage is asked about again on its own |
 - Round 1 is static; all runtime behaviour is validated in the final round on the assigned NAS.
 
 ## Not legal advice

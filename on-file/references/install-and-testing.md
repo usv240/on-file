@@ -13,7 +13,7 @@ Nothing is installed outside the Skills directory. No model, library or service 
 
 There is no configuration. Every run collects its inputs from the user (see Required input in `SKILL.md`). Five NAS settings affect results and are worth checking once:
 
-1. On-device models. In the AI settings, confirm that the document, photo and knowledge experts use the models that run on the NAS. The Skill itself never names a cloud model or an outside service, but which model an expert uses is a platform setting, and the privacy promise depends on it. The letter states that records were not sent to an outside service only when this is confirmed.
+1. On-device models. In the AI settings, confirm that the document, photo and knowledge experts use the models that run on the NAS, and so does the assistant that runs this Skill, because it reads every passage the experts return. The Skill itself never names a cloud model or an outside service, but which model an expert uses is a platform setting, and the privacy promise depends on it. The letter states that records were not sent to an outside service only when this is confirmed.
 2. Recycle bin enabled on the shares that will be in scope, so that erasure can be undone within the recycle window. The Skill cannot read this setting, so it asks in step 0 and repeats the answer before the first deletion.
 3. Knowledge index covering the folders that will be in scope, so content search finds text documents. A file not yet indexed is only partly covered: it is caught if its name or folder contains the person's name, and scans and images are caught by the reading pass in step 3, but a new text document with an unrelated name is missed until it is indexed.
 4. Photos indexing of the folders that hold phone photos, so OCR text and recognised people are searchable.
@@ -38,13 +38,13 @@ Deleting a case folder, its tags and its recycle-bin entries removes every trace
 
 ### Quick check without a corpus (about 5 minutes)
 
-1. Create a scratch folder with four files: a text document mentioning an invented person with an invented email address; a second document mentioning a different invented person with a similar, longer name; a copy of the first document under a different name; and a small table listing the invented person and two other invented people.
-2. Run the Skill in report-only mode with the invented name and the scratch folder in scope.
+1. Create a scratch folder with four files: a text document mentioning an invented person with an invented email address; a second document mentioning a different invented person with a similar, longer name; a copy of the first document under a different name; and a small table listing the invented person, with the same email, and two other invented people.
+2. Run the Skill in report-only mode with the invented name and email and the scratch folder in scope. With a name alone and no intake form, nothing is included automatically and every file goes to the confirmation list, as the rules require.
 3. Expected: the first document and its copy are "included" with planned action "copy" (the copy with source "duplicate of"); the table is "included" with planned action "extract"; the similar-name document is "needs confirmation" or "excluded"; the index and letter appear in the case folder. Nothing is copied or deleted.
 
 ### Full measurement with the Lakeside Dental corpora
 
-Two synthetic corpora for a fictional dental practice, with ground truth and a scorer, are published for anyone to use: https://github.com/usv240/on-file (folder `testbed`). They are not part of this Skill package. Every name, address, number and ID in them is invented.
+Two synthetic corpora for a fictional dental practice, a third written blind for a physiotherapy practice, a scorer and an act-mode replay are published for anyone to use: https://github.com/usv240/on-file (folder `testbed`). They are not part of this Skill package. Every name, address, number and ID in them is invented.
 
 | Group | Main | Hard | What it tests |
 |---|---|---|---|
@@ -58,13 +58,14 @@ Two synthetic corpora for a fictional dental practice, with ground truth and a s
 
 The main corpus is the one the rules were developed on. The hard corpus uses a different random seed and adds the cases above, which came from a review of the first version. The rules for those cases were written at the same time as the cases, so the hard corpus is a stricter test, not a blind one. A blind test needs files written by someone who has not read the rules; the corpus generator and scorer are published so that anyone can add such files. The same seed gives the same paths and text; PDF and Word files differ between builds only in embedded creation times.
 
-### A blind corpus, a stress mode and real audio
+### A blind corpus, a stress mode, spoken voicemails and an act-mode replay
 
-Three further checks answer the obvious doubts about the two corpora above.
+Four further checks answer the obvious doubts about the two corpora above.
 
 - Blind corpus. A separate agent that never saw these rules wrote a third practice, Kestrel Bay Physiotherapy, with 65 files and its own answer key: a same-name client with her own folder, a maiden name, a misspelling, the requester's data inside her husband's and son's records, a name only in a Word page header, look-alike names such as Sarah Mitchell-Hayes and Mitchell Park, and unreadable files. It lives in `testbed/blind`. Some of its cases are outside what the rules promise, for example a maiden name nobody supplied, so it measures the honest ceiling.
 - Stress mode. The harness can limit the content search to 10 files per search term, as an index that returns only its best matches would, and check quotes against search snippets only instead of the full file text. This measures whether the document pass in step 2 catches what the search leaves out.
-- Real audio. `testbed/audio_roundtrip.ps1` speaks each voicemail with an offline Windows voice and transcribes the recording with the offline Windows recognizer, so the voicemail files are tested as machine transcripts rather than clean text.
+- Spoken voicemails. `testbed/audio_roundtrip.ps1` speaks each voicemail with an offline Windows voice and transcribes the recording with the offline Windows recognizer, so the voicemail files are tested as machine transcripts rather than clean text. This is synthesized speech, not a phone recording.
+- Act-mode replay. `testbed/act_replay.py` carries out the planned copies, extracts and deletions on a copy of a corpus, writes the audit log at the Skill's checkpoints, runs the same case a second time, restores one deleted file, and checks every file in scope by sha256. It tests the plan and the bookkeeping, not the NAS file actions themselves.
 
 Results for all three are in [limits](limits.md).
 
@@ -91,7 +92,7 @@ Run the access case twice with the same case name. Expected on the second run: t
 
 | Version | Date | Change |
 |---|---|---|
-| 0.1.0 | 2026-11-07 | Round 1 package. Static checker pass; workflow measured on a laptop stand-in on a main and a hard corpus. |
+| 0.1.0 | 2026-11-07 | Round 1 package. Static checker pass; workflow measured on a laptop stand-in on two dental corpora and a blind physiotherapy corpus, with an act-mode replay. |
 | 0.2.0 | planned, Round 2 | NAS measurements replace the laptop numbers; approval counts, scan reading and transcription times measured on the iDX6011 Pro; letter wording tuned. |
 
 Upgrading replaces the package files only. Case folders from earlier versions are plain text and stay readable; a re-run of an old case with a newer version reads its index and audit log the same way.

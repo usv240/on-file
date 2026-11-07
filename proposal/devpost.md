@@ -20,7 +20,7 @@ It tells same-name people apart, including a parent and child with the same name
 
 ### Why it matters
 
-Any clinic, dental office or shop with records on a NAS gets these requests. HIPAA gives 30 days, GDPR one month, and there is no small-business exemption. In 2026 a solo dental practice in rural Pennsylvania, ten employees, paid the US regulator 140,000 USD in a case that began with one patient's unanswered records request; the regulator had already cut the penalty by 90 percent so the practice could stay open. The files are scattered across forms, spreadsheets, scans and photos, and nobody knows every place one name sits. Uploading the records to a cloud assistant to search them is itself a disclosure. On File runs where the data already lives.
+Any clinic, dental office or shop with records on a NAS gets these requests. HIPAA gives 30 days, GDPR one month, and there is no small-business exemption. In 2026 a solo dental practice in rural Pennsylvania paid the US regulator 140,000 USD in a case that began with one patient's unanswered records request; the regulator had already cut the penalty by 90 percent so the practice could stay open. The files are scattered across forms, spreadsheets, scans and photos, and nobody knows every place one name sits. Uploading the records to a cloud assistant to search them is itself a disclosure. On File runs where the data already lives.
 
 ### How it is built
 
@@ -30,7 +30,7 @@ The decisions are rules, not model guesses. A name counts only next to one of th
 
 ### What has been measured
 
-Three synthetic practices with answer keys and a scorer, run on a laptop with small open models (Qwen3 4B and a 2B vision model) standing in for the NAS models, with only the name as input and the voicemails as real synthesized audio. Two are dental practices; the third, a physiotherapy practice, was written blind by a separate agent that never saw the rules.
+Three synthetic practices with answer keys and a scorer, run on a laptop with small open models (Qwen3 4B and a 2B vision model) standing in for the NAS models, with only the name as input and the voicemails as synthesized speech. Two are dental practices; the third, a physiotherapy practice, was written blind by a separate agent that never saw the rules.
 
 | Measure | Main dental | Harder dental | Blind physio |
 |---|---|---|---|

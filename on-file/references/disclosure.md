@@ -6,7 +6,7 @@ None. The package is Markdown only: `SKILL.md` and the files in `references/`. I
 
 ## Third-party components used outside the package (testing only, not submitted)
 
-The synthetic test corpus and the laptop stand-in harness used to measure provisional numbers are not part of the Skill. They use: Python 3.12 (PSF licence), python-docx (MIT), openpyxl (MIT), reportlab (BSD), Pillow (MIT-CMU), pypdf (BSD), requests (Apache 2.0), Ollama (MIT) serving Qwen3 4B and Qwen3-VL 2B instruct (Apache 2.0) as stand-ins for the NAS local models, and the offline Windows speech voices and recognizer (System.Speech, part of Windows) to turn the test voicemails into real audio and transcribe them. Their sources are the official PyPI and GitHub distributions.
+The synthetic test corpus and the laptop stand-in harness used to measure provisional numbers are not part of the Skill. They use: Python 3.12 (PSF licence), python-docx (MIT), openpyxl (MIT), reportlab (BSD), Pillow (MIT-CMU), pypdf (BSD), requests (Apache 2.0), Ollama (MIT) serving Qwen3 4B and Qwen3-VL 2B instruct (Apache 2.0) as stand-ins for the NAS local models, and the offline Windows speech voices and recognizer (System.Speech, part of Windows) to turn the test voicemails into synthesized speech and transcribe it. Their sources are the official PyPI and GitHub distributions.
 
 ## Principal functionality developed for this Hackathon
 

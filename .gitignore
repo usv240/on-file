@@ -22,3 +22,4 @@ testbed/audio_*/*.wav
 testbed/run*_status.txt
 testbed/run7.sh
 testbed/run8.sh
+testbed/replay/

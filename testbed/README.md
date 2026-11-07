@@ -49,7 +49,7 @@ Ground truth per file in `expected.json`: group, how the person is mentioned (te
 
 Options beyond the basics:
 
-- `--transcripts audio_main` uses machine transcripts of real audio for the voicemails. Make them with `audio_roundtrip.ps1 -Corpus corpus\lakeside-dental -Out audio_main` (Windows, offline voice and recognizer).
+- `--transcripts audio_main` uses machine transcripts of synthesized speech for the voicemails. Make them with `audio_roundtrip.ps1 -Corpus corpus\lakeside-dental -Out audio_main` (Windows, offline voice and recognizer).
 - `--topk 10` limits the content search to 10 files per search term, as an index that returns its best matches would.
 - `--snippet-check` checks quotes from documents against the search snippets only, not the full text.
 

@@ -43,7 +43,7 @@ Other entrants are welcome to use the corpora to test their own Skills.
 
 ## Stand-in results (laptop, provisional)
 
-Qwen3 4B and Qwen3-VL 2B instruct through Ollama stand in for the NAS models; voicemails are real synthesized audio. Input was the name only.
+Qwen3 4B and Qwen3-VL 2B instruct through Ollama stand in for the NAS models; voicemails are synthesized speech. Input was the name only.
 
 | Measure | Main dental | Hard dental | Blind physio |
 |---|---|---|---|
