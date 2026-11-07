@@ -423,9 +423,7 @@ def main():
                 row["decided_by"] = "auto, skeptic clear"
             elif adv_none and not skp_none:
                 row["decision"] = "excluded, skeptic found a different person"
-            elif adv_none and skp_none and partial_only:
-                row["decision"] = "excluded, partial name only"
-            else:
+            else:  # includes none/none: name only, no context, the user decides (disambiguation.md table)
                 row["decision"] = "needs confirmation"
                 row["decided_by"] = "user"
         results.append(row)

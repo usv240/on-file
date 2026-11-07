@@ -22,7 +22,7 @@ Any practice or business with records on a NAS gets these requests. HIPAA gives 
 
 ### How it is built
 
-Markdown only: SKILL.md and eight reference files. The parent orchestrates six UGOS expert agents (file, knowledge, document, photo, media, security monitor) through 23 catalog actions. Steps 1 to 6 are read only; step 7 is the only writer and goes through the platform approval gateway per file. Disambiguation is a rule set: an exact name with a strong identifier auto-includes, a partial name never does, and name-only hits get an advocate query and a skeptic query, with disagreement sent to the user.
+Markdown only: SKILL.md and eight reference files. The parent orchestrates six UGOS expert agents (file, knowledge, document, photo, media, security monitor) through 24 catalog actions. Steps 1 to 5 only read. Step 6 writes new files to the case folder only. Step 7 is the only step that touches the person's files, one file per platform approval, and the user is told how many approvals to expect before the first one. The closing message shows the legal due date and days left. Disambiguation is a rule set: an exact name with a strong identifier auto-includes, a partial name never does, and name-only hits get an advocate query and a skeptic query, with disagreement sent to the user.
 
 ### What has been measured
 

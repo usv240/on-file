@@ -22,6 +22,9 @@ Corpus of 122 files for a fictional dental practice; input was the requester's n
 - Files inside archives, password-protected files, encrypted files and mail stores are not opened. They are listed as unreadable with the reason.
 - Folders outside the scope the user named are never searched, even if the Skill suspects more files exist elsewhere. The closing message says which folders were searched.
 - Surveillance face identities are reported, not removed; the catalog has no removal action.
+- Approvals: act mode asks for one approval per file acted on, plus one per audit-log checkpoint (every 10 files), one for the hand-over folder and one for the case tag. Step 6 asks for one approval per saved file and one for the letter draft. Whether one approval can cover several calls is not documented; the count is stated to the user before the first approval and measured on the NAS in the final round.
+- Audio and video: transcription is the slowest search. Above 200 media files in a folder the Skill asks whether to process all, a date range, or none, and records the choice in the index.
+- Permissions: the Skill runs with the NAS account of the user who starts it. A folder that account cannot read is listed as not searched. The Skill never changes share or folder permissions; protecting the case folder is the user's setup step.
 - The content search depends on the NAS knowledge index covering the folders in scope. Files not yet indexed are still caught by the file-name search and, for images, by OCR, but a very recent text document may be missed until indexed. The Skill says this in the closing message when a scope folder returned no content hits but did return file-name hits.
 - Round 1 is static; all runtime behaviour is validated in the final round on the assigned NAS.
 

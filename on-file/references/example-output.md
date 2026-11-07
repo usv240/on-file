@@ -6,14 +6,16 @@ This is a complete, fictional case so the shape of every output is clear before 
 
 - Request type: HIPAA access
 - Person: Maria Lopez
+- Date received: 2026-11-03
 - Folders in scope: the practice's records share, with the subfolders Patients, Admin, Forms-Scanned, Photos, Email and Voicemail
-- Case folder: a folder named dsar-2026-11-07-lopez-maria, outside the folders in scope
+- Case folder: a folder named dsar-2026-11-07-lopez-maria inside a restricted Requests share, outside the folders in scope
 - Mode: report only
 - Identifiers: none supplied; the request arrived as a name only
 
 ## Counters shown after each step
 
 ```text
+Due 2026-12-03 (HIPAA access, 30 days from 2026-11-03): 26 days left
 Step 1 file names        folders 6   files 122   candidates 20
 Step 2 content           candidates 58 (merged by path)
 Step 3 photos/scans/audio/video/surveillance   OCR hits 6   audio hits 2   subtitle hits 0   surveillance identities 0
@@ -25,7 +27,7 @@ Step 6 index and letter  duplicates 0   baseline hashes recorded 57 (37 included
 
 ## Evidence index (excerpt, 12 of 59 rows)
 
-Columns: path, source, matched identifiers, passage, confirmation, decision, decided by.
+Columns: path, source, matched identifiers, passage, confirmation, decision, decided by. The saved index also has a sha256-before column for every included file and the untouched sample; it is left out here for width.
 
 | Path | Source | Matched | Passage | Confirmation | Decision | Decided by |
 |---|---|---|---|---|---|---|
@@ -52,6 +54,7 @@ Counters: files searched 122, candidates 58, confirmed 44, included 37, excluded
 
 ```text
 Search complete for Maria Lopez (HIPAA access), 6 folders, 122 files.
+Due 2026-12-03, 26 days left.
 Included 37, excluded 11, needs your confirmation 7, unreadable 3, duplicates 0.
 Identifiers used: name, plus email, phone, date of birth, address and patient ID
 taken from the intake form dated 2025-01-14.
@@ -75,7 +78,10 @@ Please check these 3 files by hand; I could not read them:
   Forms-Scanned/scan_2025-01-30_blank.jpg (no text found by OCR)
 
 No surveillance identity matched. Nothing was copied or deleted (report-only mode).
-To hand over copies, run again in act mode; each copy will ask for approval.
+Approvals asked in this run: 2 (saving the index and the letter).
+To hand over copies, run again in act mode with the same case name. Expect
+37 copy approvals, 4 audit-log approvals, 1 for the hand-over folder and
+1 for the case tag.
 ```
 
 ## Letter (Template A, filled from the index)
@@ -106,10 +112,10 @@ The two bracketed fields stay bracketed because the index has nothing for them; 
 ## Audit log (excerpt from an act-mode erasure run on the same case)
 
 ```text
-2026-11-07 14:02:11 | delete | Patients/Lopez, Maria/intake-form-2025-01-14.docx | 9f3a2c... | completed | approved |
-2026-11-07 14:02:19 | tag    | index row for intake-form-2025-01-14.docx           |           | completed | approved | tag dsar-2026-11-07-lopez-maria
-2026-11-07 14:02:40 | delete | Admin/Insurance/claims-batch-1.xlsx                  | 41d0e7... | cancelled | declined | skipped by user
-2026-11-07 14:03:05 | delete | Photos/DSC_0412.jpg                                  | c7b19a... | waiting_approval | pending | revisited at close
+2026-11-07 14:02:11 | delete | Patients/Lopez, Maria/intake-form-2025-01-14.docx | 9f3a2c... | completed        | approved |
+2026-11-07 14:02:40 | delete | Admin/Insurance/claims-batch-1.xlsx                | 41d0e7... | cancelled        | declined | declined by user
+2026-11-07 14:03:05 | delete | Photos/DSC_0412.jpg                                | c7b19a... | waiting_approval | pending  | revisited at close
+2026-11-07 14:09:52 | tag    | dsar-2026-11-07-lopez-maria-index.txt              |           | completed        | approved | case tag dsar-2026-11-07-lopez-maria
 ```
 
-The sha256 column holds the full 64-character checksum recorded before any change; it is shortened here only for width. Step 8 then reports, for example, "untouched files verified: 20 of 20 unchanged" and "deleted paths confirmed absent: 36 of 36; 1 pending".
+The sha256 column holds the full 64-character checksum recorded before any change; it is shortened here only for width. These lines reached the file at the first checkpoint, after 10 files. Step 8 then reports, for example, "untouched files verified: 20 of 20 unchanged" and "deleted paths confirmed absent: 35 of 35; 1 pending; 1 declined".

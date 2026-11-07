@@ -12,11 +12,11 @@ Small practices whose intake forms, spreadsheets, scanned consents, photos and v
 
 ## 3. What is your solution?
 
-It searches chosen folders by file name, content, OCR of scans and photos, document properties, transcripts, subtitles and surveillance faces; quotes the passage; separates same-name people by identifiers and a two-sided check; drafts the letter; acts after per-file approval. Nothing leaves the NAS; a cloud upload is itself a disclosure.
+It searches chosen folders by file name, content, OCR of scans and photos, document properties, transcripts, subtitles and surveillance faces; quotes the passage; separates same-name people by identifiers and a two-sided check; drafts the letter. Nothing leaves the NAS.
 
 ## 4. What is the main user flow?
 
-Input: request type, name, folders, case folder, mode (default report-only). It searches, shows three lists (included, needs your decision, unreadable) and saves the evidence index and letter. In act mode each included file is copied or deleted after its own approval. The close gives exact counts and undo steps.
+Input: request type, name, date received, folders, case folder, mode (default report-only). It searches, shows three lists (included, needs your decision, unreadable) and saves the evidence index and letter. In act mode each included file is copied or deleted after its own approval. The close gives exact counts, days left and undo steps.
 
 ## 5. How is your idea different from existing tools or common AI solutions?
 
@@ -24,11 +24,11 @@ Enterprise discovery tools (Varonis, BigID, OneTrust) are cloud products for lar
 
 ## 6. Which UGREEN AI NAS features does your Skill use, and at which step?
 
-file-agent: find, sha256sum, scan-dedupe, mkdir, cpmv, del, restore, tags (steps 1, 6, 7, 8). knowledge-agent: collect-evidence, audio-transcription, save-text (2, 3, 6, 7). document-agent: qa, metadata, extract, writing, translate (4, 5, 6). photo-agent: search-picture (OCR, person), vision-ocr, meta (3, 4). media-agent: subtitle-search (3). security-monitor-agent: faces, read only (3).
+file-agent: find, stat, sha256sum, scan-dedupe, mkdir, cpmv, del, echo, restore, tags (steps 1, 3, 6, 7, 8). knowledge-agent: collect-evidence, audio-transcription, save-text (2, 3, 6, 7). document-agent: qa, metadata, extract, writing, translate (4, 5, 6). photo-agent: search-picture (OCR, person), vision-ocr, meta (3, 4). media-agent: subtitle-search (3). security-monitor-agent: faces (3).
 
 ## 7. What is your technical approach?
 
-Markdown only; one parent, six experts. Steps 1 to 6 read only; step 7 writes per file behind gateway approval. Exact name plus a strong identifier auto-includes; a partial name never does; name-only hits get advocate and skeptic queries; disagreement goes to the user. Identifiers seed from the intake form. Unreadable files are listed, never dropped. Local LLM and VLM; no external calls.
+Markdown only; one parent, six experts. Steps 1 to 5 only read; step 6 writes only to the case folder; step 7 acts per file behind gateway approval. Exact name plus a strong identifier auto-includes; a partial name never does; name-only hits get advocate and skeptic queries; disagreement goes to the user. Identifiers seed from the intake form. Unreadable files are listed, never dropped. Local LLM and VLM only.
 
 ## 8. What have you built so far? What is not built yet? What still needs testing on a NAS?
 

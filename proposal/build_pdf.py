@@ -72,16 +72,17 @@ class Flow(Flowable):
                 c.line(ax0, ay, ax1, ay)
                 c.line(ax1, ay, ax1 - 1.4 * mm, ay + 1.0 * mm)
                 c.line(ax1, ay, ax1 - 1.4 * mm, ay - 1.0 * mm)
-        # read-only bracket under steps 2 to 5
+        # read-only bracket under the search, confirm and disambiguate boxes (steps 1 to 5)
         c.setStrokeColor(RULE)
         c.setLineWidth(0.6)
         x0 = 1 * (bw + gap)
-        x1 = 4 * (bw + gap) + bw
+        x1 = 3 * (bw + gap) + bw
         c.line(x0, y - 1.6 * mm, x1, y - 1.6 * mm)
         c.setFillColor(MUTED)
         c.setFont("Helvetica-Oblique", 6.8)
         c.drawCentredString((x0 + x1) / 2, y - 4.6 * mm, "read only")
-        c.drawCentredString(5 * (bw + gap) + bw / 2, y - 4.6 * mm, "only write, per file")
+        c.drawCentredString(4 * (bw + gap) + bw / 2, y - 4.6 * mm, "case folder only")
+        c.drawCentredString(5 * (bw + gap) + bw / 2, y - 4.6 * mm, "touches records")
 
 
 def parse(md: str):
@@ -113,7 +114,7 @@ def main():
                             title=doc_title + " proposal", author="Ujwal Vanjare", subject="UGREEN Hackathon 2026 on AI NAS, Round 1")
     W = A4[0] - doc.leftMargin - doc.rightMargin
     story = [Paragraph(esc(doc_title), title), Paragraph(esc(doc_sub), sub), Flow(W),
-             Paragraph("Steps 1 to 6 never change a file. Step 7 copies or deletes one file at a time, each behind its own approval. Step 8 re-hashes untouched files.", caption),
+             Paragraph("Steps 1 to 5 only read. Step 6 writes new files to the case folder only. Step 7 copies or deletes one file at a time, each behind its own approval. Step 8 re-hashes untouched files.", caption),
              HRFlowable(width="100%", thickness=0.6, color=RULE, spaceAfter=4)]
     for qline, ans in items:
         story.append(KeepTogether([Paragraph(esc(qline), q), Paragraph(esc(ans), body)]))

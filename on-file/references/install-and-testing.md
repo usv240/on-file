@@ -11,13 +11,14 @@ Nothing is installed outside the Skills directory. No model, library or service 
 
 ## Setup
 
-There is no configuration. Every run collects its inputs from the user (see Required input in `SKILL.md`). Three NAS settings affect results and are worth checking once:
+There is no configuration. Every run collects its inputs from the user (see Required input in `SKILL.md`). Four NAS settings affect results and are worth checking once:
 
 1. Recycle bin enabled on the shares that will be in scope, so that erasure can be undone within the recycle window. The Skill warns before any deletion in a folder where it is not enabled.
 2. Knowledge index covering the folders that will be in scope, so content search finds recent text documents. Files not yet indexed are still caught by the file-name search and, for images, by OCR.
 3. Photos indexing of the folders that hold scans and phone photos, so OCR text and recognised people are searchable.
+4. A case-folder location outside the folders in scope that only the people handling requests can open, for example a restricted shared folder named Requests. Case folders hold personal data: the index quotes passages, and access cases hold copies.
 
-No credentials, API keys or network access are needed or used.
+No credentials, API keys or network access are needed or used. The Skill runs with the NAS account of the user who starts it and reads only what that account can read.
 
 ## Removal
 
@@ -59,8 +60,21 @@ Test cases and expected results:
 
 The scorer reads the evidence index as a tab-separated file with at least the columns path and decision, and prints recall, precision, decoy and noise counts, unreadable counts, and the integrity result after erasure. Laptop stand-in results for these cases are in [limits](limits.md); they will be replaced by NAS results.
 
+### Repeat use
+
+Run the access case twice with the same case name. Expected on the second run: every file reported as "already done", no new copy, no new approval for copies, and the audit log extended with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix.
+
 ### What to look at if a test fails
 
 - Target files missing from the index: check that the knowledge index and Photos index cover the folder (Setup, items 2 and 3). File-name hits alone mean the content index did not return results for that folder; the closing message says so.
 - A decoy auto-included: the file contains the exact full name together with one of the requester's strong identifiers. That is a data problem to inspect, not a Skill decision to override silently.
 - An unreadable file missing: this is a defect; the index must list every candidate that could not be opened.
+
+## Versions
+
+| Version | Date | Change |
+|---|---|---|
+| 0.1.0 | 2026-11-07 | Round 1 package. Static checker pass; workflow measured on a laptop stand-in. |
+| 0.2.0 | planned, Round 2 | NAS measurements replace the laptop numbers; approval counts and transcription times measured on the iDX6011 Pro; letter wording tuned. |
+
+Upgrading replaces the package files only. Case folders from earlier versions are plain text and stay readable; a re-run of an old case with a newer version reads its index and audit log the same way.
