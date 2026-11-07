@@ -14,8 +14,8 @@ All of it. The orchestration contract in `SKILL.md`, the disambiguation rules, t
 
 ## AI tools used and their principal uses
 
-Claude Code (Anthropic) was used under the team's direction for: rules research and link checking; scanning the Skills Hub, UGREEN Community, Devpost and GitHub for overlapping ideas; drafting this `SKILL.md` and the reference files from the team's design; writing the synthetic corpus generator and the scoring script. The idea, the choice of request types, the naming, the proposal answers and every design decision are the team's own. No AI tool is called at runtime other than the NAS local models through the expert agents.
+Claude Code (Anthropic) was used under the team's direction for: rules research and link checking; scanning the Skills Hub, UGREEN Community, Devpost and GitHub for overlapping ideas; drafting this `SKILL.md` and the reference files from the team's design; writing the synthetic corpus generator, the scoring script and the laptop stand-in harness; and an independent review of the package against the judging criteria, whose findings led to the shared-file, retention, same-name-household and quote-check rules. The idea, the choice of request types, the naming, the proposal answers and every design decision are the team's own. No AI tool is called at runtime other than the NAS local models through the expert agents.
 
 ## Data handling
 
-The Skill reads only the folders the user names, writes only to the case folder the user names, and performs no network calls. Deletions go to the NAS recycle bin. The Skill never stores personal data outside the user's NAS.
+The Skill reads only the folders the user names, writes only to the case folder the user names (and, if the user accepts, creates one restricted shared folder for requests), and performs no network calls itself. Which model each NAS expert uses is a platform setting; the setup asks the user to confirm the on-device models. Deletions go to the NAS recycle bin. Files that also hold other people's data are never handed over whole or deleted. The Skill never stores personal data outside the user's NAS.

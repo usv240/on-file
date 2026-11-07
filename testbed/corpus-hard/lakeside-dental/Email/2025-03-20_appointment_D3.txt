@@ -1,0 +1,9 @@
+From: reception@lakeside-dental.example
+To: m.lopezruiz@example.com
+Subject: Appointment reminder
+
+Dear Maria Lopez-Ruiz,
+
+Your appointment is on 2025-03-22 at 15:00 with Dr. Samuel Okafor.
+
+Lakeside Dental

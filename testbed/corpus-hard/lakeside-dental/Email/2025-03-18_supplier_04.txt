@@ -1,0 +1,5 @@
+From: orders@northwind.example
+To: reception@lakeside-dental.example
+Subject: Order confirmation
+
+Your order has shipped.

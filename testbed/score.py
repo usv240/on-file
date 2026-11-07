@@ -56,11 +56,13 @@ def cmd_score(expected_path: Path, evidence_path: Path):
     with open(evidence_path, encoding="utf-8", newline="") as fh:
         rows = list(csv.DictReader(fh, delimiter="\t"))
     decision = {}
+    row_by_path = {}
     for r in rows:
         p = (r.get("path") or "").strip().replace("\\", "/")
         if p.startswith("lakeside-dental/"):
             p = p[len("lakeside-dental/"):]
         decision[p] = (r.get("decision") or "").strip().lower()
+        row_by_path[p] = r
 
     targets = [p for p, f in files.items() if f["group"] == "target"]
     decoys = [p for p, f in files.items() if f["group"] == "decoy"]
@@ -99,6 +101,35 @@ def cmd_score(expected_path: Path, evidence_path: Path):
     print(f"Unreadable reported as unreadable:                  {unread_ok} of {len(unreadables)}")
     print(f"Unreadable silently missing from index:             {len(unread_silent)}")
     print(f"Target files needing confirmation (not auto):       {sum(1 for p in targets if p in needs)}")
+    for grp, label in (("namesake", "Same-name person (same household)"), ("household", "Household member at the same address")):
+        g = [p for p, f in files.items() if f["group"] == grp]
+        if g:
+            print(f"{label} auto-included: {sum(1 for p in g if p in included)} of {len(g)}   (target 0); "
+                  f"to confirmation: {sum(1 for p in g if p in needs)}; excluded: {sum(1 for p in g if p in decision and decision[p].startswith('excluded'))}")
+
+    # files that also hold other patients' data, and record types (only when the index has those columns)
+    inc_targets = [p for p in targets if p in included]
+    if inc_targets and "shared" in (rows[0] if rows else {}):
+        def flagged(p):
+            return (row_by_path[p].get("shared") or "").lower().startswith("yes")
+        truth_shared = [p for p in inc_targets if files[p].get("shared")]
+        truth_single = [p for p in inc_targets if not files[p].get("shared")]
+        leak = [p for p in truth_shared if not flagged(p)]
+        over = [p for p in truth_single if flagged(p)]
+        print(f"Shared files flagged (others' data in file):        {pct(len(truth_shared) - len(leak), len(truth_shared))}")
+        print(f"Shared files NOT flagged (would be handed over whole): {len(leak)}   (target 0)")
+        for p in leak:
+            print("  not flagged ", p)
+        print(f"Single-person files flagged as shared (extra work): {len(over)} of {len(truth_single)}")
+        for p in over:
+            print("  over-flagged", p, "|", row_by_path[p].get("shared", "")[:60])
+        typed = [p for p in inc_targets if files[p].get("record_type")]
+        rt_ok = sum(1 for p in typed if (row_by_path[p].get("record_type") or "") == files[p]["record_type"])
+        print(f"Record type correct:                                {pct(rt_ok, len(typed))}")
+        for p in typed:
+            got = row_by_path[p].get("record_type") or ""
+            if got != files[p]["record_type"]:
+                print(f"  type {got:>14} expected {files[p]['record_type']:<14} {p}")
     if missed:
         print(f"Missed targets ({len(missed)}), by how they mention the person: {missed_by_how}")
         for p in missed:

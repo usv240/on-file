@@ -1,0 +1,66 @@
+path	decision	source	matched	passage	advocate	skeptic	decided_by	shared	record_type	access_action	erasure_action
+Admin/Insurance/claims-batch-1.xlsx	included	content	dob,name	CLM-0M | Maria Lopez | 2025-01-31 | 240 | 1984-03-12	exact name with identifier: dob		auto	yes: Ingrid Solberg, Jonas Lindqvist	billing	extract	edit by hand
+Admin/Insurance/claims-batch-2.xlsx	included	content	dob,name	CLM-1M | Maria Lopez | 2025-04-01 | 240 | 1984-03-12	exact name with identifier: dob		auto	yes: Jonas Lindqvist, Patrick Doyle	billing	extract	edit by hand
+Admin/Invoices/invoices-2025-Q1.xlsx	included	content	name,pid	INV-202501M | 2025-01-21 | Maria Lopez | Composite restoration | 240 | LD-10432	exact name with identifier: pid		auto	yes: Felix Hartmann, Omar Farouk	billing	extract	edit by hand
+Admin/Invoices/invoices-2025-Q2.xlsx	included	content	name,pid	INV-202502M | 2025-04-21 | Maria Lopez | Composite restoration | 240 | LD-10432	exact name with identifier: pid		auto	yes: Ingrid Solberg, Omar Farouk	billing	extract	edit by hand
+Admin/Invoices/invoices-2025-Q3.xlsx	included	content	name,pid	INV-202503M | 2025-07-20 | Maria Lopez | Composite restoration | 240 | LD-10432	exact name with identifier: pid		auto	yes: Noor Haddad, Patrick Doyle	billing	extract	edit by hand
+Admin/Invoices/invoices-2025-Q4.xlsx	included	content	name,pid	INV-202504M | 2025-10-18 | Maria Lopez | Composite restoration | 240 | LD-10432	exact name with identifier: pid		auto	yes: Thomas Berg, Elena Petrova	billing	extract	edit by hand
+Admin/Invoices/invoices-2025-extractions-1.xlsx	needs confirmation	content	name-partial		none	INV-D0004 | 2025-02-21 | Elena Petrova | Exam | 224 | [partial name]	user				
+Admin/Invoices/invoices-2025-extractions-2.xlsx	excluded, skeptic found a different person	content	name-partial		none	INV-D1M | 2025-03-12 | Maria Lopez-Ruiz | Extraction | 380 | LD-11871 [partial name]	auto				
+Admin/Lab-Orders/lab-order-1000.txt	included	content	name,pid	Patient ID: LD-10432 / Patient: Maria Lopez	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Admin/Lab-Orders/lab-order-1037.txt	included	content	name,pid	Patient ID: LD-10432 / Patient: Maria Lopez	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Admin/Lab-Orders/lab-order-1074.txt	included	content	name,pid	Patient ID: LD-10432 / Patient: Maria Lopez	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Admin/Lab-Orders/lab-pickup-sheet-2025-04.txt	included	content	name,phone	LOPEZ, MARIA     555.014.2231	exact name with identifier: phone		auto	yes: BERG, THOMAS, MWANGI, GRACE	clinical	extract	edit by hand
+Admin/Recall-Letters/recall-2025-06-30-09.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Recall-Letters/recall-2025-07-05-01.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Recall-Letters/recall-2025-07-12-02.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Recall-Letters/recall-2025-07-19-03.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Recall-Letters/recall-2025-07-26-04.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Receipts/receipt-2025-01-27-007.pdf	included	content	name,pid	Patient ID: LD-10432 / Received from: Maria Lopez	exact name with identifier: pid		auto	no	billing	copy	retain (billing record)
+Admin/Receipts/receipt-2025-02-11-022.pdf	excluded, skeptic found a different person	content	name-partial		none	Received from: Maria Lopez-Ruiz [partial name]	auto				
+Admin/Receipts/receipt-2025-03-28-008.pdf	included	content	name,pid	Patient ID: LD-10432 / Received from: Maria Lopez	exact name with identifier: pid		auto	no	billing	copy	retain (billing record)
+Admin/Receipts/receipt-2025-05-27-009.pdf	included	content	name,pid	Patient ID: LD-10432 / Received from: Maria Lopez	exact name with identifier: pid		auto	no	billing	copy	retain (billing record)
+Admin/Staff/contract-mario-lopez.docx	excluded, no mention	file name			none		auto				
+Admin/Suppliers/lopez-construction-invoice-1.pdf	excluded, no mention	file name			none		auto				
+Admin/Suppliers/lopez-construction-invoice-2.pdf	excluded, no mention	file name			none		auto				
+Admin/calendar-2025-Q1.csv	needs confirmation	content	name	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-15,14:00,Maria Lopez-Ruiz,Dr. Samuel Okafor	user				
+Email/2025-01-11_appointment_01.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Email/2025-02-08_appointment_D1.txt	needs confirmation	content	name-partial		none	none [partial name]	user				
+Email/2025-02-10_appointment_02.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Email/2025-02-28_appointment_D2.txt	excluded, skeptic found a different person	content	name-partial		none	Dear Maria Lopez-Ruiz, [partial name]	auto				
+Email/2025-03-12_appointment_03.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Email/2025-03-20_appointment_D3.txt	excluded, skeptic found a different person	content	name-partial		none	Dear Maria Lopez-Ruiz, [partial name]	auto				
+Email/2025-04-11_appointment_04.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Email/2025-05-11_appointment_05.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Email/2025-05-14_billing_question.txt	included	content	dob,name	Paciente: María López, fecha de nacimiento 12/03/1984.	exact name with identifier: dob		auto	no	correspondence	copy	delete
+Email/2025-06-10_appointment_06.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Forms-Scanned/scan_2025-01-14_041.pdf	included	ocr	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
+Forms-Scanned/scan_2025-01-15_042.pdf	included	ocr	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
+Forms-Scanned/scan_2025-01-30_blank.jpg	unreadable	unreadable in scope		unreadable:no text found by OCR			user checks by hand				
+Forms-Scanned/scan_2025-02-03_063.pdf	excluded, skeptic found a different person	ocr	name-partial		none	Patient: Maria Lopez-Ruiz / Patient ID: LD-11871 / Email: m.lopezruiz@example.com / Phone: (555) 019-8807 / Address: 402 Harbor Street, Lakeside / Signed: 2025-02-03 / Signature: M. Lopez-Ruiz [partial name]	auto				
+Patients/Lopez, Carlos/intake-form-2025-01-20.docx	excluded, no mention	file name,content	address		none		auto				
+Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx	excluded, identifiers of a same-name person	file name,content	address,name	Patient ID: LD-09811 / Date of birth: 1958-09-04	namesake identifier: dob,pid		auto				
+Patients/Lopez, Maria (1958)/treatment-note-2024-06-02.docx	excluded, identifiers of a same-name person	file name,content	name	Patient: Maria Lopez (LD-09811)	namesake identifier: pid		auto				
+Patients/Lopez, Maria/insurance-letter-protected.pdf	unreadable	file name,unreadable in scope		unreadable:password-protected			user checks by hand				
+Patients/Lopez, Maria/intake-form-2025-01-14.docx	included	file name,content	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/old-notes-corrupt.docx	unreadable	file name,unreadable in scope		unreadable:PackageNotFoundError			user checks by hand				
+Patients/Lopez, Maria/radiograph-report-2025-01-20.pdf	included	file name,content	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/referral-letter-2025-03-02.docx	included	file name,content	dob,name	Re: Maria Lopez, DOB 1984-03-12	exact name with identifier: dob		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/referral-note-to-orthodontist.docx	needs confirmation	file name,metadata	name	Dr. Samuel Okafor Maria Lopez	Dr. Samuel Okafor Maria Lopez	Dr. Samuel Okafor Maria Lopez	user				
+Patients/Lopez, Maria/treatment-note-2025-01-26.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-note-2025-03-12.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-note-2025-04-26.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-note-2025-06-10.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-note-2025-07-25.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-note-2025-09-08.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-plan-summary.docx	needs confirmation	file name,metadata	name	[document properties] Dr. Samuel Okafor Maria Lopez	none	Patient details on file.	user				
+Patients/Lopez-Ruiz, Maria/intake-form-2025-02-03.docx	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz / Patient ID: LD-11871 / Email: m.lopezruiz@example.com / Phone: (555) 019-8807 / Address: 402 Harbor Street, Lakeside / Reason for visit: wisdom tooth pain. / Emergency contact: Ana Ruiz (mother). [partial name]	auto				
+Patients/Lopez-Ruiz, Maria/radiograph-report-2025-02-10.pdf	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz / Date of birth: 1991-07-30 / Patient ID: LD-11871 / Phone: (555) 019-8807 / Address: 402 Harbor Street, Lakeside [partial name]	auto				
+Patients/Lopez-Ruiz, Maria/treatment-note-2025-02-10.docx	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz (LD-11871) [partial name]	auto				
+Patients/Lopez-Ruiz, Maria/treatment-note-2025-03-22.docx	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz (LD-11871) [partial name]	auto				
+Photos/DSC_0412.jpg	included	metadata	name,pid	[document properties] Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Photos/IMG_20250114_0917.jpg	included	ocr	name,pid	09:10 Maria Lopez LD-10432	exact name with identifier: pid		auto	yes: Thomas Berg, Grace Mwangi	clinical	extract	edit by hand
+Photos/IMG_20250203_0855.jpg	excluded, skeptic found a different person	ocr	name-partial		none	08:55 Maria Lopez-Ruiz LD-11871 [partial name]	auto				
+Videos/testimonial-2025.srt	needs confirmation	subtitle	name	Hi, I am Maria Lopez.	Hi, I am Maria Lopez.	Hi, I am Maria Lopez.	user				
+Voicemail/vm_2025-02-15_10.txt	included	audio transcript	name,phone,pid	Caller: Hi, this is Maria Lopez, patient ID LD-10432. I need to move my appointment, please call me back on (555) 014-2231. Thanks.	exact name with identifier: phone,pid		auto	no	correspondence	copy	delete
+Voicemail/vm_2025-04-06_11.txt	included	audio transcript	name,phone,pid	Caller: Hi, this is Maria Lopez, patient ID LD-10432. I need to move my appointment, please call me back on (555) 014-2231. Thanks.	exact name with identifier: phone,pid		auto	no	correspondence	copy	delete

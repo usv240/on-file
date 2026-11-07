@@ -1,0 +1,6 @@
+From: reception@lakeside-dental.example
+To: billing@lakeside-dental.example
+Subject: Pregunta de factura
+
+Paciente: María López, fecha de nacimiento 12/03/1984.
+Pregunta por el importe de la restauración del 21/01/2025.

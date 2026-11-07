@@ -1,6 +1,6 @@
 # Letter templates
 
-The writing step fills these templates from the evidence index only. Square-bracket fields are filled from the request input and the index; the wording around them stays as written. Nothing is added that is not in the index.
+The writing step fills these templates from the evidence index only. Square-bracket fields are filled from the request input and the index; the wording around them stays as written. Nothing is added that is not in the index, and no other person is ever named.
 
 ## Template A. HIPAA access response
 
@@ -12,7 +12,7 @@ Re: Your request for access to your health information, received [date received]
 
 We have completed a search of our records for information about you. The search covered our document, scanned-form, photo and recording folders and was carried out on our own system; your records were not sent to any outside service.
 
-We located [number of included files] records. They are listed in the attached index and copies are enclosed. [If retained files exist:] The following records are not enclosed because [reason]: [list].
+We located [number of included files] records. They are listed in the attached index. [number of copies] are enclosed as copies. [If extracts exist:] [number of extracts] records also contain information about other patients; for those we enclose an extract with only the entries about you. [If retained or withheld items exist:] The following records are not enclosed because [reason]: [list].
 
 [If unreadable files exist:] We also located [number] files we could not open automatically and have reviewed them by hand: [outcome].
 
@@ -28,11 +28,11 @@ To: [person's full name]
 
 Re: Your subject access request received [date received]
 
-In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, listed in the attached index ([number of included files] items). The search covered the folders named in the index and was performed entirely on our own system.
+In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, listed in the attached index ([number of included files] items). Where a record also contains other people's data, we enclose an extract of the parts about you, as Article 15(4) requires. The search covered the folders named in the index and was performed entirely on our own system.
 
 Purposes of processing: [purposes]. Recipients: [recipients or "none outside the organisation"]. Retention period: [period or criteria]. Source of the data: [source]. You have the right to rectification, erasure, restriction and objection, and the right to lodge a complaint with a supervisory authority.
 
-[If retained or redacted items exist:] The following items are withheld or redacted because [reason]: [list].
+[If withheld or redacted items exist:] The following items are withheld or redacted because [reason]: [list].
 
 [Signature block]
 
@@ -44,11 +44,15 @@ To: [person's full name]
 
 Re: Your erasure request received [date received]
 
-In response to your request under Article 17 of the General Data Protection Regulation, we searched our records and identified [number of included files] items containing your personal data. The following have been erased: [list of file descriptions from the index, without personal data of others].
+In response to your request under Article 17 of the General Data Protection Regulation, we searched our records and identified [number of included files] items containing your personal data.
 
-[If retained items exist:] The following items are retained because [legal ground under Article 17(3)]: [list].
+The following have been deleted from our working files: [list of file descriptions]. Deleted items stay in our system's recycle bin until [date the recycle window ends], and copies in our backups are overwritten by [date from the backup schedule]; they are not used in the meantime.
 
-[If a surveillance identity was found:] A face identity in our camera system was also removed.
+[If records with other people's data exist:] The following records also concern other people. Your entries have been removed from them by hand: [list].
+
+[If retained items exist:] The following items are retained because we are legally required to keep them ([legal ground under Article 17(3), for example the retention period for health or accounting records]): [list]. They will be deleted when that period ends.
+
+[If a surveillance identity was found:] A face identity in our camera system was removed by our staff on [date].
 
 The search was performed on our own system; no data was transferred to an outside service for this purpose. You have the right to lodge a complaint with a supervisory authority.
 
@@ -58,4 +62,5 @@ The search was performed on our own system; no data was transferred to an outsid
 
 - "File descriptions" are the human description of each item (for example "intake form dated 12 March 2025"), not file paths, unless the user asks for paths.
 - The letter never names other people found in the same files.
+- The hand-edited and surveillance sentences are filled by the user after doing the manual step; until then the brackets stay.
 - If the writing delegation does not complete, the unfilled template is saved next to the evidence index and the user fills it.

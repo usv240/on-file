@@ -1,6 +1,6 @@
 ---
 name: on-file
-description: Use when a patient or customer asks what personal data you hold about them or asks to be deleted (HIPAA right of access, GDPR access or erasure). Finds every file in the chosen NAS folders that mentions the person, including scans, photos and recordings, shows the matching passage per file, writes the reply letter and an evidence index, and copies or deletes files only after per-file approval, with an audit log.
+description: Use when a patient or customer asks what personal data you hold about them or asks to be deleted (HIPAA right of access, GDPR access or erasure). Finds every file in the chosen NAS folders that mentions the person, including scans, photos and recordings, shows the matching passage per file, tells same-name people apart, writes the reply letter and an evidence index, hands over copies or extracts and deletes files only after per-file approval, with an audit log.
 ---
 
 # Goal
@@ -9,12 +9,12 @@ Given one person's name and optional identifiers, produce a complete, checkable 
 
 The user-visible result is four plain files saved in a case folder the user names:
 
-1. An evidence index: one row per file that mentions the person, with the matching passage, which identifier matched, how it was confirmed, the checksum before any change, and the decision (included, excluded, needs confirmation, unreadable).
+1. An evidence index: one row per file that mentions the person, with the matching passage, which identifier matched, how it was confirmed, whether the file also holds other people's data, the record type, the checksum before any change, the decision (included, excluded, needs confirmation, unreadable) and the planned action.
 2. A reply letter drafted from the chosen template (HIPAA access, GDPR Art. 15 access, or GDPR Art. 17 erasure). See [request types](references/request-types.md) and [letter templates](references/letter-templates.md).
-3. For access requests in act mode: a hand-over folder containing copies of the confirmed files.
-4. For erasure requests in act mode: the confirmed files deleted to the recycle bin, and an audit log of every action. See [audit and undo](references/audit-and-undo.md).
+3. For access requests in act mode: a hand-over folder with a copy of each file that is only about the person, and an extract of the person's own entries from each file that also holds other people's data.
+4. For erasure requests in act mode: the files that may be erased deleted to the recycle bin, the files the law requires the practice to keep listed as retained, the shared files listed for editing by hand, and an audit log of every action. See [audit and undo](references/audit-and-undo.md).
 
-Supported scope: documents, spreadsheets, PDFs, scanned PDFs, photos with text, photos of the person recognised by Photos, audio recordings, videos with subtitles, document metadata, file names, and named face identities in the surveillance system (reported only). Out of scope and reported as such: archives, password-protected files, mailboxes, anything outside the chosen folders. See [limits](references/limits.md).
+Supported scope: documents, spreadsheets, PDFs, scanned PDFs, photos with text, photos of the person recognised by Photos, photo captions, audio recordings, subtitle files, videos in the media library, document properties, file and folder names, and named face identities in the surveillance system (reported only). Out of scope and reported as such: archives, password-protected files, mailboxes, practice-management databases, imaging systems, anything outside the chosen folders. See [limits](references/limits.md).
 
 Default mode is report only. No copy or delete happens unless the user chooses act mode, and then each file waits for its own platform approval.
 
@@ -49,45 +49,69 @@ Do not collect anything a child expert owns (album IDs, tag IDs, face IDs). Chil
 
 Steps 1 to 5 only read. Step 6 creates new files inside the case folder and nowhere else, each through a platform-approved write. Step 7 is the only step that touches the person's files, only in act mode, one file per approval. Each delegation below is self-contained: it repeats the person's name, the identifiers, and the exact folder or file it applies to. Downstream steps use only the real result returned by the upstream delegation; nothing is assumed from a result that was not returned.
 
-Keep running counters and show them after every step, together with the legal due date: folders scanned, files searched, candidates, confirmed, excluded, needs confirmation, unreadable, duplicates.
+Keep running counters and show them after every step, together with the legal due date and the days left: folders scanned, files searched, candidates, confirmed, excluded, needs confirmation, unreadable, duplicates.
 
-## Step 1. Candidates by file name
+## Step 0. Case folder and existing case
+
+If the user has no restricted folder for requests, offer once to create one:
+
+`delegate --target file-agent --instruction 'Create a shared folder named Requests on the volume the user chooses, hidden from users without permission, with the recycle bin enabled and restricted to administrators.'`
+
+This asks for the platform's approval. The user then sets in the NAS settings who may open it; the Skill does not change permissions.
+
+If the case folder already holds an evidence index for this case name, this is a re-run. Read it first:
+
+`delegate --target document-agent --instruction 'Open the evidence index and the audit log in the case folder the user named and return their rows as they are.'`
+
+On a re-run, the included list, decisions and checksums come from the saved index unless the user asks for a fresh search; go straight to step 7 for act mode, or to step 6 to redraft the letter.
+
+## Step 1. Candidates by file and folder name
 
 For each folder in scope:
 
-`delegate --target file-agent --instruction 'In the folder the user named, list files whose name contains the person's full name, surname, or any identifier the user supplied. Search recursively. Return path, size and modified time for each match. If nothing matches, return an empty list and say so.'`
+`delegate --target file-agent --instruction 'In the folder the user named, list files whose file name or folder path contains the person's full name in either order, the surname, or any identifier the user supplied. Search recursively. Return path, size and modified time for each match. If nothing matches, return an empty list and say so.'`
 
 Add every returned path to the candidate list with source "file name".
 
 ## Step 2. Candidates by content
 
-For each folder in scope and for each identifier (full name first, then email, phone, ID, address, nickname):
+Build the search terms first: the full name as written, the name in surname-first order with a comma, and the name without accents if it has any; each supplied identifier as written; phone numbers also as digits only; a date of birth also in day-first, month-first and written-month forms.
 
-`delegate --target knowledge-agent --instruction 'Collect evidence from the folder the user named for the exact identifier given. Return every file that contains it, with the matching passage and the file path. Do not widen the search to similar names. If there are no results, say no results.'`
+For each folder in scope and for each search term (name forms first, then email, phone, ID, date of birth, address, nickname):
+
+`delegate --target knowledge-agent --instruction 'Collect evidence from the folder the user named for the exact term given, searching the full content of every file. Return every file that contains it, with the matching passage and the file path. Do not widen the search to similar names. If there are no results, say no results.'`
 
 Add every returned path with source "content" and the identifier that matched. Merge duplicates by path; keep all identifiers that matched a path.
 
-## Step 3. Candidates in photos, scans, video and audio
+## Step 3. Candidates in photos, scans, recordings and video
 
 Run these once per folder in scope. Each may return an empty result; record that and continue.
 
 `delegate --target photo-agent --instruction 'Search pictures whose OCR text contains the person's full name, and separately pictures where the recognised person name equals the person's full name, limited to the folder the user named. Return file paths and, for OCR hits, the matched text. Return no results if there are none.'`
 
-Video subtitles are searched one video at a time, so list the videos first:
+Scans and images that Photos does not index are read directly. List them:
 
-`delegate --target file-agent --instruction 'List the video files (mp4, mkv, mov, avi) in the folder the user named, recursively. Return their paths. If there are none, return an empty list.'`
+`delegate --target file-agent --instruction 'List the PDF and image files (pdf, jpg, jpeg, png, tif, heic) in the folder the user named, recursively. Return their paths. If there are none, return an empty list.'`
 
-For each returned video:
+For each listed file that is not already a candidate:
 
-`delegate --target media-agent --instruction 'Search the subtitles of the video at the given path for the person's full name. Return the matching subtitle lines with their times, or say no results.'`
+`delegate --target document-agent --instruction 'Read the file at the given path, including text in scanned pages and images. Does it contain the person's full name or any of the identifiers listed? Quote the exact line. If the file cannot be read, say unreadable and give the reason. If there is no mention, say none.'`
 
-Audio is transcribed from a list of paths, so list the recordings first:
+Subtitle files are text. List them, and confirm each in step 4 like any document:
 
-`delegate --target file-agent --instruction 'List the audio files (m4a, mp3, wav, aac, amr, ogg) in the folder the user named, recursively. Return their paths and modified times. If there are none, return an empty list.'`
+`delegate --target file-agent --instruction 'List the subtitle files (srt, vtt, ass, ssa) in the folder the user named, recursively. Return their paths, or an empty list.'`
 
-`delegate --target knowledge-agent --instruction 'Transcribe the audio files at the given paths. For each file, report whether the transcript contains the person's full name or any identifier listed, and return the path and the matching sentence. List any file that could not be transcribed with the reason. Return no results if nothing matches.'`
+Videos in the media library are searched by title and description only; nothing is played:
 
-Transcription is the slowest search. If a folder holds more than 200 audio or video files, show the count and ask the user whether to process all of them, only those modified in a date range, or leave that media type out of this run; record the choice in the index.
+`delegate --target media-agent --instruction 'Search the video library for media whose title or description contains the person's full name. Do not play anything. Return the video paths and titles, or say no results.'`
+
+Recordings are transcribed from a list of paths:
+
+`delegate --target file-agent --instruction 'List the audio and video files (m4a, mp3, wav, aac, amr, ogg, mp4, mov) in the folder the user named, recursively. Return their paths and modified times. If there are none, return an empty list.'`
+
+`delegate --target knowledge-agent --instruction 'Transcribe the recordings at the given paths. For each file, report whether the transcript contains the person's full name or any identifier listed, and return the path and the matching sentence. List any file that could not be transcribed with the reason. Return no results if nothing matches.'`
+
+Reading scans and transcribing recordings are the slowest searches. If a folder holds more than 500 scans and images or more than 200 recordings, show the count and ask the user whether to process all of them, only those modified in a date range, or leave that kind of file out of this run; record the choice in the index.
 
 `delegate --target security-monitor-agent --instruction 'List the known face identities in the surveillance system and report whether any identity name equals the person's full name. Read only. Return the identity name and the cameras it appears on, or no results.'`
 
@@ -97,7 +121,7 @@ If, after steps 1 to 3, the candidate list is empty for every folder, write an e
 
 ## Step 4. Confirm each candidate and read the passage
 
-For each candidate file that is a document, spreadsheet or PDF:
+For each candidate file that is a document, spreadsheet, PDF or subtitle file:
 
 `delegate --target document-agent --instruction 'Open the file at the given path. Answer: does this file mention the person's full name or any of the identifiers listed? Quote the exact passage. If the file cannot be opened or read, say unreadable and give the reason.'`
 
@@ -113,6 +137,10 @@ For every photo candidate, also read the image's own fields, because a caption c
 
 `delegate --target photo-agent --instruction 'Return the metadata of the image at the given path, including description, caption, title, author and keywords. Report whether any field contains the person's full name or any identifier listed.'`
 
+For recordings, the passage is the transcript sentence from step 3.
+
+Quote check: every quoted passage must appear in the file's text, properties or transcript, regardless of case, spacing and punctuation. A passage offered as evidence that the file is about the person must also contain the person's name or an identifier, in any of the step 2 forms. An answer whose quote fails this check is treated as no answer. This keeps a wrong or invented answer from a model out of the index.
+
 Outcomes per file:
 
 - Passage found: mark "confirmed candidate" and keep the passage and the matched identifiers.
@@ -123,22 +151,44 @@ Outcomes per file:
 
 Apply the rules in [disambiguation](references/disambiguation.md). Process intake, registration or consent forms first, because they carry the identifiers that let every later file be decided automatically.
 
-- A file where the exact full name co-occurs with at least one strong identifier (email, phone, date of birth, patient or customer ID, full postal address) is "included, auto".
-- A file where the name appears only as part of a longer name (for example a hyphenated surname that begins with the requester's surname) is never auto-included; it goes through the two checks and, at best, to the confirmation list.
-- A file where only the name matches gets two opposing checks:
+Identifiers come in two kinds. A patient or customer ID and a personal email belong to one person. A date of birth, a phone number and a postal address can be shared by a household.
+
+- Exact full name with an ID, email, date of birth, phone or address of the requester: "included, auto".
+- An ID or personal email of the requester without the name: "included, auto".
+- A date of birth, phone or address of the requester without the name: the two checks below, never auto-included.
+- The name only as part of a longer name, for example a hyphenated surname that begins with the requester's surname: the two checks, never auto-included.
+- The exact full name with no identifier: the two checks below; never auto-included.
 
 `delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is the same person as the one described by the identifiers listed. If there is none, say none.'`
 
-`delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is a different person from the one described by the identifiers listed, for example a different date of birth, address, email, phone, employer or role. If there is none, say none.'`
+`delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is a different person from the one described by the identifiers listed, for example a different date of birth, ID, email or phone, a generational suffix such as Sr. or Jr., an employer or a role. If there is none, say none.'`
 
-If the second check returns none and the first returns a passage: "included, auto, skeptic clear". If the first returns none and the second returns a passage: "excluded, skeptic found a different person", with the quote kept. Every other combination is "needs confirmation" with both quotes. The user decides each item on that list; nothing on it is acted on until the user says include or exclude.
+For a photo or scan, the same two delegations are given the image path; the document expert reads images directly. For a recording, they are given the transcript text from step 3. Both answers go through the quote check.
 
-- When the request arrived with a name only, no file can be auto-included yet. Read the exact-name intake, registration or consent forms first with the extraction below. If exactly one form's extracted full name equals the requester's name, adopt its identifiers and continue. If more than one such form exists with different dates of birth, stop with `waiting_user` and show them: the user picks the requester's form.
-- When the first "included" file is an intake or registration form, run once:
+If the first check returns none and the second returns a passage that shows a longer form of the name or an identifier of a known same-name person: "excluded, skeptic found a different person", with the quote kept. Every other combination is "needs confirmation" with both quotes, so the user sees the evidence for and against before deciding. The checks never include a file on their own: only an identifier of the person does. A file about the person is never excluded on a model's opinion alone, because a wrong exclusion leaves the person's data out of the answer. The user decides each item on that list; nothing on it is acted on until the user says include or exclude.
+
+Starting from a name only:
+
+- No file can be auto-included yet. Read the exact-name intake, registration or consent forms first with the extraction below. If every such form gives the same date of birth, adopt its identifiers and continue.
+- If the forms give different dates of birth, two people share the name. Stop with `waiting_user`, show the forms, and ask which is the requester's. After the answer, the other form describes a same-name person: any date of birth, phone or address the two share stops counting for the requester, a file holding the other person's own ID, email, date of birth or phone is "excluded, identifiers of a same-name person" with the quote, and a file with the exact name and only a shared identifier goes to the two checks and at best to the confirmation list.
 
 `delegate --target document-agent --instruction 'Extract from the file at the given path the fields: full name, date of birth, email, phone, postal address, patient or customer ID. Return them as a list.'`
 
-Add new identifiers to the set and re-run step 2 for the new identifiers only.
+When the request came with some identifiers and the first included file is an intake or registration form, run the same extraction once, add new identifiers to the set and re-run step 2 for the new identifiers only.
+
+Finally, for each included file:
+
+`delegate --target document-agent --instruction 'List the people named in the file at the given path, each once, up to eight, with their role in the file: patient or customer, staff, contact, or business. Include names in tables, lists and sign-in sheets. Also classify the file as clinical record, billing record, correspondence, or other.'`
+
+The file holds other people's data if the list contains any patient or customer other than the person. If the answer cannot be read, the file is treated as holding other people's data, which is the safe direction: an extract instead of a copy, editing by hand instead of deletion. The question asks for names rather than a yes or no on purpose: in testing, a small model answered no for a sign-in sheet that lists three other patients, and named all three when asked for a list.
+
+The answer sets the planned action, shown in the index and changed by the user if needed:
+
+| File | Access request | Erasure request |
+|---|---|---|
+| About the person only | copy | delete, unless it is a clinical or billing record |
+| Also holds other people's data | extract of the person's own entries | edit by hand; never deleted |
+| Clinical or billing record | copy or extract as above | retained by default, with the reason; the user may override per file |
 
 ## Step 6. Duplicates, evidence index and letter
 
@@ -146,7 +196,7 @@ The first two delegations only read:
 
 `delegate --target file-agent --instruction 'Scan the folders the user named for duplicate files. Return groups of byte-identical files with their paths.'`
 
-Any file identical to an included file joins the included set with source "duplicate of" and the original path.
+Any file identical to an included file joins the included set with source "duplicate of" and the original path, and takes the original's planned action.
 
 `delegate --target file-agent --instruction 'For each path in the list given, return the sha256 checksum, size and modified time.'`
 
@@ -154,11 +204,11 @@ Run this for the included files and for a sample of up to 20 files in scope that
 
 The remaining delegations write new files into the case folder only; each one asks for the platform's approval.
 
-`delegate --target knowledge-agent --instruction 'Save a text file named by the case name in the case folder the user named. Content: the evidence index table with columns path, source, matched identifiers, passage, confirmation, decision, decided by, sha256 before; then the surveillance section; then the unreadable list; then the counters and the legal due date.'`
+`delegate --target knowledge-agent --instruction 'Save a text file named by the case name in the case folder the user named. Content: the evidence index table with columns path, source, matched identifiers, passage, confirmation, decision, decided by, other people in file (yes or no, never their names), record type, planned action, sha256 before; then the surveillance section; then the unreadable list; then the counters and the legal due date.'`
 
 Draft the letter from the template for the request type:
 
-`delegate --target document-agent --instruction 'Draft a formal reply letter using the template text given, filling the person's name, the request type, the date received, the number of files found, and the list of file descriptions from the evidence index. Keep the template wording; add nothing not in the index.'`
+`delegate --target document-agent --instruction 'Draft a formal reply letter using the template text given, filling the person's name, the request type, the date received, the number of files found, and the list of file descriptions from the evidence index, with the retained and hand-edited items in their own lists. Keep the template wording; add nothing not in the index; never name another person.'`
 
 If the request language is not English:
 
@@ -166,13 +216,13 @@ If the request language is not English:
 
 Save the letter with `knowledge-agent` the same way as the index. If the drafting delegation returns `failed` or `cancelled`, save the unfilled template plus the index instead and say that the letter was not drafted.
 
-In report-only mode, show the counters, the legal due date, the path of the index and the letter, the needs-confirmation list, the unreadable list and the surveillance finding, and stop.
+In report-only mode, show the counters, the legal due date, the path of the index and the letter, the planned actions, the needs-confirmation list, the unreadable list and the surveillance finding, and stop. A report-only run asks for three approvals: saving the index, drafting the letter and saving the letter, plus one if the letter is translated.
 
 ## Step 7. Act, one file at a time (act mode only)
 
-Only files whose decision is "included" are acted on. Files on the needs-confirmation list that the user did not confirm are not touched.
+Only files whose decision is "included" are acted on, each according to its planned action. Files on the needs-confirmation list that the user did not confirm are not touched. Retained files and files marked for editing by hand are never changed by the Skill.
 
-Before the first action, tell the user how many approvals to expect: one per file, plus one per audit log checkpoint, plus one for the hand-over folder and one for the case tag.
+Before the first action, tell the user how many approvals to expect: one per copy, extract or deletion, one per audit log checkpoint, one for the hand-over folder, and two for the case tag (creating it and attaching it).
 
 First, for access requests:
 
@@ -180,19 +230,20 @@ First, for access requests:
 
 Then for each included file, in order:
 
-- Check first: `delegate --target file-agent --instruction 'Return the size and modified time of the file at the given path, or say not found.'` For erasure, a path that is already not found is logged as "already done" and not acted on again. For access, the same check on the copy's path inside the hand-over folder tells whether it was already copied.
-- Access: `delegate --target file-agent --instruction 'Copy the file at the given path into the hand-over folder inside the case folder. Do not move or overwrite.'`
-- Erasure: `delegate --target file-agent --instruction 'Delete the file at the given path.'`
+- Check first: `delegate --target file-agent --instruction 'Return the size and modified time of the file at the given path, or say not found.'` For erasure, a path that is already not found is logged as "already done" and not acted on again. For access, the same check on the copy's or extract's path inside the hand-over folder tells whether it was already handed over.
+- Access, copy: `delegate --target file-agent --instruction 'Copy the file at the given path into the hand-over folder inside the case folder. Do not move or overwrite.'`
+- Access, extract: `delegate --target document-agent --instruction 'From the file at the given path, extract only the rows, lines or passages about the person named, with the column headings, and nothing about anyone else.'` Then save the result with `knowledge-agent` into the hand-over folder as a text file named "extract of" followed by the original file name.
+- Erasure, delete: `delegate --target file-agent --instruction 'Delete the file at the given path and return the path it now has in the recycle bin.'`
 
 After every 10 files acted on, when the user stops the run, and at the end, append the new lines to the audit log in the case folder:
 
 `delegate --target file-agent --instruction 'Append the lines given to the audit log file in the case folder the user named, creating the file if it does not exist. Do not overwrite existing lines.'`
 
-Each line holds time, action, path, sha256 before, result state, approval state and note. See [audit and undo](references/audit-and-undo.md). Because the checksums are already in the saved index and every file is checked before it is acted on, a run that stops between checkpoints can be re-run with the same case name without acting on any file twice.
+Each line holds time, action, path, sha256 before, result state, approval state and note; for a deletion the note holds the recycle-bin path, which a restore needs. See [audit and undo](references/audit-and-undo.md). Because the checksums are already in the saved index and every file is checked before it is acted on, a run that stops between checkpoints can be re-run with the same case name without acting on any file twice.
 
 At the end, tag the case so it can be found later:
 
-- Access: `delegate --target file-agent --instruction 'Create a tag named dsar followed by the case date and the case name if it does not exist, then add it to every file in the list given.'` The list is the originals that were copied.
+- Access: `delegate --target file-agent --instruction 'Create a tag named dsar followed by the case date and the case name if it does not exist, then add it to every file in the list given.'` The list is the originals that were copied or extracted.
 - Erasure: the same delegation, with the evidence index file and the audit log in the case folder as the list, since the deleted files are gone.
 
 A file that returns `waiting_approval` stays pending while the next file proceeds; it is logged as pending and revisited at the end. A file that returns `cancelled` is logged as "declined by user" and is not retried in this run. A file that returns `failed` is logged with the reason and the run continues with the next file.
@@ -201,9 +252,17 @@ A file that returns `waiting_approval` stays pending while the next file proceed
 
 `delegate --target file-agent --instruction 'For each path in the list given, return the sha256 checksum, size and modified time.'`
 
-Run on the not-included sample from step 6. Report "untouched files verified: N of N unchanged" or list any difference. For erasure, confirm each deleted path no longer exists by asking file-agent for its size and modified time and expecting a not-found result.
+Run on the not-included sample from step 6, and on the audit log itself. Report "untouched files verified: N of N unchanged" or list any difference. For erasure, confirm each deleted path no longer exists by asking file-agent for its size and modified time and expecting a not-found result.
 
-Close with: counters; approvals asked, approved, declined and pending; the legal due date and the days left; the paths of the index, letter and audit log; the needs-confirmation items the user still has to decide; the unreadable files the user must check by hand; the surveillance identity to remove manually, if any; and for erasure, the sentence "Deleted files are in the recycle bin and can be restored by path within the recycle window; tell me a path to restore it."
+Close with: counters; approvals asked, approved, declined and pending; the legal due date and the days left; the paths of the index, letter and audit log, with the audit log's checksum so a later edit to it can be detected; the needs-confirmation items the user still has to decide; the retained files with their reasons; the shared files to edit by hand, with the passages to remove; the unreadable files the user must check by hand; the surveillance identity to remove manually, if any; and a reminder to check systems outside these folders (practice-management software, imaging systems, the mail server).
+
+For erasure, also say: "Deleted files are in the recycle bin and can be restored by path within the recycle window. Erasure is complete when the recycle bin entry is emptied or expires; copies in snapshots and backups expire on their own schedule. Tell me a path to restore it."
+
+To restore on request:
+
+`delegate --target file-agent --instruction 'Restore the file at the recycle-bin path given to its original location.'`
+
+The restore waits for its own approval and is appended to the audit log as a restore action.
 
 # Completion and failure
 
@@ -217,12 +276,12 @@ Report a business result only after the delegated expert returns `completed`. Tr
 
 Partial results are always saved: the evidence index, with the checksums, is written in step 6 before any change, and the audit log is appended at every checkpoint, so an interrupted act run can be inspected and resumed by re-running with the same case name.
 
-Never report "all files found" or "deleted". Report exact counts: found, confirmed, excluded, needs confirmation, unreadable, duplicates, acted on, already done, pending, declined, failed.
+Never report "all files found" or "deleted". Report exact counts: found, confirmed, excluded, needs confirmation, unreadable, duplicates, copied, extracted, deleted, retained, to edit by hand, already done, pending, declined, failed.
 
-The output supports the controller's response to the request; it is not legal advice. The user is responsible for deciding the needs-confirmation items and for checking the unreadable files by hand.
+The output supports the controller's response to the request; it is not legal advice. The user is responsible for deciding the needs-confirmation items, the retention of each file, and for checking the unreadable files by hand.
 
 Third-party components, the work developed for this Hackathon, and the AI tools used are listed in [disclosure](references/disclosure.md).
 
 # Install, setup, removal and testing
 
-The package is Markdown only and installs through the AI assistant's Skills page or the Skills Hub; nothing is downloaded or configured. Setup is four NAS settings to check once: recycle bin on the shares in scope, knowledge index and Photos index covering the folders in scope, and a case folder that only the people handling requests can open. Removal leaves only what the user asked for: case folders, case tags and recycle-bin entries. Testing uses a published 122-file synthetic corpus with ground truth and a scorer, with two core cases (access, erasure with integrity check) and one edge case (same-name decoys and unreadable files). Steps, expected results and the version history are in [install, setup, removal and testing](references/install-and-testing.md).
+The package is Markdown only and installs through the AI assistant's Skills page or the Skills Hub; nothing is downloaded or configured. Setup is five NAS settings to check once: on-device models for the document, photo and knowledge experts, recycle bin on the shares in scope, knowledge index and Photos index covering the folders in scope, and a case folder that only the people handling requests can open. Removal leaves only what the user asked for: case folders, case tags and recycle-bin entries. Testing uses a published synthetic corpus with ground truth and a scorer, plus a harder corpus with a same-name relative at the same address and other cases found in review, with two core cases (access, erasure with integrity check) and edge cases (same-name people, a same-name person in the same household, shared files, unreadable files). Steps, expected results and the version history are in [install, setup, removal and testing](references/install-and-testing.md).

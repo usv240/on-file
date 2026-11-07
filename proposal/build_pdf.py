@@ -35,7 +35,7 @@ caption = ParagraphStyle("cap", parent=small, spaceBefore=2, spaceAfter=8)
 class Flow(Flowable):
     """Seven boxes joined by arrows: the user flow at a glance. Labels are kept to a few words."""
 
-    LABELS = ["Request", "Search\n6 sources", "Confirm\npassage", "Disambiguate", "Index +\nletter", "Approve\neach file", "Audit +\nverify"]
+    LABELS = ["Request", "Search\nevery source", "Confirm\npassage", "Disambiguate", "Index +\nletter", "Approve\neach file", "Audit +\nverify"]
 
     def __init__(self, width: float):
         super().__init__()
@@ -121,7 +121,7 @@ def main():
     tail = [Spacer(1, 4), HRFlowable(width="100%", thickness=0.6, color=RULE, spaceBefore=2, spaceAfter=5),
             Paragraph("Not counted toward the 500 words", ParagraphStyle("nc", parent=small, fontName="Helvetica-Bold"))]
     for p in notes:
-        if p.startswith("Test corpus"):
+        if p.startswith("Test corp"):
             label, _, url = p.partition(": ")
             p_html = f'{esc(label)}: <a href="{url}" color="#0b5fa5">{esc(url)}</a>'
             tail.append(Paragraph(p_html, small))

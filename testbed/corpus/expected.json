@@ -15,6 +15,8 @@
     "pid": "LD-11871",
     "address": "402 Harbor Street, Lakeside"
   },
+  "namesake": null,
+  "variant": "main",
   "seed": 20261107,
   "counts": {
     "target": 40,
@@ -34,6 +36,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
       "note": ""
     },
     {
@@ -45,6 +49,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
       "note": ""
     },
     {
@@ -56,6 +62,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
       "note": "one row among other patients"
     },
     {
@@ -67,6 +75,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
       "note": "one row among other patients"
     },
     {
@@ -78,6 +88,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
       "note": "one row among other patients"
     },
     {
@@ -89,6 +101,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
       "note": "one row among other patients"
     },
     {
@@ -100,6 +114,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -111,6 +127,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -122,6 +140,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -133,6 +153,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -144,6 +166,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -155,6 +179,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "name plus postal address"
     },
     {
@@ -166,6 +192,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "name plus postal address"
     },
     {
@@ -177,6 +205,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "name plus postal address"
     },
     {
@@ -188,6 +218,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "name plus postal address"
     },
     {
@@ -199,6 +231,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -210,6 +244,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
       "note": ""
     },
     {
@@ -221,6 +257,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -232,6 +270,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -243,6 +283,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
       "note": ""
     },
     {
@@ -254,6 +296,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -265,6 +309,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -276,6 +322,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
       "note": ""
     },
     {
@@ -288,6 +336,8 @@
         "filename"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "staff member Mario Lopez"
     },
     {
@@ -299,6 +349,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "staff member Mario Lopez"
     },
     {
@@ -310,6 +362,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "staff member Mario Lopez"
     },
     {
@@ -321,6 +375,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "staff member Mario Lopez"
     },
     {
@@ -332,6 +388,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "staff member Mario Lopez"
     },
     {
@@ -343,6 +401,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "staff member Mario Lopez"
     },
     {
@@ -355,6 +415,8 @@
         "filename"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "company name"
     },
     {
@@ -367,6 +429,8 @@
         "filename"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "company name"
     },
     {
@@ -378,6 +442,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "street name"
     },
     {
@@ -389,6 +455,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "street name"
     },
     {
@@ -400,6 +468,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": true,
+      "record_type": "other",
       "note": "name only, no identifier; decoy also in this file; must go to confirmation or be confirmed via other files"
     },
     {
@@ -411,6 +481,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -422,6 +494,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "email with address"
     },
     {
@@ -433,6 +507,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -444,6 +520,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -455,6 +533,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "email with address"
     },
     {
@@ -466,6 +546,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -477,6 +559,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -488,6 +572,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "email with address"
     },
     {
@@ -499,6 +585,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -510,6 +598,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -521,6 +611,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -532,6 +624,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "email with address"
     },
     {
@@ -543,6 +637,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -554,6 +650,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "email with address"
     },
     {
@@ -565,6 +663,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "email with address"
     },
     {
@@ -576,6 +676,8 @@
         "ocr"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -587,6 +689,8 @@
         "ocr"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": "scanned consent, no text layer"
     },
     {
@@ -598,6 +702,8 @@
         "ocr"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": "scanned consent, no text layer"
     },
     {
@@ -609,6 +715,8 @@
         "ocr"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": "blank page; OCR returns nothing"
     },
     {
@@ -620,6 +728,8 @@
         "ocr"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -631,6 +741,8 @@
         "ocr"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -642,6 +754,8 @@
         "ocr"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -653,6 +767,8 @@
         "ocr"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -664,6 +780,8 @@
         "ocr"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -675,6 +793,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -686,6 +806,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -697,6 +819,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -708,6 +832,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -719,6 +845,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -730,6 +858,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -741,6 +871,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -752,6 +884,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -763,6 +897,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -774,6 +910,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -785,6 +923,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -796,6 +936,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -807,6 +949,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -818,6 +962,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -829,6 +975,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -840,6 +988,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -851,6 +1001,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": "password-protected; mentions requester but cannot be read without the password"
     },
     {
@@ -862,6 +1014,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": "intake form; source of identifiers"
     },
     {
@@ -873,6 +1027,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": "truncated docx; mentions requester but cannot be opened"
     },
     {
@@ -884,6 +1040,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -895,6 +1053,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -907,6 +1067,8 @@
         "filename"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": "clinical",
       "note": "name only in last-modified-by and parent folder"
     },
     {
@@ -918,6 +1080,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -929,6 +1093,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -940,6 +1106,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -951,6 +1119,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -962,6 +1132,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -973,6 +1145,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": ""
     },
     {
@@ -985,6 +1159,8 @@
         "filename"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": "clinical",
       "note": "name only in last-modified-by and parent folder"
     },
     {
@@ -996,6 +1172,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1007,6 +1185,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1018,6 +1198,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1029,6 +1211,8 @@
         "text"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1040,6 +1224,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1051,6 +1237,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1062,6 +1250,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1073,6 +1263,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1084,6 +1276,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1095,6 +1289,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1106,6 +1302,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1117,6 +1315,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1128,6 +1328,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1139,6 +1341,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1150,6 +1354,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1161,6 +1367,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1172,6 +1380,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1183,6 +1393,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1194,6 +1406,8 @@
         "caption"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
       "note": "name only in EXIF ImageDescription"
     },
     {
@@ -1205,6 +1419,8 @@
         "ocr"
       ],
       "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
       "note": "phone photo of sign-in sheet"
     },
     {
@@ -1216,6 +1432,8 @@
         "ocr"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1227,6 +1445,8 @@
         "caption"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1238,6 +1458,8 @@
         "caption"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1249,6 +1471,8 @@
         "caption"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1260,6 +1484,8 @@
         "caption"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1271,6 +1497,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1282,6 +1510,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1293,6 +1523,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1304,6 +1536,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1315,6 +1549,8 @@
         "text"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1326,6 +1562,8 @@
         "audio_transcript"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1337,6 +1575,8 @@
         "audio_transcript"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "stand-in for audio; replace with real recording on NAS"
     },
     {
@@ -1348,6 +1588,8 @@
         "audio_transcript"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     },
     {
@@ -1359,6 +1601,8 @@
         "audio_transcript"
       ],
       "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
       "note": "stand-in for audio; replace with real recording on NAS"
     },
     {
@@ -1370,6 +1614,8 @@
         "audio_transcript"
       ],
       "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
       "note": ""
     }
   ]

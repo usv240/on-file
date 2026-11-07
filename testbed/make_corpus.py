@@ -58,14 +58,17 @@ SUPPLIERS = ["Northwind Dental Supply", "Lopez Construction LLC", "Brightline La
 records: list[dict] = []
 
 
-def add(path: Path, root: Path, group: str, how: list[str], strong: bool, note: str = ""):
+def add(path: Path, root: Path, group: str, how: list[str], strong: bool, note: str = "",
+        shared: bool = False, rtype: str | None = None):
     records.append({
         "path": str(path.relative_to(root)).replace("\\", "/"),
-        "group": group,  # target | decoy | noise | unreadable | background
+        "group": group,  # target | decoy | noise | unreadable | background | namesake | household
         "mentions_requester": group in ("target", "unreadable_requester"),
         "mentions_decoy": group == "decoy",
-        "how": how,  # text | ocr | metadata | filename | caption | audio_transcript
+        "how": how,  # text | ocr | metadata | filename | caption | audio_transcript | subtitle
         "strong_identifier_present": strong,
+        "shared": shared,  # the file also holds personal data of other people
+        "record_type": rtype,  # clinical | billing | correspondence | other (targets only)
         "note": note,
     })
 
@@ -182,7 +185,51 @@ def patient_block(p: dict) -> list[str]:
     ]
 
 
-def build(root: Path, seed: int):
+MOTHER = {
+    "name": "Maria Lopez",  # same exact name, same household
+    "dob": "1958-09-04",
+    "email": "",
+    "phone": "(555) 014-2200",
+    "pid": "LD-09811",
+    "address": "18 Birch Lane, Lakeside",
+}
+
+
+def build_hard_extras(root: Path, rnd: random.Random, base: date):
+    """Hard cases found in review: a same-name mother at the same address, a spouse at
+    the same address, accented and reordered names, reformatted phone and birth date, a subtitle file."""
+    R, M = REQUESTER, MOTHER
+    # namesake: Maria Lopez born 1958, same address, own intake form, treatment note, recall letter
+    f = root / "Patients" / "Lopez, Maria (1958)"
+    p = f / "intake-form-2024-06-02.docx"
+    write_docx(p, "New Patient Intake Form", [f"Patient: {M['name']}", f"Date of birth: {M['dob']}", f"Patient ID: {M['pid']}", f"Phone: {M['phone']}", f"Address: {M['address']}", "Reason for visit: denture review."], author="Lakeside Dental Front Desk")
+    add(p, root, "namesake", ["text"], False, "same exact name and address, different DOB and ID; must not be auto-included")
+    p = f / "treatment-note-2024-06-02.docx"
+    write_docx(p, "Treatment Note", [f"Patient: {M['name']} ({M['pid']})", "Date: 2024-06-02", f"Clinician: {STAFF[0]}", "Procedure: denture reline."], author=STAFF[0])
+    add(p, root, "namesake", ["text"], False, "exact name with the namesake's own ID")
+    p = root / "Admin" / "Recall-Letters" / "recall-2025-06-30-09.pdf"
+    write_pdf_text(p, "Recall Letter", [M["name"], M["address"], "", "Dear Maria,", "Your denture review is due. Please call us to book.", "Lakeside Dental"])
+    add(p, root, "namesake", ["text"], False, "exact name plus shared address only; genuinely ambiguous, must go to confirmation")
+    # household: spouse at the same address, no exact name
+    p = root / "Patients" / "Lopez, Carlos" / "intake-form-2025-01-20.docx"
+    write_docx(p, "New Patient Intake Form", ["Patient: Carlos Lopez", "Date of birth: 1982-11-23", "Patient ID: LD-10433", "Phone: (555) 014-2232", f"Address: {R['address']}"], author="Lakeside Dental Front Desk")
+    add(p, root, "household", ["text"], False, "spouse; shares the requester's address only")
+    # accented name and day-first birth date, no other identifier
+    p = root / "Email" / "2025-05-14_billing_question.txt"
+    write_txt(p, "From: reception@lakeside-dental.example\nTo: billing@lakeside-dental.example\nSubject: Pregunta de factura\n\nPaciente: María López, fecha de nacimiento 12/03/1984.\nPregunta por el importe de la restauración del 21/01/2025.\n")
+    add(p, root, "target", ["text"], True, "accented name and DD/MM/YYYY birth date only", rtype="billing")
+    # surname-first name and dotted phone in a multi-patient lab sheet
+    p = root / "Admin" / "Lab-Orders" / "lab-pickup-sheet-2025-04.txt"
+    lines = ["Lab pickup sheet April 2025", "BERG, THOMAS     555.010.7781", "LOPEZ, MARIA     555.014.2231", "MWANGI, GRACE    555.013.9902"]
+    write_txt(p, "\n".join(lines) + "\n")
+    add(p, root, "target", ["text"], True, "surname-first name and dotted phone; other patients on the same sheet", shared=True, rtype="clinical")
+    # subtitle file of a testimonial video, name only
+    p = root / "Videos" / "testimonial-2025.srt"
+    write_txt(p, "1\n00:00:01,000 --> 00:00:04,000\nHi, I am Maria Lopez.\n\n2\n00:00:04,500 --> 00:00:08,000\nI have been coming to Lakeside Dental since January.\n")
+    add(p, root, "target", ["subtitle"], False, "subtitle file, name only; expected on the confirmation list", rtype="other")
+
+
+def build(root: Path, seed: int, variant: str = "main"):
     rnd = random.Random(seed)
     base = date(2025, 1, 6)
     R, D = REQUESTER, DECOY
@@ -195,18 +242,18 @@ def build(root: Path, seed: int):
         "Medical history: no known allergies. Non-smoker.",
         "Emergency contact: Carlos Lopez (spouse), (555) 014-2232.",
     ], author="Lakeside Dental Front Desk")
-    add(p, root, "target", ["text"], True, "intake form; source of identifiers")
+    add(p, root, "target", ["text"], True, "intake form; source of identifiers", rtype="clinical")
 
     # 2-3 consent forms, scanned (image-only PDF)
     for i, t in enumerate(["Consent for Treatment", "Consent to Radiographs"]):
         p = root / "Forms-Scanned" / f"scan_{d(base, 8 + i)}_{i + 41:03d}.pdf"
         write_scanned_pdf(p, [t, "Lakeside Dental", ""] + patient_block(R) + ["", f"Signed: {d(base, 8 + i)}", "Signature: M. Lopez"])
-        add(p, root, "target", ["ocr"], True, "scanned consent, no text layer")
+        add(p, root, "target", ["ocr"], True, "scanned consent, no text layer", rtype="clinical")
 
     # 4 x-ray report (pdf text)
     p = root / "Patients" / "Lopez, Maria" / "radiograph-report-2025-01-20.pdf"
     write_pdf_text(p, "Radiograph Report", patient_block(R) + ["", "Findings: early interproximal caries, tooth 14.", "Recommendation: composite restoration.", f"Reviewed by {STAFF[0]}."])
-    add(p, root, "target", ["text"], True)
+    add(p, root, "target", ["text"], True, rtype="clinical")
 
     # 5-8 invoices xlsx (she is one row among others)
     for q in range(4):
@@ -217,59 +264,59 @@ def build(root: Path, seed: int):
         rows.insert(rnd.randrange(12), [f"INV-{2025}{q + 1:02d}M", d(base, q * 90 + 15), R["name"], "Composite restoration", 240, R["pid"]])
         p = root / "Admin" / "Invoices" / f"invoices-2025-Q{q + 1}.xlsx"
         write_xlsx(p, ["Invoice", "Date", "Patient", "Procedure", "Amount", "Patient ID"], rows)
-        add(p, root, "target", ["text"], True, "one row among other patients")
+        add(p, root, "target", ["text"], True, "one row among other patients", shared=True, rtype="billing")
 
     # 9-14 appointment emails (txt export)
     for i in range(6):
         p = root / "Email" / f"{d(base, 5 + i * 30)}_appointment_{i + 1:02d}.txt"
         write_txt(p, f"From: reception@lakeside-dental.example\nTo: {R['email']}\nSubject: Appointment reminder\n\nDear {R['name']},\n\nThis is a reminder of your appointment on {d(base, 7 + i * 30)} at 10:30 with {STAFF[i % 2]}.\n\nLakeside Dental\n")
-        add(p, root, "target", ["text"], True, "email with address")
+        add(p, root, "target", ["text"], True, "email with address", rtype="correspondence")
 
     # 15 sign-in sheet photo (jpg, phone photo)
     p = root / "Photos" / "IMG_20250114_0917.jpg"
     write_jpg_text(p, ["Lakeside Dental  Sign-in sheet  2025-01-14", "", "09:05  Thomas Berg", "09:10  Maria Lopez        LD-10432", "09:25  Grace Mwangi", "09:40  Felix Hartmann"])
-    add(p, root, "target", ["ocr"], True, "phone photo of sign-in sheet")
+    add(p, root, "target", ["ocr"], True, "phone photo of sign-in sheet", shared=True, rtype="other")
 
     # 16-17 voicemail transcripts (stand-in for audio)
     for i in range(2):
         p = root / "Voicemail" / f"vm_{d(base, 40 + i * 50)}_1{i}.txt"
         write_txt(p, f"Voicemail transcript {d(base, 40 + i * 50)} 16:4{i}\nCaller: Hi, this is Maria Lopez, patient ID {R['pid']}. I need to move my appointment, please call me back on {R['phone']}. Thanks.\n")
-        add(p, root, "target", ["audio_transcript"], True, "stand-in for audio; replace with real recording on NAS")
+        add(p, root, "target", ["audio_transcript"], True, "stand-in for audio; replace with real recording on NAS", rtype="correspondence")
 
     # 18-19 metadata-only mentions
     for i, t in enumerate(["Referral note to orthodontist", "Treatment plan summary"]):
         p = root / "Patients" / "Lopez, Maria" / f"{t.lower().replace(' ', '-')}.docx"
         write_docx(p, t, ["See attached plan. Patient details on file.", f"Prepared by {STAFF[1]}."], author=STAFF[1], last_modified_by=R["name"])
-        add(p, root, "target", ["metadata", "filename"], False, "name only in last-modified-by and parent folder")
+        add(p, root, "target", ["metadata", "filename"], False, "name only in last-modified-by and parent folder", rtype="clinical")
 
     # 20 photo with caption in EXIF
     p = root / "Photos" / "DSC_0412.jpg"
     write_jpg_text(p, ["(clinical photo placeholder)"], description=f"Post-treatment photo, {R['name']}, {R['pid']}, {d(base, 20)}")
-    add(p, root, "target", ["caption"], True, "name only in EXIF ImageDescription")
+    add(p, root, "target", ["caption"], True, "name only in EXIF ImageDescription", rtype="clinical")
 
     # 21-26 treatment notes docx
     for i in range(6):
         p = root / "Patients" / "Lopez, Maria" / f"treatment-note-{d(base, 20 + i * 45)}.docx"
         write_docx(p, "Treatment Note", [f"Patient: {R['name']} ({R['pid']})", f"Date: {d(base, 20 + i * 45)}", f"Clinician: {STAFF[i % 2]}", "Procedure: " + rnd.choice(["scale and polish", "composite restoration 14", "review", "fluoride varnish"]), "Next visit: 6 months."], author=STAFF[i % 2])
-        add(p, root, "target", ["text"], True)
+        add(p, root, "target", ["text"], True, rtype="clinical")
 
     # 27-30 recall letters pdf
     for i in range(4):
         p = root / "Admin" / "Recall-Letters" / f"recall-{d(base, 180 + i * 7)}-{i + 1:02d}.pdf"
         write_pdf_text(p, "Recall Letter", [f"{R['name']}", R["address"], "", f"Dear {R['name'].split()[0]},", "Your six-month check-up is due. Please call us to book.", "Lakeside Dental"])
-        add(p, root, "target", ["text"], True, "name plus postal address")
+        add(p, root, "target", ["text"], True, "name plus postal address", rtype="correspondence")
 
     # 31-33 lab orders txt
     for i in range(3):
         p = root / "Admin" / "Lab-Orders" / f"lab-order-{1000 + i * 37}.txt"
         write_txt(p, f"Lab order {1000 + i * 37}\nTo: {SUPPLIERS[2]}\nPatient: {R['name']}\nPatient ID: {R['pid']}\nItem: {rnd.choice(['crown, tooth 14', 'night guard', 'study model'])}\nDue: {d(base, 60 + i * 30)}\n")
-        add(p, root, "target", ["text"], True)
+        add(p, root, "target", ["text"], True, rtype="clinical")
 
     # 34-36 receipts pdf
     for i in range(3):
         p = root / "Admin" / "Receipts" / f"receipt-{d(base, 21 + i * 60)}-{i + 7:03d}.pdf"
         write_pdf_text(p, "Payment Receipt", [f"Received from: {R['name']}", f"Patient ID: {R['pid']}", f"Amount: {[240, 95, 120][i]}.00", f"Date: {d(base, 21 + i * 60)}", "Thank you."])
-        add(p, root, "target", ["text"], True)
+        add(p, root, "target", ["text"], True, rtype="billing")
 
     # 37-38 insurance claims xlsx
     for i in range(2):
@@ -277,12 +324,12 @@ def build(root: Path, seed: int):
         rows.insert(3, [f"CLM-{i}M", R["name"], d(base, 25 + i * 60), 240, R["dob"]])
         p = root / "Admin" / "Insurance" / f"claims-batch-{i + 1}.xlsx"
         write_xlsx(p, ["Claim", "Patient", "Service date", "Amount", "DOB"], rows)
-        add(p, root, "target", ["text"], True)
+        add(p, root, "target", ["text"], True, shared=True, rtype="billing")
 
     # 39 referral letter docx (text)
     p = root / "Patients" / "Lopez, Maria" / "referral-letter-2025-03-02.docx"
     write_docx(p, "Referral", [f"Re: {R['name']}, DOB {R['dob']}", "Dear colleague, I am referring this patient for orthodontic assessment.", f"Kind regards, {STAFF[0]}"], author=STAFF[0])
-    add(p, root, "target", ["text"], True)
+    add(p, root, "target", ["text"], True, rtype="clinical")
 
     # 40 appointment calendar csv-as-txt
     p = root / "Admin" / "calendar-2025-Q1.csv"
@@ -294,7 +341,7 @@ def build(root: Path, seed: int):
     w.writerow([d(base, 7), "10:30", R["name"], STAFF[0]])
     w.writerow([d(base, 9), "14:00", D["name"], STAFF[1]])  # the decoy also appears here
     write_txt(p, buf.getvalue())
-    add(p, root, "target", ["text"], False, "name only, no identifier; decoy also in this file; must go to confirmation or be confirmed via other files")
+    add(p, root, "target", ["text"], False, "name only, no identifier; decoy also in this file; must go to confirmation or be confirmed via other files", shared=True, rtype="other")
 
     # ---- Decoy: Maria Lopez-Ruiz, 12 files ----
     folder = root / "Patients" / "Lopez-Ruiz, Maria"
@@ -404,25 +451,34 @@ def build(root: Path, seed: int):
         write_txt(p, f"Voicemail transcript\nCaller: Hello, this is {OTHER_PATIENTS[i]}, I would like to book a cleaning. Please call me back.\n")
         add(p, root, "background", ["audio_transcript"], False)
 
+    if variant == "hard":
+        build_hard_extras(root, rnd, base)
+
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="corpus")
-    ap.add_argument("--seed", type=int, default=20261107)
+    ap.add_argument("--seed", type=int, default=None)
+    ap.add_argument("--variant", choices=["main", "hard"], default="main",
+                    help="hard: different seed plus the hard cases found in review (same-name relative, household, name and number variants, subtitles)")
     a = ap.parse_args()
+    if a.seed is None:
+        a.seed = 20261107 if a.variant == "main" else 20261115
     out = Path(a.out)
     root = out / "lakeside-dental"
     if root.exists():
         shutil.rmtree(root)
     root.mkdir(parents=True)
     random.seed(a.seed)
-    build(root, a.seed)
+    build(root, a.seed, a.variant)
     counts = {}
     for r in records:
         counts[r["group"]] = counts.get(r["group"], 0) + 1
     expected = {
         "requester": REQUESTER,
         "decoy": DECOY,
+        "namesake": MOTHER if a.variant == "hard" else None,
+        "variant": a.variant,
         "seed": a.seed,
         "counts": counts,
         "files": sorted(records, key=lambda r: r["path"]),
