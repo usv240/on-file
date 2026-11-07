@@ -4,15 +4,24 @@
   ],
   "timing": {
     "step1": 0.0,
-    "step2_3": 69.6,
-    "step4_5": 285.2,
-    "step6": 0.1
+    "step2_3": 74.7,
+    "document_pass": 195.1,
+    "step4_5": 497.6,
+    "step6": 1.7
   },
   "files_in_scope": 129,
   "step1_filename_candidates": 23,
-  "step2_3_candidates_total": 65,
+  "topk_cut": {
+    "name": 37,
+    "dob": 0,
+    "pid": 8,
+    "phone": 0,
+    "address": 0,
+    "email": 0
+  },
+  "step2_3_candidates_total": 40,
   "namesake_from": "Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx",
-  "identifiers_seeded_from": "Patients/Lopez, Maria/intake-form-2025-01-14.docx",
+  "identifiers_seeded_from": "Forms-Scanned/scan_2025-01-14_041.pdf",
   "identifiers_extracted": {
     "email": "maria.lopez84@example.com",
     "phone": "(555) 014-2231",
@@ -23,19 +32,20 @@
   "identifiers_shared_with_namesake": [
     "address"
   ],
+  "document_pass_added": 8,
   "questions": [
     {
       "question": "Several intake forms carry this exact name with different dates of birth. Which one is the requester's?",
       "options": [
-        "Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx (born 1958-09-04)",
-        "Patients/Lopez, Maria/intake-form-2025-01-14.docx (born 1984-03-12)"
+        "Forms-Scanned/scan_2025-01-14_041.pdf (born 1984-03-12)",
+        "Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx (born 1958-09-04)"
       ],
-      "answer": "Patients/Lopez, Maria/intake-form-2025-01-14.docx"
+      "answer": "Forms-Scanned/scan_2025-01-14_041.pdf"
     }
   ],
   "decisions": {
-    "excluded": 17,
     "included": 34,
+    "excluded": 15,
     "needs confirmation": 11,
     "unreadable": 3
   },
@@ -56,5 +66,5 @@
     "address",
     "pid"
   ],
-  "total_seconds": 355.0
+  "total_seconds": 574.0
 }

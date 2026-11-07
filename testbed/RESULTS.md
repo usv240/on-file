@@ -1,67 +1,67 @@
 # Stand-in results (laptop, not the NAS)
 
-These numbers come from `standin_run.py` replaying the Skill's workflow on a laptop with Qwen3 4B (text) and Qwen3-VL 2B (reading images) through Ollama, as stand-ins for the NAS models. They are provisional. Both corpora will be re-run on the iDX6011 Pro in Round 2 and these numbers replaced.
+These numbers come from `standin_run.py` replaying the Skill's workflow on a laptop with Qwen3 4B (text) and Qwen3-VL 2B instruct (reading images) through Ollama, as stand-ins for the NAS models. They are provisional. All three corpora will be re-run on the iDX6011 Pro in Round 2 and these numbers replaced. Every number below is produced by `summarize.py` from the run folders named in the table.
 
-Input to every run: the name "Maria Lopez" only, no other identifiers, the way most requests arrive.
+Input to every run: the requester's name only, no other identifiers, the way most requests arrive. Voicemails in the two Lakeside corpora are real audio: `audio_roundtrip.ps1` speaks each one with an offline Windows voice and transcribes the recording with the offline Windows recognizer.
 
-## Run 5 (2026-11-07, current rules)
+## Current results (runs 7 and 8, 2026-11-07)
 
-| Measure | Main corpus (122 files) | Hard corpus (129 files) |
+| Measure | Main | Hard | Blind | Main, stress | Hard, stress |
+|---|---|---|---|---|---|
+| Files in scope | 122 | 129 | 65 | 122 | 129 |
+| Requester's files found (included or sent to the user) | 40 of 40 | 43 of 43 | 29 of 30 | 40 of 40 | 43 of 43 |
+| Included automatically | 37 | 34 | 18 | 37 | 34 |
+| Wrongly included | 0 | 0 | 0 | 0 | 0 |
+| Look-alike files included (other people, companies, streets) | 0 of 22 | 0 of 26 | 0 of 18 | 0 of 22 | 0 of 26 |
+| Unreadable files listed with a reason | 3 of 3 | 3 of 3 | 6 of 6 | 3 of 3 | 3 of 3 |
+| Included files holding others' data, flagged | 7 of 7 | 7 of 7 | 6 of 6 | 7 of 7 | 7 of 7 |
+| Single-person files wrongly flagged as shared | 0 of 30 | 0 of 27 | 0 of 12 | 0 of 30 | 0 of 27 |
+| Items left for the user to decide | 4 | 12 | 15 | 4 | 11 |
+| Files added by the document pass | 0 | 0 | 0 | 9 | 8 |
+| Wall time, seconds | 504 | 556 | 322 | 539 | 574 |
+| Run folder | `run8_main` | `run8_hard` | `run8_blind` | `run7_main_stress` | `run7_hard_stress` |
+
+- Main and hard: the two Lakeside Dental corpora. The hard corpus adds a same-name mother at the same address, a spouse, an accented name, a surname-first name with a differently written phone number, and a subtitle file. Its cases were written together with the rules that handle them, so it is a stricter test, not a blind one.
+- Blind: Kestrel Bay Physiotherapy, written by a separate agent that was not allowed to read the Skill, the rules or the other corpora. See `blind/README.md`.
+- Stress: the content search limited to 10 files per search term, as an index that returns only its best matches would, and quotes from documents checked against the search snippets only. The cap dropped 32 name hits and 8 ID hits on the main corpus and 37 and 8 on the hard corpus. The document pass found every file the capped search left out, so the results match the full runs. The stress runs use run 7 code; run 8 changed only the shared-file check and the same-name rule, which the stress test does not measure.
+- Same-name question: with no answer given, both the hard and the blind corpus stop in the waiting-for-user state and ask which intake form is the requester's (`run4_hard_noanswer`, born 1958 or 1984; `run7_blind_noanswer`, born 1961 or 1983, after 68 seconds). The runs above give that answer through `--choose-dob`.
+
+## The blind corpus, before and after
+
+The first run on the blind corpus is kept exactly as it came out (`run6_blind_noanswer`).
+
+| Measure | First blind run | After fixes |
 |---|---|---|
-| Target files shown to the user (included or on the confirmation list) | 40 of 40 | 43 of 43 |
-| Target files included automatically | 37 | 34 |
-| Precision of automatic inclusion | 37 of 37 | 34 of 34 |
-| Decoy, Maria Lopez-Ruiz, included automatically | 0 of 12 (11 excluded, 1 to the user) | 0 of 12 (11 excluded, 1 to the user) |
-| Noise (Lopez Construction, Mario Lopez, Lopez Avenue) included automatically | 0 of 10 | 0 of 10 |
-| Same-name mother at the same address included automatically | not in corpus | 0 of 3 (2 excluded, 1 to the user) |
-| Spouse at the same address included automatically | not in corpus | 0 of 1 (excluded) |
-| Unreadable files listed with a reason | 3 of 3 | 3 of 3 |
-| Included shared files (other patients' data) flagged | 7 of 7 | 7 of 7 |
-| Single-person files wrongly flagged as shared | 0 of 30 | 0 of 27 |
-| Record type correct | 36 of 37 | 32 of 34 |
-| Confirmation list | 4 (3 target, 1 decoy) | 11 (9 target, 1 mother, 1 decoy) |
-| Planned access actions | 30 copies, 7 extracts | 27 copies, 7 extracts |
-| Planned erasure actions | 12 delete, 18 retain, 7 edit by hand | 9 delete, 18 retain, 7 edit by hand |
-| Wall time | 353 s | 355 s |
+| Requester's files found | 18 of 30 | 29 of 30 |
+| Included automatically | 0 | 18 |
+| Wrongly included | 0 | 0 |
+| Look-alike files included | 0 of 18 | 0 of 18 |
+| Included shared files flagged | none included | 6 of 6 |
 
-Run directories: `run5_main`, `run5_hard`, and `run4_hard_noanswer`. The last is the hard corpus without an answer to the question. It stopped after 85 s in the waiting-for-user state and asked which of the two exact-name intake forms, born 1958 or 1984, is the requester's. That stage did not change between runs 4 and 5. `run5_hard` is the same corpus with the answer given as 1984 through `--choose-dob`.
+The first run was safe, since nothing was wrongly included, but it was of little use. It exposed one flaw in the Skill's rules and several in the laptop stand-in:
 
-On the hard corpus, 9 target files went to the user:
+- Rule flaw: the request said "Sarah Mitchell" and her intake form said "Sarah Louise Mitchell". The rule required the form's name to equal the request exactly, so her identifiers were never adopted and the other Sarah Mitchell's form ("Sarah Jane Mitchell") was never seen. A middle name or initial now counts as the name, and forms are compared on given name and surname.
+- Rule flaw, found after the first fix: staff meeting minutes named another client only in a sentence, and the model listed only the four staff present. The file would have been handed over whole. An ID of the same form as the requester's, other than hers, now marks a file as shared, independently of the names.
+- Rule flaw: a reminder log listing both women, each with her own phone number, was excluded as the other woman's. A file with the other person's identifiers now goes to the user if it also holds one of the requester's own.
+- Stand-in flaws: the reasoning variant of the 2B vision model spent its whole budget thinking and returned empty text for most of the blind corpus's images, so it was replaced by the instruct variant of the same size. The harness also missed Word page headers, UTF-16 text files, underscores in file names, a caption-only photo, and a damaged image crashed it.
 
-- Four recall letters addressed to "Maria Lopez, 18 Birch Lane". Once the mother at the same address is known, they could be for either woman.
-- A lab pickup sheet with only the name and a phone number. Since run 5, a file with the exact name and only a phone or address gets the against-check first, because a same-name relative at the same home would match too. The model's against-quote here was the requester's own line, weak evidence, and the rule sends any such quote to the user, which is the safe direction.
-- The calendar, two files with the name only in document properties, and a subtitle file with the name only.
+Once these were fixed, the blind corpus is no longer blind for this version of the rules. The "after" column shows what the fixes bought, not an unbiased score; the first column is the unbiased one. The main and hard corpora were re-run on the final code and did not lose anything.
 
-Shared files: the main corpus has 8 and the hard corpus 9. The included ones were all flagged. The rest (the calendar, and in the hard corpus the lab sheet) went to the user before any action.
+One target is still missed: a reminder about the requester's appointment that was sent by mistake to the other Sarah Mitchell's email address. It carries the other woman's email and no identifier of the requester, so the rules exclude it as hers, with the quote in the index. Only the appointment's context (shoulder, not knee) shows whose it is. It is listed as a known limit rather than answered with a rule tuned to this one file.
 
-Run 4 differed from run 5 only in that rule. It included the lab sheet automatically, which was correct, and put one more decoy email on the confirmation list instead of excluding it. Files decided by an identifier gave the same result in every run. Files decided by the model's two checks can vary between runs, which is why the checks can send a file to the user or exclude it with a quote, but never include it.
+The other 11 blind items sent to the user include the requester's maiden-name notes (found through her date of birth and phone), a misspelt "Sara Mitchel" message (found through her phone), her husband's invoice at the same address, a family doctor who is also called Sarah Mitchell, and a memorial award named after a different Sarah Mitchell. Each is decided by the user with the evidence for and against shown.
 
-What changed from run 3, and why. A review of the first package against the judging criteria found gaps, and each became a rule:
+## Earlier runs
 
-- Files that also hold other patients' data are handed over as extracts and never deleted. The model is asked to list the people named in a file, with roles. An earlier version asked yes or no, and Qwen3 4B answered no for a sign-in sheet that names three other patients. Asked for a list, it named all three.
-- In an erasure request, clinical and billing records are retained by default, with the reason.
-- An ID or personal email belongs to one person. A birth date, phone or address can be shared by a household, so it counts only with the exact name. When a same-name person is found, the Skill stops and asks, then excludes that person's identifiers.
-- A file with the exact name and only a phone number or address gets the against-check before it is included, because a same-name relative at the same home would match too. The user confirms the identifiers taken from an intake form before they are used; the harness assumes that confirmation.
-- Names match in surname-first order and without accents. Phone numbers match by digits. Birth dates match in common formats.
-- Every quoted passage must exist in the file. Evidence for inclusion must name the person. An automatic exclusion needs a quote showing a longer name or a same-name person's identifier. A model's opinion alone never includes a file, and never excludes one without such a quote.
-
-The hard corpus was built from that review, and the rules for its cases were written at the same time. It is a stricter test, not a blind one.
-
-## Run 3 (2026-11-07, passage fix only)
-
-Same decisions as run 2. For files decided by an exact identifier match, the passage column holds the line that contains the identifier, the way `collect-evidence` returns its passage. In run 2 the model sometimes quoted a neighbouring spreadsheet row about a different patient: the decision was right but the passage was wrong. 203 s.
-
-## Run 2 (2026-11-07, after the run 1 fixes)
-
-40 of 40 surfaced, 37 included automatically at 37 of 37 precision, 0 of 12 decoys and 0 of 10 noise files included, 3 of 3 unreadable listed, 7-item confirmation list, 350 s.
-
-## Run 1 (same day, before fixes), kept for the record
-
-40 of 40 surfaced, but 0 included automatically. The 4B model wrote reasoning instead of a verdict, and with no identifiers nothing could be confirmed. One unreadable file was dropped from the index. 2053 s. Fixes: structured verdict output, identifiers taken from the exact-name intake form, unreadable files always kept, exact versus partial name matching, intake forms processed first.
+- Run 5 (Lakeside only, before the document pass and real audio): the same main and hard results as run 8.
+- Run 4: added the shared-file, retention, household and quote-check rules and the hard corpus, after a first review against the judging criteria.
+- Run 3: the passage column holds the line that contains the identifier, as `collect-evidence` returns it; before that the model sometimes quoted a neighbouring row.
+- Run 2: 40 of 40 found, 37 included automatically, none wrong, 350 s.
+- Run 1: 40 of 40 found but 0 included automatically, because the 4B model wrote reasoning instead of a verdict and nothing could be confirmed from a name alone; one unreadable file was dropped. Fixed with structured output, identifiers taken from the intake form, unreadable files always kept, and exact versus partial names.
 
 ## What a NAS run must still answer
 
-- Recall of `collect-evidence` on indexed folders, compared with this harness's exact text match.
-- Quality of the Photos index and of document reading on real phone photos and scans, compared with the 2B stand-in.
+- Recall of `collect-evidence` on indexed folders, and whether it returns every exact match or only the best ones; the stress runs show the document pass covers the second case.
+- The NAS OCR and Photos index on real phone photos and scans, compared with the 2B stand-in.
 - Per-file approval flow, the number of approvals in practice, recycle-bin restore, and tag creation.
-- Transcription of real recordings. This corpus uses transcript files in their place.
+- Transcription of real phone recordings; the laptop test used synthesized speech.

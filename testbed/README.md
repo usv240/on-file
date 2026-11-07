@@ -18,6 +18,10 @@ The hard corpus also has an email with the accented name "María López" and a d
 
 Ground truth per file in `expected.json`: group, how the person is mentioned (text, ocr, metadata, filename, caption, audio_transcript, subtitle), whether a strong identifier is present, whether the file also holds other people's data, and the record type (clinical, billing, correspondence, other) for target files.
 
+## The blind corpus
+
+`blind/` holds a third corpus written by a separate agent that was not allowed to read the Skill, the rules or the other corpora: Kestrel Bay Physiotherapy, requester Sarah Mitchell, 65 files. Its README lists the cases it chose. Build it with `python blind/make_blind.py --out blind/corpus`. It tests the rules on files they were not written for.
+
 ## Build
 
     python make_corpus.py --out corpus
@@ -43,7 +47,14 @@ Ground truth per file in `expected.json`: group, how the person is mentioned (te
 
 ## Laptop stand-in harness
 
-`standin_run.py` replays the Skill's steps on a laptop with small open models through Ollama (Qwen3 4B for text, Qwen3-VL 2B for reading images) in place of the NAS experts. It is not the Skill and does not run on the NAS. `--choose-dob` simulates the user's answer when the run stops to ask which intake form is the requester's. Results are in `RESULTS.md`.
+Options beyond the basics:
+
+- `--transcripts audio_main` uses machine transcripts of real audio for the voicemails. Make them with `audio_roundtrip.ps1 -Corpus corpus\lakeside-dental -Out audio_main` (Windows, offline voice and recognizer).
+- `--topk 10` limits the content search to 10 files per search term, as an index that returns its best matches would.
+- `--snippet-check` checks quotes from documents against the search snippets only, not the full text.
+
+
+`standin_run.py` replays the Skill's steps on a laptop with small open models through Ollama (Qwen3 4B for text, Qwen3-VL 2B instruct for reading images; the reasoning variant returns empty text on dense pages) in place of the NAS experts. `summarize.py` prints the reported measures from the run folders. It is not the Skill and does not run on the NAS. `--choose-dob` simulates the user's answer when the run stops to ask which intake form is the requester's. Results are in `RESULTS.md`.
 
 ## Notes
 

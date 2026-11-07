@@ -58,6 +58,16 @@ Two synthetic corpora for a fictional dental practice, with ground truth and a s
 
 The main corpus is the one the rules were developed on. The hard corpus uses a different random seed and adds the cases above, which came from a review of the first version. The rules for those cases were written at the same time as the cases, so the hard corpus is a stricter test, not a blind one. A blind test needs files written by someone who has not read the rules; the corpus generator and scorer are published so that anyone can add such files. The same seed gives the same paths and text; PDF and Word files differ between builds only in embedded creation times.
 
+### A blind corpus, a stress mode and real audio
+
+Three further checks answer the obvious doubts about the two corpora above.
+
+- Blind corpus. A separate agent that never saw these rules wrote a third practice, Kestrel Bay Physiotherapy, with 65 files and its own answer key: a same-name client with her own folder, a maiden name, a misspelling, the requester's data inside her husband's and son's records, a name only in a Word page header, look-alike names such as Sarah Mitchell-Hayes and Mitchell Park, and unreadable files. It lives in `testbed/blind`. Some of its cases are outside what the rules promise, for example a maiden name nobody supplied, so it measures the honest ceiling.
+- Stress mode. The harness can limit the content search to 10 files per search term, as an index that returns only its best matches would, and check quotes against search snippets only instead of the full file text. This measures whether the document pass in step 2 catches what the search leaves out.
+- Real audio. `testbed/audio_roundtrip.ps1` speaks each voicemail with an offline Windows voice and transcribes the recording with the offline Windows recognizer, so the voicemail files are tested as machine transcripts rather than clean text.
+
+Results for all three are in [limits](limits.md).
+
 Test cases and expected results:
 
 - Core 1, access, report-only, name only as input: every target file surfaced (included or on the confirmation list); 0 decoys, noise, same-name or household files auto-included; every unreadable file listed; every shared file planned as an extract, never as a whole copy; index, enclosure list and letter saved; the letter's list of records names no other person.

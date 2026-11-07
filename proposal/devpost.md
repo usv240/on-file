@@ -30,11 +30,17 @@ The decisions are rules, not model guesses. A name counts only next to one of th
 
 ### What has been measured
 
-Two synthetic dental-practice corpora with answer keys and a scorer, run on a laptop with small open models (Qwen3 4B and a 2B vision model) standing in for the NAS models, with only the name as input.
+Three synthetic practices with answer keys and a scorer, run on a laptop with small open models (Qwen3 4B and a 2B vision model) standing in for the NAS models, with only the name as input and the voicemails as real synthesized audio. Two are dental practices; the third, a physiotherapy practice, was written blind by a separate agent that never saw the rules.
 
-On the main corpus (122 files): 40 of 40 of the requester's files found, 37 included automatically with none wrong, 0 of 22 look-alike files included, 3 of 3 unreadable files listed, 7 of 7 included files holding other patients' data flagged for extraction, and 4 items left for the user to decide.
+| Measure | Main dental | Harder dental | Blind physio |
+|---|---|---|---|
+| Requester's files found | 40 of 40 | 43 of 43 | 29 of 30 |
+| Included automatically | 37 | 34 | 18 |
+| Wrongly included | 0 | 0 | 0 |
+| Look-alike files included | 0 of 22 | 0 of 26 | 0 of 18 |
+| Shared files flagged for extraction | 7 of 7 | 7 of 7 | 6 of 6 |
 
-On the harder corpus (129 files): 43 of 43 found, 34 included automatically with none wrong, 0 of 26 look-alike files included, including the same-name mother and the spouse, and 7 of 7 included shared files flagged. Without an answer, the run stopped after 85 seconds and asked which of the two Maria Lopez intake forms, born 1958 or 1984, is the requester's.
+The blind practice was first run before the fixes it led to: 18 of 30 found, none wrongly included. It exposed three rule flaws (a middle name on the intake form, a client named only in meeting minutes, a log listing both same-name women), now fixed. A stress test that caps the search at 10 results per term changed nothing: a direct pass over every document caught what the capped search dropped.
 
 The harder corpus adds the requester's mother with the same name at the same address, a spouse, an accented name, a surname-first name with a differently written phone number, and a subtitle file. Its cases came from a review of the first version, so it is a stricter test, not a blind one. The corpora and scorer are public for other entrants to use.
 

@@ -1,0 +1,24 @@
+{
+  "identifiers_at_start": [
+    "name"
+  ],
+  "timing": {
+    "step1": 0.0,
+    "step2_3": 43.2
+  },
+  "files_in_scope": 65,
+  "step1_filename_candidates": 19,
+  "step2_3_candidates_total": 48,
+  "state": "waiting_user",
+  "questions": [
+    {
+      "question": "Several intake forms carry this exact name with different dates of birth. Which one is the requester's?",
+      "options": [
+        "Clients/Mitchell_Sarah_KBP-10388/intake_form.docx (born 05/30/1961)",
+        "Clients/Mitchell_Sarah_KBP-10427/intake_form.docx (born 09/22/1983)"
+      ]
+    }
+  ],
+  "stopped_because": "several exact-name intake forms with different dates of birth",
+  "total_seconds": 68.1
+}

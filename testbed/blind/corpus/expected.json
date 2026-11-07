@@ -1,0 +1,719 @@
+{
+  "requester": {
+    "name": "Sarah Mitchell",
+    "dob": "1983-09-22",
+    "email": "sarah.mitchell83@example.com",
+    "phone": "(503) 555-0147",
+    "pid": "KBP-10427",
+    "address": "17 Alder Crescent, Linden Cove, OR 97990"
+  },
+  "practice": "KestrelBay_Physio",
+  "files": [
+    {
+      "path": "Admin/appointments_2026_Q2.xlsx",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "Appointment book across three sheets; two clients named Sarah Mitchell told apart only by client ID."
+    },
+    {
+      "path": "Admin/cleaning_schedule.csv",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Cleaning rota using staff initials only."
+    },
+    {
+      "path": "Admin/equipment_inventory_2024.xlsx",
+      "group": "unreadable",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Corrupt spreadsheet from an old backup."
+    },
+    {
+      "path": "Admin/equipment_maintenance_log.xlsx",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Equipment log with no client data."
+    },
+    {
+      "path": "Admin/hydrotherapy_waitlist_2026.xlsx",
+      "group": "decoy",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Waitlist with 'Mitchell, S. J.' (the other Sarah Mitchell, KBP-10388); the requester is not on it."
+    },
+    {
+      "path": "Admin/incident_report_2026-04-14_misdirected_email.docx",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "Incident report naming both Sarah Mitchells with IDs, DOB and the other client's email."
+    },
+    {
+      "path": "Admin/infection_control_checklist.txt",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Generic daily checklist."
+    },
+    {
+      "path": "Admin/phone_messages/Mitchell_S_cancellation_2026-04-28.txt",
+      "group": "target",
+      "how": [
+        "filename",
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "other",
+      "note": "Body never names the client; the filename says Mitchell_S and the phone number is hers."
+    },
+    {
+      "path": "Admin/phone_messages/msg_2026-05-21_0840.txt",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Name only, no identifiers; the right-shoulder context ties it to her rather than the knee client."
+    },
+    {
+      "path": "Admin/phone_messages/msg_2026-07-08_1130.txt",
+      "group": "decoy",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Same name and no IDs; only the age (65) and the knee surgery show it is the other Sarah Mitchell."
+    },
+    {
+      "path": "Admin/price_list_2026.pdf",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Practice price list."
+    },
+    {
+      "path": "Admin/privacy_notice.docx",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Practice privacy notice."
+    },
+    {
+      "path": "Admin/sms_reminder_log_2026-04.txt",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "correspondence",
+      "note": "UTF-16 SMS log; both Sarah Mitchells appear under the same contact name, only the number differs."
+    },
+    {
+      "path": "Admin/staff_meeting_minutes_2026-01-14.docx",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Earlier staff minutes with no client names."
+    },
+    {
+      "path": "Admin/staff_meeting_minutes_2026-06-03.docx",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "Minutes discussing her by name and ID next to another client's insurance dispute."
+    },
+    {
+      "path": "Archive_2023/Pryce_Sarah_2023_notes.txt",
+      "group": "target",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Her 2023 notes under her maiden name Sarah Pryce, old ID and old address; same DOB and mobile."
+    },
+    {
+      "path": "Billing/EOB_Cascadia_2026-05-29.pdf",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
+      "note": "Insurer statement to her as subscriber, listing her claims and her son's on one page."
+    },
+    {
+      "path": "Billing/billing_ledger_2026.csv",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
+      "note": "Ledger of all clients; her rows sit next to the other Sarah Mitchell and her husband and son."
+    },
+    {
+      "path": "Billing/claims/Mitchell_Sarah_KBP-10427_claim_2026-06.pdf",
+      "group": "unreadable_requester",
+      "how": [
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
+      "note": "Password-protected insurance claim; only the filename shows it is hers."
+    },
+    {
+      "path": "Billing/invoice_INV-2026-0318.pdf",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
+      "note": "Her invoice with address and client ID; the filename has no name."
+    },
+    {
+      "path": "Billing/invoice_INV-2026-0544.pdf",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
+      "note": "Invoice for her son's treatment, addressed to her as the paying guarantor."
+    },
+    {
+      "path": "Billing/suppliers/Mitchell_Hart_Medical_INV-7781.pdf",
+      "group": "noise",
+      "how": [
+        "text",
+        "filename",
+        "metadata"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Supplier invoice from 'Mitchell & Hart' whose account manager is a Sarah; no client data."
+    },
+    {
+      "path": "Clients/Liu_Hannah_KBP-10302/treatment_notes.docx",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Another client's notes with no name overlap."
+    },
+    {
+      "path": "Clients/Mitchell-Hayes_Sarah_KBP-10460/assessment_2026-08-05.docx",
+      "group": "decoy",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Sarah Mitchell-Hayes: a double-barrelled surname that contains the requester's full name."
+    },
+    {
+      "path": "Clients/Mitchell_Daniel_KBP-10431/intake_form.docx",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "Her husband's intake; she appears as emergency contact with her mobile, so her data sits in his record."
+    },
+    {
+      "path": "Clients/Mitchell_Daniel_KBP-10431/invoice_INV-2026-0467.pdf",
+      "group": "decoy",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
+      "note": "Her husband's invoice: same surname and the same home address as the requester, but not about her."
+    },
+    {
+      "path": "Clients/Mitchell_Leo_KBP-10432/consent_minor_2026-05-11.pdf",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "Consent for her son, signed by her with her own contact details; also holds the child's data."
+    },
+    {
+      "path": "Clients/Mitchell_Leo_KBP-10432/treatment_notes.txt",
+      "group": "decoy",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Her son's notes; same surname, and no mention of her (he attended with his father)."
+    },
+    {
+      "path": "Clients/Mitchell_Sarah_KBP-10388/intake_form.docx",
+      "group": "decoy",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Same first and last name, different client: born 1961, different ID, address, phone and email."
+    },
+    {
+      "path": "Clients/Mitchell_Sarah_KBP-10388/treatment_notes.txt",
+      "group": "decoy",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Treatment notes of the other Sarah Mitchell; mentions the misdirected email without naming the requester."
+    },
+    {
+      "path": "Clients/Mitchell_Sarah_KBP-10427/initial_assessment_2026-03-03.pdf",
+      "group": "target",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Her initial physiotherapy assessment with name in reversed order, DOB and client ID."
+    },
+    {
+      "path": "Clients/Mitchell_Sarah_KBP-10427/intake_form.docx",
+      "group": "target",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Her own intake form with DOB, address, phone, email, client ID and her previous name Sarah Pryce."
+    },
+    {
+      "path": "Clients/Mitchell_Sarah_KBP-10427/letter_to_GP_2026-04-20.docx",
+      "group": "target",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "Progress letter about her to her family doctor, with DOB and address."
+    },
+    {
+      "path": "Clients/Mitchell_Sarah_KBP-10427/treatment_notes.docx",
+      "group": "target",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Session notes; her name, DOB and ID appear only in the Word page header, not the body."
+    },
+    {
+      "path": "Clients/Okoro_Mitchell_KBP-10475/pilates_screening_2026-07-14.pdf",
+      "group": "decoy",
+      "how": [
+        "text",
+        "filename",
+        "metadata"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Client whose first name is Mitchell, signed by a staff member whose first name is Sarah."
+    },
+    {
+      "path": "Clients/Patel_Raj_KBP-10355/invoice_INV-2026-0402.pdf",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Another client's invoice."
+    },
+    {
+      "path": "Clients/Santos_Miguel_KBP-10290/intake_form.docx",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Another client's intake form."
+    },
+    {
+      "path": "Discharges/discharge_summary_KBP-10427.docx",
+      "group": "unreadable_requester",
+      "how": [
+        "filename"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Corrupt Word file; only her client ID in the filename links it to her, not her name."
+    },
+    {
+      "path": "Email/2026-02-17_knee_exercise_question.eml",
+      "group": "decoy",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Email signed exactly 'Sarah Mitchell' but from the other client (knee, different address and phone)."
+    },
+    {
+      "path": "Email/2026-03-01_new_client_enquiry.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "Her first enquiry from her personal email; mentions her maiden name."
+    },
+    {
+      "path": "Email/2026-04-13_appointment_reminder.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": true,
+      "record_type": "correspondence",
+      "note": "Reminder about her shoulder appointment sent by mistake to the other Sarah Mitchell's email address."
+    },
+    {
+      "path": "Email/2026-05-02_shoulder_group_time_change.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "correspondence",
+      "note": "Class email that exposes four clients' addresses in the To line, hers included."
+    },
+    {
+      "path": "Email/2026-05-19_reschedule_request.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "Staff email with her name misspelt as Sara Mitchel; her mobile number confirms who it is."
+    },
+    {
+      "path": "Email/2026-06-04_RE_receipt_for_HSA_claim.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "correspondence",
+      "note": "Staff email about another client that still quotes her March message at the bottom."
+    },
+    {
+      "path": "Email/2026-06-10_undeliverable.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "Bounce message with no name at all; only her email address and her invoice number link it to her."
+    },
+    {
+      "path": "Email/2026-08-03_parking_notice_Mitchell_Lane.eml",
+      "group": "noise",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Council notice about a street called Mitchell Lane."
+    },
+    {
+      "path": "Email/2026-09-12_new_enquiry.eml",
+      "group": "decoy",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "New enquiry from Sarah-Jane Mitchell, a different person with a hyphenated first name."
+    },
+    {
+      "path": "Email/2026-10-02_request_for_my_records.eml",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "The access request itself, from a work email address the practice has never seen before."
+    },
+    {
+      "path": "Exercise_Programmes/HEP_shoulder_week3.docx",
+      "group": "target",
+      "how": [
+        "metadata"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Generic-looking exercise sheet; her name and client ID are only in the document properties."
+    },
+    {
+      "path": "Marketing/Mitchell_Park_5K_flyer.docx",
+      "group": "noise",
+      "how": [
+        "text",
+        "filename",
+        "metadata"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Event flyer for a park named Mitchell Park."
+    },
+    {
+      "path": "Marketing/Sarah_Mitchell_Memorial_Award_nomination.docx",
+      "group": "noise",
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Exact full-name match, but it is a community award named after a woman who died in 1998."
+    },
+    {
+      "path": "Marketing/newsletter_subscribers.csv",
+      "group": "target",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "Mailing list with first and last names in separate columns; both Sarah Mitchells are listed."
+    },
+    {
+      "path": "Photos/IMG_20260414_1012.jpg",
+      "group": "target",
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "shared": true,
+      "record_type": "other",
+      "note": "Phone photo of a class sign-in sheet listing her and three other clients; shoulder class context marks her."
+    },
+    {
+      "path": "Photos/IMG_3990.jpg",
+      "group": "unreadable",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Photo that was corrupted during a phone sync."
+    },
+    {
+      "path": "Photos/IMG_4471.jpg",
+      "group": "target",
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Clinical photo with no visible text; her name and ID are only in the EXIF image description."
+    },
+    {
+      "path": "Photos/IMG_4502.jpg",
+      "group": "decoy",
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Clinical photo whose EXIF caption names the other Sarah Mitchell and her ID."
+    },
+    {
+      "path": "Photos/clinic_reception.jpg",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Photo of the empty reception area for the website."
+    },
+    {
+      "path": "Referrals/referral_Hannah_Liu_2026-01-22.docx",
+      "group": "decoy",
+      "how": [
+        "text",
+        "metadata"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Referral about another client written by a family doctor who is also called Sarah Mitchell."
+    },
+    {
+      "path": "Scans/SJ_Mitchell_L_knee_xray_report.pdf",
+      "group": "unreadable",
+      "how": [
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Corrupt scan; filename points to the other Sarah Mitchell (Sarah J., left knee), not the requester."
+    },
+    {
+      "path": "Scans/scan_20260303_0915.pdf",
+      "group": "target",
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "Scanned paper questionnaire; her name, DOB, phone and address exist only as pixels."
+    },
+    {
+      "path": "Scans/scan_20260611_1402.pdf",
+      "group": "decoy",
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Scanned surgeon's letter about the other Sarah Mitchell (b. 1961); name only in pixels."
+    },
+    {
+      "path": "Screenshots/Screenshot 2026-03-05 101522.png",
+      "group": "target",
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
+      "note": "Screenshot of her insurance pre-authorisation; name (upper case) and DOB only in pixels."
+    },
+    {
+      "path": "Staff/payroll_2026_Q2.pdf",
+      "group": "unreadable",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Password-protected payroll file (staff data)."
+    },
+    {
+      "path": "Staff/rota_2026_Q2.xlsx",
+      "group": "noise",
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Staff rota; the only Sarah is the Pilates instructor Sarah Kwan."
+    },
+    {
+      "path": "Templates/intake_form_TEMPLATE.docx",
+      "group": "background",
+      "how": [],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "Blank intake template with field labels only."
+    }
+  ]
+}

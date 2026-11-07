@@ -17,3 +17,8 @@ testbed/*/calls.jsonl
 dist/
 testbed/run4_status.txt
 testbed/run5_status.txt
+testbed/*.wav
+testbed/audio_*/*.wav
+testbed/run*_status.txt
+testbed/run7.sh
+testbed/run8.sh

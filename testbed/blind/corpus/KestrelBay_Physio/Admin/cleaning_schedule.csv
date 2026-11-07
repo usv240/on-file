@@ -1,0 +1,19 @@
+day,area,task,initials
+Mon,Reception,"Wipe counter, chairs, card machine",JW
+Mon,Treatment rooms,"Plinths, door handles, bins",JW
+Mon,Gym,"Equipment wipe-down, mats",JW
+Tue,Reception,"Wipe counter, chairs, card machine",TR
+Tue,Treatment rooms,"Plinths, door handles, bins",TR
+Tue,Gym,"Equipment wipe-down, mats",TR
+Wed,Reception,"Wipe counter, chairs, card machine",PN
+Wed,Treatment rooms,"Plinths, door handles, bins",PN
+Wed,Gym,"Equipment wipe-down, mats",PN
+Thu,Reception,"Wipe counter, chairs, card machine",JW
+Thu,Treatment rooms,"Plinths, door handles, bins",JW
+Thu,Gym,"Equipment wipe-down, mats",JW
+Fri,Reception,"Wipe counter, chairs, card machine",TR
+Fri,Treatment rooms,"Plinths, door handles, bins",TR
+Fri,Gym,"Equipment wipe-down, mats",TR
+Sat,Reception,"Wipe counter, chairs, card machine",PN
+Sat,Treatment rooms,"Plinths, door handles, bins",PN
+Sat,Gym,"Equipment wipe-down, mats",PN

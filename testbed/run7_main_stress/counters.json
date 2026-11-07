@@ -4,14 +4,23 @@
   ],
   "timing": {
     "step1": 0.0,
-    "step2_3": 91.5,
-    "step4_5": 261.8,
-    "step6": 0.1
+    "step2_3": 68.8,
+    "document_pass": 191.6,
+    "step4_5": 469.5,
+    "step6": 0.2
   },
   "files_in_scope": 122,
   "step1_filename_candidates": 20,
-  "step2_3_candidates_total": 58,
-  "identifiers_seeded_from": "Patients/Lopez, Maria/intake-form-2025-01-14.docx",
+  "topk_cut": {
+    "name": 32,
+    "dob": 0,
+    "pid": 8,
+    "address": 0,
+    "email": 0,
+    "phone": 0
+  },
+  "step2_3_candidates_total": 36,
+  "identifiers_seeded_from": "Forms-Scanned/scan_2025-01-14_041.pdf",
   "identifiers_extracted": {
     "email": "maria.lopez84@example.com",
     "phone": "(555) 014-2231",
@@ -20,6 +29,7 @@
     "pid": "LD-10432"
   },
   "identifiers_shared_with_namesake": [],
+  "document_pass_added": 9,
   "questions": [],
   "decisions": {
     "included": 37,
@@ -44,5 +54,5 @@
     "address",
     "pid"
   ],
-  "total_seconds": 353.4
+  "total_seconds": 538.7
 }

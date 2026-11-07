@@ -1,0 +1,28 @@
+{
+  "identifiers_at_start": [
+    "name"
+  ],
+  "timing": {
+    "step1": 0.0,
+    "step2_3": 82.2,
+    "document_pass": 109.5,
+    "step4_5": 330.9,
+    "step6": 0.1
+  },
+  "files_in_scope": 65,
+  "step1_filename_candidates": 1,
+  "step2_3_candidates_total": 36,
+  "document_pass_added": 0,
+  "questions": [],
+  "decisions": {
+    "needs confirmation": 23,
+    "unreadable": 12,
+    "excluded": 1
+  },
+  "plan": {},
+  "state": "completed",
+  "identifiers_at_end": [
+    "name"
+  ],
+  "total_seconds": 413.2
+}

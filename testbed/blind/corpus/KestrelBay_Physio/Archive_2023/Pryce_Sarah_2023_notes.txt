@@ -1,0 +1,12 @@
+KESTREL BAY PHYSIOTHERAPY - CLIENT NOTES (exported from previous system)
+Client: Sarah Pryce              Old ID: KBP-08812
+DOB: 09/22/1983                  Phone: 503-555-0147
+Email: sarah.pryce@example.com
+Address: Apt 4B, 210 Station Road, Linden Cove, OR 97991
+Clinician: Priya Natarajan, PT
+
+2023-05-09  Initial: left ankle inversion sprain playing netball on 05/06. Grade II ATFL.
+            Swelling marked. Plan: protected weight bearing, ROM, compression.
+2023-05-16  Swelling reduced. Started balance work on a foam pad.
+2023-05-30  Hopping pain-free. Return-to-netball progression given.
+2023-06-13  Discharged. Full return to sport.

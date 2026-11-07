@@ -7,7 +7,7 @@ NAS access. Each NAS expert action is replaced by the nearest local equivalent:
     file-agent find / sha256sum / scan-dedupe   -> os.walk, hashlib
     knowledge-agent collect-evidence            -> full-text extraction + exact substring match
     document-agent qa / extract / metadata      -> Qwen3 4B via Ollama (NAS LLM is Qwen3 4B)
-    photo-agent vision-ocr / search-picture ocr -> qwen3-vl:2b via Ollama (NAS VLM is a 2B Uliya-v)
+    photo-agent vision-ocr / search-picture ocr -> qwen3-vl:2b-instruct via Ollama (NAS VLM is a 2B Uliya-v)
     photo-agent meta                            -> Pillow EXIF
     knowledge-agent audio-transcription         -> reads the transcript stand-in files
 
@@ -91,13 +91,22 @@ def extract_text(p: Path) -> tuple[str | None, str]:
     ext = p.suffix.lower()
     try:
         if ext in (".txt", ".csv", ".md", ".eml", ".srt", ".vtt"):
-            return p.read_text(encoding="utf-8", errors="replace"), "ok"
+            raw = p.read_bytes()
+            if raw[:2] in (b"\xff\xfe", b"\xfe\xff"):
+                return raw.decode("utf-16", errors="replace"), "ok"
+            return raw.decode("utf-8-sig", errors="replace"), "ok"
         if ext == ".docx":
             d = Document(str(p))
             parts = [x.text for x in d.paragraphs]
             for t in d.tables:
                 for row in t.rows:
                     parts.append(" | ".join(c.text for c in row.cells))
+            for sec in d.sections:
+                for hf in (sec.header, sec.footer, sec.first_page_header, sec.first_page_footer):
+                    try:
+                        parts.extend(x.text for x in hf.paragraphs if x.text.strip())
+                    except Exception:  # noqa: BLE001
+                        pass
             return "\n".join(parts), "ok"
         if ext == ".xlsx":
             wb = load_workbook(str(p), read_only=True, data_only=True)
@@ -146,7 +155,11 @@ def page_images(p: Path) -> list[bytes]:
         out = []
         for pg in PdfReader(str(p)).pages:
             for im in pg.images:
-                out.append(im.data)
+                pim = Image.open(io.BytesIO(im.data)).convert("RGB")
+                pim.thumbnail((1400, 1400))
+                b = io.BytesIO()
+                pim.save(b, format="JPEG", quality=85)
+                out.append(b.getvalue())
         return out
     img = Image.open(p).convert("RGB")
     img.thumbnail((1400, 1400))
@@ -156,7 +169,10 @@ def page_images(p: Path) -> list[bytes]:
 
 
 def ocr(vlm: str, p: Path) -> tuple[str, str]:
-    imgs = page_images(p)
+    try:
+        imgs = page_images(p)
+    except Exception as e:  # noqa: BLE001  a damaged image is listed as unreadable, never a crash
+        return "", f"unreadable:{type(e).__name__}"
     if not imgs:
         return "", "unreadable:no image"
     texts = []
@@ -164,7 +180,10 @@ def ocr(vlm: str, p: Path) -> tuple[str, str]:
         out, _ = llm(vlm, "Transcribe all text in this image exactly as written, line by line. If there is no text, answer exactly: NO TEXT.", images=[b], num_predict=600)
         texts.append(out)
     t = "\n".join(texts)
-    if not t.strip() or "NO TEXT" in t.upper():
+    # the model may end a real transcription with a stray "NO TEXT" line; only an answer that is
+    # nothing but that marker means the image has no text
+    t = "\n".join(ln for ln in t.splitlines() if ln.strip().upper().rstrip(".") != "NO TEXT")
+    if not t.strip():
         return t, "unreadable:no text found by OCR"
     return t, "ok"
 
@@ -223,6 +242,10 @@ def mentions(text: str, ids: dict) -> list[str]:
         elif k == "dob":
             if any(re.search(r"(?<!\d)" + re.escape(x) + r"(?!\d)", low) for x in dob_variants(v)):
                 hit.append(k)
+        elif k == "pid":
+            parts = [x for x in re.split(r"[^a-z0-9]+", fold(v)) if x]
+            if parts and re.search(r"(?<![a-z0-9])" + r"[\s.\-_/]*".join(re.escape(x) for x in parts) + r"(?![0-9])", low):
+                hit.append(k)
         elif k == "address":
             street = fold(v.split(",")[0]).strip()
             if street and re.search(r"(?<![a-z0-9])" + re.escape(street).replace(r"\ ", r"\s+") + r"(?![a-z])", low):
@@ -237,6 +260,13 @@ def mentions(text: str, ids: dict) -> list[str]:
                 exact = True
             elif re.search(r"(?<![a-z])" + n, low):
                 partial = True
+        parts_ = fold(ids["name"]).split()
+        if not exact and len(parts_) >= 2:
+            g, sname = re.escape(parts_[0]), re.escape(parts_[-1])
+            mid = r"\s+(?:[a-z]\.?|[a-z]{2,})\s+"  # one middle name or initial
+            if (re.search(r"(?<![a-z-])" + g + mid + sname + r"(?![a-z-])", low)
+                    or re.search(r"(?<![a-z-])" + sname + r",\s*" + g + r"(?:\s+(?:[a-z]\.?|[a-z]{2,}))?(?![a-z-])", low)):
+                exact = True
         if exact:
             hit.append("name")
         elif partial:
@@ -291,7 +321,8 @@ def main():
     ap.add_argument("--corpus", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--llm", default="qwen3:4b")
-    ap.add_argument("--vlm", default="qwen3-vl:2b")
+    ap.add_argument("--vlm", default="qwen3-vl:2b-instruct",
+                    help="vision model for OCR; the reasoning variant qwen3-vl:2b spends its whole budget thinking and returns empty text on dense pages")
     ap.add_argument("--name", default="Maria Lopez")
     ap.add_argument("--email", default="")
     ap.add_argument("--phone", default="")
@@ -299,6 +330,12 @@ def main():
     ap.add_argument("--dob", default="")
     ap.add_argument("--address", default="")
     ap.add_argument("--choose-dob", default="", help="simulated user answer when several exact-name intake forms exist")
+    ap.add_argument("--topk", type=int, default=0,
+                    help="stress test: the content search returns only K files per search term, like an index that returns its best matches")
+    ap.add_argument("--transcripts", default="",
+                    help="folder of <voicemail name>.transcript.txt files from real audio (audio_roundtrip.ps1) to use instead of the voicemail text files")
+    ap.add_argument("--snippet-check", action="store_true",
+                    help="stress test: check quotes from documents against the search snippets only, not the full file text")
     a = ap.parse_args()
 
     root = Path(a.corpus)
@@ -320,7 +357,8 @@ def main():
     surname = a.name.split()[-1].lower()
     for p in files:
         rp = rel(p)
-        if a.name.lower() in rp.lower() or re.search(r"\b" + re.escape(surname) + r"\b", rp.lower()) or any(v.lower() in rp.lower() for k, v in ids.items() if k != "name"):
+        rpn = re.sub(r"[_\-./]+", " ", rp.lower())
+        if a.name.lower() in rpn or re.search(r"\b" + re.escape(surname) + r"\b", rpn) or any(v.lower() in rp.lower() for k, v in ids.items() if k != "name"):
             cand[rp] = {"source": ["file name"], "matched": set()}
     counters["step1_filename_candidates"] = len(cand)
 
@@ -329,8 +367,34 @@ def main():
     counters["timing"]["step1"] = round(time.time() - t, 1)
 
     # Step 2 + 3: candidates by content (collect-evidence), OCR (photo-agent), transcripts (audio stand-in), metadata
+    def term_key(k: str) -> str:
+        return "name" if k in ("name", "name-partial") else k  # one search term per identifier; a longer name contains the name
+
+    def topk_allowed(id_subset: dict):
+        if not a.topk:
+            return None
+        per: dict = {}
+        for p in files:
+            rp = rel(p)
+            if p.suffix.lower() in (".srt", ".vtt") or "Voicemail" in rp:
+                continue
+            txt, st = extract_text(p)
+            if txt is None:
+                continue
+            for k in set(term_key(x) for x in mentions(txt, id_subset)):
+                per.setdefault(k, []).append(rp)
+        allowed = {}
+        for k, lst in per.items():
+            lst.sort(key=lambda r: hashlib.sha1((k + "|" + r).encode()).hexdigest())  # stand-in for an unknown ranking
+            allowed[k] = set(lst[:a.topk])
+        counters.setdefault("topk_cut", {})
+        for k, lst in per.items():
+            counters["topk_cut"][k] = max(counters["topk_cut"].get(k, 0), len(lst) - len(allowed[k]))
+        return allowed
+
     def content_pass(id_subset: dict, only_new: bool):
         n = 0
+        allowed = topk_allowed(id_subset)
         for p in files:
             rp = rel(p)
             txt, st = extract_text(p)
@@ -346,12 +410,20 @@ def main():
                 src = "ocr"
             else:
                 src = "audio transcript" if "Voicemail" in rp else ("subtitle" if p.suffix.lower() in (".srt", ".vtt") else "content")
+                if src == "audio transcript" and a.transcripts:
+                    tp = Path(a.transcripts) / (p.stem + ".transcript.txt")
+                    txt = tp.read_text(encoding="utf-8-sig") if tp.exists() else ""
+                    rec["transcript_from_audio"] = True
             hits = mentions(txt or "", id_subset) if txt else []
+            if hits and src == "content" and allowed is not None:
+                hits = [h for h in hits if rp in allowed.get(term_key(h), set())]
             mhits = mentions(meta, id_subset) if meta else []
             if hits:
                 rec["source"].append(src)
                 rec["matched"].update(hits)
                 rec["text"] = txt
+                if src == "content":
+                    rec["search_hit"] = True
                 n += 1
             if mhits:
                 rec["source"].append("metadata")
@@ -364,6 +436,34 @@ def main():
             if not hits and not mhits and not rec["source"]:
                 del cand[rp]
         return n
+
+    def doc_pass(label: str) -> int:
+        """Read every document that is not yet a candidate (the Skill's document pass in step 2 and the
+        PDF read in step 3). A model reads each file; only a quote that is in the file and names the
+        person or an identifier makes it a candidate."""
+        added = 0
+        for p in files:
+            rp = rel(p)
+            if rp in cand or "Voicemail" in rp or p.suffix.lower() not in (".docx", ".xlsx", ".txt", ".csv", ".eml", ".pdf"):
+                continue
+            txt, st = extract_text(p)
+            if txt is None:
+                continue  # unreadable files are already listed by the content pass; image-only PDFs are OCRed there
+            prompt = (f"Does this file mention {ids['name']} (this exact full name, in either order) or any of these identifiers: "
+                      + ("; ".join(f"{k}={v}" for k, v in ids.items() if k != "name") or "none")
+                      + f"? Quote the exact line or lines.\n\nFILE CONTENT:\n{txt[:6000]}\n\n"
+                      "Return JSON: verdict FOUND or NONE, and quotes: the line(s) copied verbatim (empty if NONE).")
+            out_, _ = llm(a.llm, prompt, fmt=VERDICT_SCHEMA)
+            try:
+                j = json.loads(out_)
+                qs = [str(q) for q in j.get("quotes", []) if str(q).strip()]
+            except Exception:  # noqa: BLE001
+                qs = []
+            good = [q for q in verified("FOUND\n" + "\n".join(qs), txt) if mentions(q, ids)]
+            if good:
+                cand[rp] = {"source": [label], "matched": set(), "text": txt, "status": st}
+                added += 1
+        return added
 
     t = time.time()
     content_pass(ids, False)
@@ -407,7 +507,7 @@ def main():
                   "people: list the people named in this file, each once, at most 8, the requester first, with their role in this file: "
                   "'patient or client' for anyone who receives care, signs in, has an appointment, an invoice, a claim or a receipt; "
                   "'staff' for clinicians and employees acting in their job; 'contact' for an emergency contact or relative named as a contact; "
-                  "'business' for a company. Include every name in tables, lists and sign-in sheets.\n"
+                  "'business' for a company. Include every name in tables, lists, sign-in sheets and in the sentences of the body, not only attendance lists.\n"
                   "record_type: clinical (intake, consent, treatment, x-ray, referral, lab order, clinical photo), billing (invoice, receipt, insurance claim, payment), "
                   "correspondence (letters, emails, reminders, voicemails), other (calendars, schedules, sign-in sheets, testimonials).")
         out, _ = llm(a.llm, prompt, fmt=CLASS_SCHEMA, num_predict=1400)
@@ -416,6 +516,14 @@ def main():
             others = [str(x.get("name", "")) for x in j.get("people", [])
                       if x.get("role") == "patient or client" and "name" not in mentions(str(x.get("name", "")), {"name": ids["name"]})]
             others = [o for o in others if o.strip()]
+            # second, independent signal: another client ID of the same form as the requester's
+            pid = ids.get("pid", "")
+            mm = re.match(r"([A-Za-z]+)[\s.\-_/]*(\d+)$", pid.strip())
+            if mm:
+                pat = r"(?<![A-Za-z0-9])" + re.escape(mm.group(1)) + r"[\s.\-_/]*(\d{" + str(len(mm.group(2))) + r"})(?!\d)"
+                other_ids = sorted({x for x in re.findall(pat, text, flags=re.I) if x != mm.group(2)})
+                if other_ids:
+                    others = others + [f"{mm.group(1).upper()}-{x}" for x in other_ids]
             return bool(others), str(j.get("record_type", "other")), ", ".join(others[:2])
         except Exception:  # noqa: BLE001
             return True, "other", "listing could not be read; treated as shared"
@@ -423,9 +531,14 @@ def main():
     def is_none(ans: str) -> bool:
         return not ans.strip() or ans.startswith("NONE")
 
+    FORM_WORDS = ("intake", "registration", "admission", "new patient", "new client", "client information", "patient information", "consent")
+
+    def is_form(rp: str) -> bool:
+        head = ((cand.get(rp, {}).get("text") or "")[:300] + " " + rp).lower()
+        return any(w in head for w in FORM_WORDS)
+
     def order(rp: str):
-        low = rp.lower()
-        return (0 if ("intake" in low or "registration" in low) else 1, rp)
+        return (0 if is_form(rp) else 1, rp)
 
     def extract_ids(text: str) -> dict:
         prompt = ("Extract the patient's fields from this form. Use an empty string for a field that is not present. Copy values exactly as written.\nForm:\n" + text[:4000])
@@ -456,11 +569,11 @@ def main():
     seeded_from = None
     if len(ids) == 1:
         # Name only, as most requests arrive. Read the exact-name intake/registration forms first.
-        forms = [rp for rp in cand if ("intake" in rp.lower() or "registration" in rp.lower()) and "name" in cand[rp]["matched"]]
+        forms = [rp for rp in cand if is_form(rp) and "name" in cand[rp]["matched"]]
         found = []
         for rp in sorted(forms):
             new = extract_ids(cand[rp].get("text") or "")
-            if fold(new.get("_name", "")).strip() == fold(ids["name"]).strip():
+            if "name" in mentions(new.get("_name", ""), {"name": ids["name"]}):
                 found.append((rp, {k: v for k, v in new.items() if k != "_name"}))
         people = []  # one entry per distinct date of birth
         for rp, f in found:
@@ -493,6 +606,10 @@ def main():
             extracted_once = True
             content_pass(new, True)
 
+    t_doc = time.time()
+    counters["document_pass_added"] = doc_pass("document pass")
+    counters["timing"]["document_pass"] = round(time.time() - t_doc, 1)
+
     ADV_Q = "Quote every passage showing the person named here is the same person as the one described by the identifiers."
     SKP_Q = ("Quote every passage showing the person named here is a DIFFERENT person from the one described by the identifiers, for example a different "
              "or longer surname, a different date of birth, patient ID, email or phone, a generational suffix, an employer, a role or a relationship.")
@@ -516,7 +633,7 @@ def main():
         st = rec.get("status", "ok")
         row = {"path": rp, "source": ",".join(dict.fromkeys(rec["source"])), "matched": "", "passage": "", "advocate": "", "skeptic": "",
                "decision": "", "decided_by": "auto", "shared": "", "record_type": "", "access_action": "", "erasure_action": ""}
-        if st.startswith("unreadable") or rec.get("ocr_status", "ok").startswith("unreadable") or "unreadable in scope" in rec["source"]:
+        if (st.startswith("unreadable") or rec.get("ocr_status", "ok").startswith("unreadable") or "unreadable in scope" in rec["source"]) and not rec.get("meta"):
             row["decision"] = "unreadable"
             row["passage"] = st if st.startswith("unreadable") else rec.get("ocr_status", "")
             row["decided_by"] = "user checks by hand"
@@ -524,6 +641,11 @@ def main():
         text = file_text(rp, rec)
         m = set(mentions(text, ids))
         row["matched"] = ",".join(sorted(m))
+        if a.snippet_check and not rec.get("ocr_text"):
+            # what the content search returns as passages: only the lines holding a search term
+            vtext = "\n".join(ln for ln in text.splitlines() if mentions(ln, {**ids, **ns_own}) or "name-partial" in mentions(ln, {"name": ids["name"]}))
+        else:
+            vtext = text
         ns_m = set(mentions(text, ns_own)) if ns_own else set()
         name = "name" in m
         partial = "name-partial" in m and not name
@@ -534,8 +656,8 @@ def main():
         def two_checks(allow_include: bool, why: str):
             adv, skp = qa(text, ADV_Q), qa(text, SKP_Q)
             # advocate quotes count only if they exist in the file AND name the person (exact name or identifier)
-            av = [q for q in verified(adv, text) if set(mentions(q, ids)) - {"name-partial"}]
-            sv = verified(skp, text)
+            av = [q for q in verified(adv, vtext) if set(mentions(q, ids)) - {"name-partial"}]
+            sv = verified(skp, vtext)
             # an automatic exclusion needs hard evidence in the skeptic quote: a longer form of the name,
             # or an identifier of a known same-name person; otherwise the user decides
             hard = [q for q in sv if "name-partial" in mentions(q, {"name": ids["name"]}) or (ns_own and mentions(q, ns_own))]
@@ -550,11 +672,11 @@ def main():
                 row["passage"] = (" / ".join(av) or exact_passage(text, ids, m))[:400]
             row["skeptic"] = (row["skeptic"] + f" [{why}]") if why else row["skeptic"]
 
-        if ns_m and not uniq:
+        if ns_m and not (uniq or pers):
             row["decision"] = "excluded, identifiers of a same-name person"
             row["advocate"] = "namesake identifier: " + ",".join(sorted(ns_m))
             row["passage"] = exact_passage(text, ns_own, ns_m)
-        elif ns_m and uniq:
+        elif ns_m:
             row["decision"], row["decided_by"] = "needs confirmation", "user"
             row["advocate"] = "requester and same-name person both present"
             row["passage"] = exact_passage(text, ids, m)
@@ -565,7 +687,7 @@ def main():
         elif name and pers:
             # exact name with only a phone or address: a relative with the same name and the same home
             # would match too, so the against-check runs first; any checked quote sends the file to the user
-            skp = verified(qa(text, SKP_Q), text)
+            skp = verified(qa(text, SKP_Q), vtext)
             row["advocate"] = "exact name with household identifier: " + ",".join(sorted(pers))
             row["passage"] = exact_passage(text, ids, m)
             if skp:
@@ -590,7 +712,8 @@ def main():
             ans = qa(text, "Does this file mention the person or any of the identifiers? Quote the passage if so.")
             qs = [q for q in verified(ans, text) if mentions(q, ids)]
             row["advocate"] = " / ".join(qs) or "none"
-            if qs:
+            full_name_in_path = "name" in mentions(rp.replace("/", " / "), {"name": ids["name"]})
+            if qs or rec.get("search_hit") or full_name_in_path:
                 row["decision"], row["decided_by"] = "needs confirmation", "user"
             else:
                 row["decision"] = "excluded, no mention"
@@ -606,7 +729,7 @@ def main():
         row = decide(rp)
         results.append(row)
         # grow identifiers from the first included intake form when the request came with some identifiers
-        if row["decision"] == "included" and not extracted_once and "intake" in rp.lower():
+        if row["decision"] == "included" and not extracted_once and is_form(rp):
             extracted_once = True
             new = {k: v for k, v in extract_ids(file_text(rp, cand[rp])).items() if k != "_name" and k not in ids}
             counters["identifiers_extracted"] = new

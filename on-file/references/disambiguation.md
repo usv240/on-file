@@ -19,7 +19,9 @@ Partial name matches (for example a hyphenated surname that starts with the requ
 People and systems write the same thing differently, so each identifier is matched in its common forms:
 
 - Name: "Maria Lopez", "Lopez, Maria", and without accents, so "María López" matches. A longer name ("Maria Lopez-Ruiz") is a partial match, not the name.
+- A middle name or initial between the given name and surname still counts as the name, so "Sarah Louise Mitchell", "SARAH L MITCHELL" and "Mitchell, Sarah J." all match a request for Sarah Mitchell. A hyphenated given name ("Sarah-Jane") or surname ("Mitchell-Hayes") does not; it is a partial match. The blind test corpus showed why this matters: the requester's own intake form gave her middle name, and an exact-only rule never adopted her identifiers.
 - Phone: compared by digits, so "(555) 014-2231", "555.014.2231" and "+1 555 014 2231" are the same number.
+- Patient or customer ID: compared without separators, so "LD-10432", "LD 10432" and "Ld. 10432" match. Machine transcription of a spoken ID produces exactly such forms; in the laptop audio test it turned "LD-10432" into "Ld. 10432".
 - Date of birth: "1984-03-12", "12/03/1984", "03/12/1984", "12.03.1984", "12 March 1984" and "March 12, 1984". Both day-first and month-first forms are accepted, which is safe because a date of birth only counts together with the exact name.
 - Address: matched on the street line ("18 Birch Lane"), regardless of case and spacing.
 
@@ -63,7 +65,7 @@ Most requests arrive with a name and nothing else. The Skill reads the exact-nam
 After the user picks the requester's form, the other form describes a same-name person, and three rules follow:
 
 1. Identifiers the two share (typically the address and a home phone) stop counting for the requester.
-2. A file holding the other person's own ID, email, date of birth or phone is excluded with the quote, unless it also holds the requester's ID or email, in which case it goes to the confirmation list.
+2. A file holding the other person's own ID, email, date of birth or phone is excluded with the quote, unless it also holds any of the requester's own identifiers, in which case it goes to the confirmation list. A reminder log listing both people, each with their own phone number, is exactly such a file.
 3. A file with the exact name and only a shared identifier, for example a recall letter addressed to "Maria Lopez, 18 Birch Lane", goes to the two checks and at best to the confirmation list. It is genuinely ambiguous and only the user can decide it.
 
 ## Growing the identifier set

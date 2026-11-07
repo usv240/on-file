@@ -1,0 +1,21 @@
+﻿date,invoice,client_id,client_name,payer,description,billed,insurer_paid,client_paid,balance
+2026-01-30,INV-2026-0104,KBP-10302,"Liu, Hannah",Self-pay,Neck x3,330.00,0.00,330.00,0.00
+2026-02-27,INV-2026-0211,KBP-10388,"Mitchell, Sarah J.",Evergreen Medicare Advantage,Knee prehab x3,385.00,308.00,77.00,0.00
+2026-02-27,INV-2026-0212,KBP-10290,"Santos, Miguel",Cascadia Health Plan,ACL rehab x4,440.00,352.00,88.00,0.00
+2026-03-18,INV-2026-0318,KBP-10427,"Mitchell, Sarah L.",Cascadia Health Plan,Shoulder 03/03-03/17,715.00,572.00,0.00,143.00
+2026-03-31,INV-2026-0341,KBP-10388,"Mitchell, Sarah J.",Evergreen Medicare Advantage,Knee prehab x4,440.00,352.00,88.00,0.00
+2026-04-02,INV-2026-0402,KBP-10355,"Patel, Raj",Northline Insurance,Hamstring x4,440.00,352.00,88.00,0.00
+2026-04-30,INV-2026-0433,KBP-10427,"Mitchell, Sarah L.",Cascadia Health Plan,Shoulder 03/20-04/30,880.00,704.00,176.00,0.00
+2026-04-30,INV-2026-0434,KBP-10311,"Obi, Grace",Self-pay,Shoulder group x4,160.00,0.00,160.00,0.00
+2026-04-30,INV-2026-0435,KBP-10344,"Vance, Peter",Evergreen Medicare Advantage,Shoulder group x4 + review,270.00,216.00,54.00,0.00
+2026-04-30,INV-2026-0436,KBP-10398,"Ruiz, Ana",Cascadia Health Plan,Shoulder group x4,160.00,128.00,32.00,0.00
+2026-05-29,INV-2026-0467,KBP-10431,"Mitchell, Daniel",Self-pay,Low back x3,330.00,0.00,330.00,0.00
+2026-05-29,INV-2026-0470,KBP-10427,"Mitchell, Sarah L.",Cascadia Health Plan,Shoulder May x3,385.00,294.40,90.60,0.00
+2026-05-29,INV-2026-0471,KBP-10388,"Mitchell, Sarah J.",Evergreen Medicare Advantage,Knee prehab x3,330.00,264.00,66.00,0.00
+2026-06-12,INV-2026-0544,KBP-10432,"Mitchell, Leo",Cascadia Health Plan (guarantor S. Mitchell),Knee x3,385.00,308.00,77.00,0.00
+2026-06-19,INV-2026-0560,KBP-10427,"Mitchell, Sarah L.",Cascadia Health Plan,Discharge session,110.00,88.00,22.00,0.00
+2026-06-30,INV-2026-0581,KBP-10355,"Patel, Raj",Northline Insurance,Hamstring May x4 - DENIED,440.00,0.00,0.00,440.00
+2026-07-31,INV-2026-0620,KBP-10388,"Mitchell, Sarah J.",Evergreen Medicare Advantage,Post-op knee x6,660.00,528.00,132.00,0.00
+2026-08-31,INV-2026-0702,KBP-10460,"Mitchell-Hayes, Sarah",Self-pay,Heel x2,275.00,0.00,275.00,0.00
+2026-08-31,INV-2026-0703,KBP-10475,"Okoro, Mitchell",Self-pay,Clinical Pilates x4,180.00,0.00,180.00,0.00
+2026-09-30,INV-2026-0788,KBP-10419,"Fern, Lucia",Cascadia Health Plan,Hip x4,440.00,352.00,88.00,0.00

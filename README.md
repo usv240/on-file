@@ -9,7 +9,7 @@ The Skill itself never sends anything off the NAS.
 | Folder | Content |
 |---|---|
 | `on-file/` | The Skill package exactly as submitted: `SKILL.md` and eight files in `references/`. Markdown only. Passes the official Uliya Skill Kit checker with zero errors, warnings and notes. |
-| `testbed/` | Two synthetic dental-practice corpora ("Lakeside Dental") with answer keys, a scorer, and a laptop stand-in harness that replays the Skill's workflow with small open models. Results are in `testbed/RESULTS.md`. |
+| `testbed/` | Three synthetic practices with answer keys: two Lakeside Dental corpora and a blind Kestrel Bay Physiotherapy corpus written by an agent that never saw the rules. Also a scorer, a summary script, an audio round-trip script and a laptop stand-in harness that replays the Skill's workflow with small open models. Results are in `testbed/RESULTS.md`. |
 | `proposal/` | The Round 1 proposal (`final.md`, the PDF built from it by `build_pdf.py`, and the Devpost form text). |
 
 ## The test corpora
@@ -43,18 +43,18 @@ Other entrants are welcome to use the corpora to test their own Skills.
 
 ## Stand-in results (laptop, provisional)
 
-Qwen3 4B and Qwen3-VL 2B through Ollama stand in for the NAS models. Input was the name only.
+Qwen3 4B and Qwen3-VL 2B instruct through Ollama stand in for the NAS models; voicemails are real synthesized audio. Input was the name only.
 
-| Measure | Main | Hard |
-|---|---|---|
-| Requester's files found | 40 of 40 | 43 of 43 |
-| Included automatically, none wrong | 37 | 34 |
-| Look-alike files included | 0 of 22 | 0 of 26 |
-| Unreadable files listed | 3 of 3 | 3 of 3 |
-| Included shared files flagged for extraction | 7 of 7 | 7 of 7 |
-| Items left for the user | 4 | 11 |
+| Measure | Main dental | Hard dental | Blind physio |
+|---|---|---|---|
+| Requester's files found | 40 of 40 | 43 of 43 | 29 of 30 |
+| Included automatically | 37 | 34 | 18 |
+| Wrongly included | 0 | 0 | 0 |
+| Look-alike files included | 0 of 22 | 0 of 26 | 0 of 18 |
+| Included shared files flagged for extraction | 7 of 7 | 7 of 7 | 6 of 6 |
+| Items left for the user | 4 | 12 | 15 |
 
-Details, the earlier runs and what each fix changed are in `testbed/RESULTS.md`. These numbers will be replaced by NAS measurements in Round 2.
+The blind corpus's first run, before the fixes it led to, found 18 of 30 with none wrongly included; that is the unbiased number. Details, the stress test and the earlier runs are in `testbed/RESULTS.md`. These numbers will be replaced by NAS measurements in Round 2.
 
 ## Licence
 

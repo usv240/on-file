@@ -1,0 +1,22 @@
+From: Mail Delivery System <mailer-daemon@example.com>
+To: kbp.frontdesk@example.com
+Subject:
+ Undeliverable: Your statement from Kestrel Bay Physiotherapy (INV-2026-0318)
+Date: Wed, 10 Jun 2026 09:03:47 -0700
+Message-ID: <4d03878235aa8da9d752@mail.example.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+This is the mail system at host mx2.example.com.
+
+Your message could not be delivered to one or more recipients.
+
+<sarah.mitchell83@example.com>: host mail.example.com said: 552 5.2.2 Mailbox=
+ full
+
+----- Original message headers -----
+From: kbp.frontdesk@example.com
+To: sarah.mitchell83@example.com
+Subject: Your statement from Kestrel Bay Physiotherapy (INV-2026-0318)
+Date: Wed, 10 Jun 2026 09:02:55 -0700
