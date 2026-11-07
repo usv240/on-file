@@ -97,7 +97,7 @@ The content search may return only its best matches, so every document in scope 
 
 `delegate --target file-agent --instruction 'List the document files (docx, doc, xlsx, xls, odt, ods, rtf, txt, csv, eml, msg) in the folder the user named, recursively. Return their paths. If there are none, return an empty list.'`
 
-For the listed documents that are not already candidates, in batches of up to 20, the most the document expert reads for one question. A file missing from an answer's coverage is asked about again on its own:
+For the listed documents that are not already candidates, in batches of up to 20, so each answer stays complete. A file missing from an answer's coverage is asked about again on its own:
 
 `delegate --target document-agent --instruction 'Read each file at the given paths. For each file that mentions the person's full name in either order, also with a middle name or initial between, or any identifier listed, return the path and quote the exact line. List every file that could not be opened, with the reason. Return none if no file mentions the person.'`
 
@@ -267,7 +267,7 @@ If the request language is not English:
 
 Save the letter with `knowledge-agent` the same way. If drafting returns `failed` or `cancelled`, save the unfilled template instead and say so.
 
-In report-only mode, show the counters, the due date, the saved paths, the planned actions, the confirmation list, the unreadable list and the surveillance finding, and stop. That is four approvals, plus one for a translation.
+In report-only mode, show the counters, the due date, the saved paths, the planned actions, the confirmation list, the unreadable list and the surveillance finding, and stop. That is four approvals, plus one for a translation and one per batch of decisions the user saves.
 
 Decisions the user makes on confirmation items or planned actions, in any run, are appended with the date to the decisions file, so nothing is asked twice:
 
@@ -289,7 +289,7 @@ Then for each included file, in order:
 
 - Check first: `delegate --target file-agent --instruction 'Return the size and modified time of the file at the given path, or say not found.'` For erasure, a path that is already not found is logged as "already done" and not acted on again. For access, the same check on the copy's or extract's path inside the hand-over folder tells whether it was already handed over.
 - Access, copy: `delegate --target file-agent --instruction 'Copy the file at the given path into the hand-over folder inside the case folder. Do not move or overwrite.'`
-- Access, extract: `delegate --target document-agent --instruction 'From the file at the given path, extract only the rows, lines or passages about the person named, with the column headings, and nothing about anyone else.'` Before saving, check the extract against the step 5 list of people in that file: if it contains any other patient's or customer's name, or a line that is not in the file, it is not saved and the file moves to "edit by hand". A clean extract is saved with `knowledge-agent` into the hand-over folder as a text file named "extract of" followed by the file's description from the enclosure list. For a photo or scanned image that also holds other people's data, such as a sign-in sheet, no model writes the extract: it is the lines of the step 4 OCR text that contain the person's name or an identifier, and nothing else.
+- Access, extract: `delegate --target document-agent --instruction 'From the file at the given path, extract only the rows, lines or passages about the person named, with the column headings, and nothing about anyone else.'` Before saving, the Skill keeps only the column headings and the rows or lines that contain the person's name or one of the identifiers, and drops everything else; it does not rely on the step 5 list of people, which is capped. If a kept line also names a person from that list, or nothing is left, the extract is not saved and the file moves to "edit by hand". A clean extract is saved with `knowledge-agent` into the hand-over folder as a text file named "extract of" followed by the file's description from the enclosure list. For a photo or scanned image that also holds other people's data, such as a sign-in sheet, no model writes the extract: it is the lines of the step 4 OCR text that contain the person's name or an identifier, and nothing else.
 - Erasure, delete: `delegate --target file-agent --instruction 'Delete the file at the given path and return the path it now has in the recycle bin.'` The delete returns that path. If it does not, record the original path; a restore then finds the file by name in the share's recycle-bin folder first.
 
 Append the new lines to the audit log in the case folder after every 10 files acted on, and always when the user stops the run and at the end. A deletion's recycle-bin path is kept in the running list until the next write; if a run stops between writes, a restore still finds the file by name in the share's recycle-bin folder:

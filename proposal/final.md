@@ -20,19 +20,19 @@ Input: request type, name, date received, folders, case folder, report-only or a
 
 ## 5. How is your idea different from existing tools or common AI solutions?
 
-Unlike existing tools, On File decides each file by identifiers and quotes checked against that file, never by a model alone, so a same-name mother stays out; then it extracts, retains, drafts and asks per file. PII Crawler (497 USD) finds one person's data; OneTrust and Transcend serve large firms; chat assistants need uploads.
+PII Crawler (497 USD, local) finds one person's data, scans included; OneTrust and Transcend serve large firms; chat assistants need uploads. On File adds: it keeps a same-name mother out using checked identifiers, searches voicemails, photo faces and cameras on the NAS, extracts from shared files, keeps required records, drafts the letter, and asks per file.
 
 ## 6. Which UGREEN AI NAS features does your Skill use, and at which step?
 
-file-agent: find, cat, stat, sha256sum, scan-dedupe, share-mkdir, mkdir, cpmv, del, echo, restore, tag-get-by-name, tag-add, tag-set, tag-add-file (steps 0 to 3, 6 to 8). knowledge-agent: collect-evidence, audio-transcription, save-text (2, 3, 6 to 8). document-agent: qa, metadata, extract, writing, translate (2 to 7). photo-agent: search-picture, vision-ocr, vision-vlm, meta (3 to 5). media-agent: search (3). security-monitor-agent: faces (3).
+file-agent: find, cat, stat, sha256sum, scan-dedupe, share-mkdir, mkdir, cpmv, del, echo, restore, tag-get-by-name, tag-add, tag-set, tag-add-file (setup, search, act, verify). knowledge-agent: collect-evidence, audio-transcription, save-text (search, saving). document-agent: qa, metadata, extract, writing, translate (search, confirm, letter). photo-agent: search-picture, vision-ocr, vision-vlm, meta (search, confirm). media-agent: search; security-monitor-agent: faces (search).
 
 ## 7. What is your technical approach?
 
-It directs six NAS expert agents. Only step 7 changes the person's files, one approval each. A name counts only beside the person's identifiers; name-only files get for and against checks; unclear ones go to the user. Erasure cases keep a record, not the erased data.
+It directs six NAS expert agents. Searching only reads; only the act stage changes the person's files, one approval each. A name counts only beside the person's identifiers; name-only files get for and against checks; unclear ones go to the user. Erasure cases keep a record, not the erased data.
 
 ## 8. What have you built so far? What is not built yet? What still needs testing on a NAS?
 
-Built: SKILL.md and eight references, checker-clean; three test corpora with answer keys, one written blind by an agent kept from the rules. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): every requester file surfaced, 37 and 34 auto-included, none wrongly; 0 of 48 look-alikes. Blind: 18 of 30 surfaced at first, 29 after fixes, none wrong. Act replay changed only planned files. Not built: nothing planned. Needs a NAS: search recall, OCR, approvals.
+Built: SKILL.md and eight references, checker-clean; three test corpora with answer keys, one written blind by an agent kept from the rules. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 37 and 34 auto-included, none wrongly. Blind: 18 of 30 at first, 29 after fixes, none wrong. Act replay changed only planned files. Not built: no step. Needs a NAS: search recall, OCR, approvals.
 
 ## 9. How will you test your Skill if you become a Finalist?
 

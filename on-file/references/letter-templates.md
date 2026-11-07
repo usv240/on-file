@@ -12,7 +12,7 @@ Re: Your request for access to your health information, received [date received]
 
 We have completed a search of our records for information about you. The search covered our document, scanned-form, photo and recording folders and was carried out on our own system. [If the on-device model setting was confirmed at setup:] Your records were not sent to any outside service.
 
-We located [number of included files] records. They are listed in the enclosed list. [number of copies] are enclosed as copies. [If extracts exist:] [number of extracts] records also contain information about other patients; for those we enclose an extract with only the entries about you. [If retained or withheld items exist:] The following records are not enclosed because [reason]: [list].
+We located [number of included files] records. They are listed in the enclosed list. [number of copies] are enclosed as copies. [If extracts exist:] [number of extracts] records also contain information about other patients; for those we enclose an extract with only the entries about you. [If any record is withheld:] The following records are not enclosed: [list]. The reason is [basis for the denial]. [If the denial is reviewable:] You may ask for this decision to be reviewed by a licensed health care professional who was not involved in it, by writing to [contact]. You may also complain to us at [contact] or to the Secretary of the US Department of Health and Human Services, Office for Civil Rights.
 
 [If unreadable files exist:] We also located [number] files we could not open automatically and have reviewed them by hand: [outcome].
 
@@ -30,7 +30,7 @@ Re: Your subject access request received [date received]
 
 In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, with a list of the [number of included files] records it covers. Where a record also contains other people's data, we enclose an extract of the parts about you, as Article 15(4) requires. The search covered our document, scanned-form, photo and recording folders and was performed on our own system. [If the on-device model setting was confirmed at setup:] No data was sent to an outside service for this search.
 
-Purposes of processing: [purposes]. Recipients: [recipients or "none outside the organisation"]. Retention period: [period or criteria]. Source of the data: [source]. You have the right to rectification, erasure, restriction and objection, and the right to lodge a complaint with a supervisory authority.
+Purposes of processing: [purposes]. Recipients: [recipients or "none outside the organisation"]. Retention period: [period or criteria]. Source of the data: [source]. Automated decision-making, including profiling: [none, or details]. [If data was transferred outside the EU or UK:] Safeguards for that transfer: [safeguards]. You have the right to rectification, erasure, restriction and objection, and the right to lodge a complaint with a supervisory authority.
 
 [If withheld or redacted items exist:] The following items are withheld or redacted because [reason]: [list].
 

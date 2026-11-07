@@ -39,7 +39,7 @@ Input to every run: the requester's name only, no other identifiers, the way mos
 | Blind, access | 12 copies, 6 extracts | none planned | 0 | 0 | none deleted | 21 |
 | Blind, erasure | 3 deleted | yes | 0 | 0 | yes | 4 |
 
-No extract held a line that does not name the person. The approval counts are the ones the Skill states before act mode: one per action, one per 10 actions for the audit log, and one for the hand-over folder.
+Every extract kept only lines naming the person. That is the Skill's extract rule, which the replay applies, so it shows the rule leaves no other patient's row behind on these files; it does not test an extract written by the NAS document expert, which the Skill checks by the same rule before saving. The approval counts are the ones the Skill states before act mode: one per action, one per 10 actions for the audit log, and one for the hand-over folder.
 
 ## How the laptop stand-in differs from the NAS
 

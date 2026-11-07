@@ -22,7 +22,7 @@ The blind corpus was first run before the fixes it led to, and that run is the u
 
 With a same-name person in the folders and no answer given, the run stops and asks which intake form is the requester's.
 
-Act mode was replayed on a copy of each corpus from the planned actions (`act_replay.py`). In all six cases (access and erasure on three corpora), only the planned files changed and every other file kept its checksum, a second run acted on nothing, restored files matched their original checksums, and no extract held a line that does not name the person. The replays used the approval counts stated above: 42 for the main access case and 14 for the main erasure case.
+Act mode was replayed on a copy of each corpus from the planned actions (`act_replay.py`). In all six cases (access and erasure on three corpora), only the planned files changed and every other file kept its checksum, a second run acted on nothing, restored files matched their original checksums, and every extract kept only lines that name the person, which is the Skill's extract rule applied by the replay; extracts written by the NAS document expert are checked by the same rule before they are saved. The replays used the approval counts stated above: 42 for the main access case and 14 for the main erasure case.
 
 
 ## Known gaps
@@ -35,7 +35,7 @@ Act mode was replayed on a copy of each corpus from the planned actions (`act_re
 - Files that also hold other people's data: the Skill hands over an extract of the person's own entries and never deletes the file. Removing the person's entries from such a file is done by hand; the index lists the passages.
 - Retention: clinical and billing records are retained by default in an erasure request. The default is a starting point; the retention period that applies is the user's decision.
 - Erasure and backups: deleted files stay in the recycle bin until it is emptied or the recycle window ends, and in NAS snapshots and backups until their schedule removes them. The Skill does not change snapshots or backups.
-- Surveillance face identities are reported, not removed; the platform offers no removal action to a Skill.
+- Surveillance face identities are reported, not removed; the platform offers no removal action to a Skill. The camera and video searches matter for practices with reception cameras or recorded consultations, where CCTV of an identifiable person is personal data; elsewhere they return nothing quickly.
 - Video: the Skill reads subtitle files as text and searches the video library by title and description. The library search covers the whole library; results outside the folders in scope are discarded unread. Speech in a video without a subtitle file is transcribed only when the video is in the recordings list; a person seen but not named in a video is not found.
 - Approvals: a report-only run asks for four (saving the index and the enclosure list, drafting and saving the letter), plus one for a translation. An access hand-over asks for one per copy or extract, one per 10 files for the audit log and one for the hand-over folder: 42 for the main test case's 37 records. An erasure asks for one per deletion and one per 10 files for the audit log: 14 for the main test case's 12 deletions. The optional case tag adds up to three; closing an erasure case adds two. Each approval confirms one file the user has already seen on the enclosure list. The platform's copy action takes one file and its batch workflow documents no copy mode, so copies cannot share an approval; deletions are kept to one approval each on purpose, even though a batch deletion exists. The count is stated before the first approval and will be timed on the NAS in the final round.
 - Scale: reading documents and scans and transcribing recordings are the slowest searches. Above 2000 documents, 500 scans and images or 200 recordings in a folder, the Skill asks whether to process all, a date range, or none, and records the choice in the index.
@@ -59,7 +59,7 @@ The catalog lists these actions, but what they return has not been seen on a dev
 | Saving a text file keeps the case name in the file name | The saved path returned by each save is shown at close and recorded in the audit log, and a re-run is pointed at it |
 | The photo expert answers a question about an image with a quote | Answers are checked against the OCR text; an answer that cannot be checked sends the photo to the user |
 | Transcription accepts video files (mp4, mov) as well as audio | Videos are still searched by subtitle file and by library title; a video that cannot be transcribed is listed as unreadable |
-| The document expert reads up to 20 files for one question | A file missing from an answer's coverage is asked about again on its own |
+| One question to the document expert covers every file in a batch of 20 | A file missing from an answer's coverage is asked about again on its own |
 - Round 1 is static; all runtime behaviour is validated in the final round on the assigned NAS.
 
 ## Not legal advice
