@@ -8,7 +8,8 @@ This is a complete, fictional case so the shape of every output is clear before 
 - Person: Maria Lopez
 - Date received: 2026-11-03
 - Folders in scope: the practice's records folder, searched with all its subfolders
-- Case folder: a folder named dsar-2026-11-07-lopez-maria inside a restricted Requests share, outside the records folder
+- Case folder: a restricted Requests share, outside the records folder
+- Case name: dsar-2026-11-03-lopez-maria, proposed by the Skill and confirmed by the user
 - Mode: report only
 - Identifiers: none supplied; the request arrived as a name only
 
@@ -31,7 +32,7 @@ Total: 37 + 11 + 4 + 3 + 3 = 58 candidates
 
 ## Evidence index (excerpt, 13 of 58 rows)
 
-Columns: path, source, matched identifiers, passage, decision, decided by, other people in file, record type, planned action. The saved index also has the advocate and skeptic quotes and a sha256-before column; they are left out here for width.
+Columns: path, source, matched identifiers, passage, decision, decided by, other people in file, record type, planned action. The saved index is tab-separated and also has the description, the advocate and skeptic quotes and a sha256-before column; they are left out here for width. The index is internal: it quotes passages from excluded and undecided files, some about other people, so it is never sent to the requester.
 
 | Path | Source | Matched | Passage | Decision | By | Others in file | Type | Planned action |
 |---|---|---|---|---|---|---|---|---|
@@ -67,8 +68,9 @@ Planned hand-over: 30 copies and 7 extracts. The 7 files also hold other patient
 data, so only Maria Lopez's own entries would be handed over from them.
 
 Saved in the case folder:
-  evidence index   dsar-2026-11-07-lopez-maria-index.txt
-  reply letter     dsar-2026-11-07-lopez-maria-letter.txt (Template A, HIPAA access)
+  evidence index   dsar-2026-11-03-lopez-maria index.txt (internal, never sent)
+  enclosure list   dsar-2026-11-03-lopez-maria enclosure list.txt (sent with the letter)
+  reply letter     dsar-2026-11-03-lopez-maria letter.txt (Template A, HIPAA access)
 
 Please decide these 4 items (include or exclude):
   1. Admin/calendar-2025-Q1.csv (name only; the file also lists Maria Lopez-Ruiz)
@@ -84,13 +86,26 @@ Please check these 3 files by hand; I could not read them:
 
 No camera face identity matched. Nothing was copied or deleted (report-only mode).
 Also check systems outside these folders: practice software, x-ray archive, mail server.
-Approvals asked in this run: 3 (saving the index, drafting the letter, saving the letter).
+Approvals asked in this run: 4 (saving the index and the enclosure list, drafting and saving the letter).
 To hand over, run again in act mode with the same case name. Expect 30 copy
 approvals, 7 extract approvals, 4 audit-log approvals, 1 for the hand-over folder
-and 2 for the case tag.
+and up to 2 for the case tag.
 ```
 
-## Letter (Template A, filled from the index)
+## Enclosure list (excerpt, 6 of 37 rows; sent with the letter)
+
+Built from the included rows only. It holds no paths, no passages and no other person's name. The descriptions are written for this example; on the NAS they come from the step 5 description, checked to name no person.
+
+| Record | Type | Provided as |
+|---|---|---|
+| New patient intake form, 14 January 2025 | clinical | copy |
+| Consent for treatment, scanned, 14 January 2025 | clinical | copy |
+| Insurance claims batch, first quarter 2025 | billing | extract of your entries only |
+| Sign-in sheet photo, 14 January 2025 | clinical | extract of your entries only |
+| Post-treatment photo, 26 January 2025 | clinical | copy |
+| Voicemail, 15 February 2025 | correspondence | copy |
+
+## Letter (Template A, filled from the enclosure list)
 
 ```text
 Date: 2026-11-07
@@ -103,7 +118,7 @@ We have completed a search of our records for information about you. The search
 covered our document, scanned-form, photo and recording folders and was carried out
 on our own system; your records were not sent to any outside service.
 
-We located 37 records. They are listed in the attached index. 30 are enclosed as
+We located 37 records. They are listed in the enclosed list. 30 are enclosed as
 copies. 7 records also contain information about other patients; for those we enclose
 an extract with only the entries about you.
 
@@ -115,7 +130,7 @@ If you have questions about this response, contact [practice contact].
 [Signature block]
 ```
 
-The two bracketed fields stay bracketed because the index has nothing for them; the user fills them. The letter never names the other patients found in the same files.
+The two bracketed fields stay bracketed because the enclosure list has nothing for them; the user fills them. The letter never names the other patients found in the same files.
 
 ## Audit log (excerpt from the act-mode run of the same case)
 

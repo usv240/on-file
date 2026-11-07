@@ -14,8 +14,8 @@ Nothing is installed outside the Skills directory. No model, library or service 
 There is no configuration. Every run collects its inputs from the user (see Required input in `SKILL.md`). Five NAS settings affect results and are worth checking once:
 
 1. On-device models. In the AI settings, confirm that the document, photo and knowledge experts use the models that run on the NAS. The Skill itself never names a cloud model or an outside service, but which model an expert uses is a platform setting, and the privacy promise depends on it.
-2. Recycle bin enabled on the shares that will be in scope, so that erasure can be undone within the recycle window. The Skill warns before any deletion in a folder where it is not enabled.
-3. Knowledge index covering the folders that will be in scope, so content search finds recent text documents. Files not yet indexed are still caught by the file-name search and by the scan and image reading pass in step 3.
+2. Recycle bin enabled on the shares that will be in scope, so that erasure can be undone within the recycle window. The Skill cannot read this setting, so it asks in step 0 and repeats the answer before the first deletion.
+3. Knowledge index covering the folders that will be in scope, so content search finds text documents. A file not yet indexed is only partly covered: it is caught if its name or folder contains the person's name, and scans and images are caught by the reading pass in step 3, but a new text document with an unrelated name is missed until it is indexed.
 4. Photos indexing of the folders that hold phone photos, so OCR text and recognised people are searchable.
 5. A case-folder location outside the folders in scope that only the people handling requests can open. If there is none, the Skill offers to create a shared folder named Requests, hidden from users without permission; the user then sets who may open it. Case folders hold personal data: the index quotes passages, and access cases hold copies and extracts.
 
@@ -28,7 +28,7 @@ Remove the Skill from the Skills page (or uninstall it from the Skills Hub). The
 What remains after removal, all of it created on the user's request and kept deliberately as the record of the response:
 
 - The case folders the user named, each holding an evidence index, a letter and, for act runs, an audit log and a hand-over folder.
-- File tags named dsar followed by the case date and case name. They can be removed with the tag tools of the file manager.
+- File tags named dsar followed by the date received. They carry no names and can be removed with the tag tools of the file manager.
 - Deleted files in the recycle bin until the recycle window ends.
 - The Requests shared folder, if the user let the Skill create it.
 
@@ -60,7 +60,7 @@ The main corpus is the one the rules were developed on. The hard corpus uses a d
 
 Test cases and expected results:
 
-- Core 1, access, report-only, name only as input: every target file surfaced (included or on the confirmation list); 0 decoys, noise, same-name or household files auto-included; every unreadable file listed; every shared file planned as an extract, never as a whole copy; index and letter saved.
+- Core 1, access, report-only, name only as input: every target file surfaced (included or on the confirmation list); 0 decoys, noise, same-name or household files auto-included; every unreadable file listed; every shared file planned as an extract, never as a whole copy; index, enclosure list and letter saved; the letter's list of records names no other person.
 - Core 2, erasure, act mode: hash every file first with the scorer; approve each deletion; afterwards exactly the files planned for deletion are gone, retained and hand-edit files are unchanged, every other hash is unchanged, nothing was added, and the audit log has one completed line per deleted file with its recycle-bin path.
 - Edge, same-name person and unreadable files (hard corpus): the run stops once and asks which intake form is the requester's; after the answer, the mother's files are excluded or on the confirmation list, never included; the 3 unreadable files appear in the closing message with a reason.
 
@@ -68,7 +68,7 @@ The scorer reads the evidence index as a tab-separated file with at least the co
 
 ### Repeat use
 
-Run the access case twice with the same case name. Expected on the second run: the Skill reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new copy approval, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix.
+Run the access case twice with the same case name. Expected on the second run: the Skill finds and reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new approval for copies, the hand-over folder or the tag, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix.
 
 ### What to look at if a test fails
 

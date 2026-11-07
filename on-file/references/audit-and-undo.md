@@ -24,7 +24,7 @@ A re-run with the same case name first reads the saved evidence index and audit 
 
 Before acting (step 6) the Skill records sha256, size and modified time for every included file and for a sample of up to 20 files in scope that are not included, and saves them in the evidence index.
 
-After acting (step 8) it re-reads the sample and reports "untouched files verified: N of N unchanged". For erasure it confirms each deleted path is no longer present. Retained and hand-edit files are part of the not-acted-on set and must be unchanged.
+After acting (step 8) it re-reads the sample and every included file that was not changed (retained, to edit by hand, declined, pending, and every original that was only copied or extracted), and reports "untouched files verified: N of N unchanged". For erasure it confirms each deleted path is no longer present.
 
 This turns "nothing else was changed" from a claim into a measurement.
 
@@ -32,10 +32,10 @@ This turns "nothing else was changed" from a claim into a measurement.
 
 Deletions are performed by the file expert and go to the recycle bin where the NAS has it enabled. The delete returns the file's path in the recycle bin, and the audit log keeps it. To undo, the user names a file; the Skill takes its recycle-bin path from the log and asks the file expert to restore it. The restore waits for its own approval and is logged as a restore action.
 
-If the recycle bin is not enabled for a folder, the Skill says so in the closing message of the report-only run and again before the first deletion in that folder, so the user can decide to copy first.
+The Skill cannot read whether the recycle bin is enabled on a share, so it asks the user in step 0, records the answer in the index, and repeats it before the first deletion. If the answer is no, the user can copy the files to the case folder first or enable the recycle bin before going on.
 
 Erasure is complete only when the recycle-bin entry is emptied or expires. NAS snapshots and backups keep their own copies until their schedule removes them; the Skill does not touch them, and the closing message and Template C say so.
 
 ## Case tag
 
-At the end of an act run the Skill creates one tag named dsar followed by the case date and case name (one approval) and attaches it in one call (one approval). For access requests it is attached to every original that was copied or extracted. For erasure requests the deleted files are gone, so it is attached to the evidence index and the audit log in the case folder. Later, the user can list everything belonging to the case by tag.
+At the end of an act run the Skill looks for a tag named dsar followed by the date received, creates it if it does not exist (one approval), and attaches it to the files in one call (up to one approval). The tag carries the date only, never the person's name, because tags are visible to every NAS user who can see a file. For access requests it is attached to every original that was copied or extracted. For erasure requests the deleted files are gone, so it is attached to the case files in the case folder. Files that already carry the tag are skipped, so a re-run asks for no new tag approval. Later, the user can list everything belonging to the case by tag, and the index says which person each date belongs to.

@@ -1,6 +1,6 @@
 # Letter templates
 
-The writing step fills these templates from the evidence index only. Square-bracket fields are filled from the request input and the index; the wording around them stays as written. Nothing is added that is not in the index, and no other person is ever named.
+The writing step fills these templates from the enclosure list only, never from the evidence index. The enclosure list holds the included records only: a description, the record type and how each is provided. The evidence index is internal and is never sent, because it quotes passages from excluded and undecided files that can be about other people. Square-bracket fields are filled from the request input and the enclosure list; the wording around them stays as written. Nothing is added that is not in the enclosure list, and no other person is ever named.
 
 ## Template A. HIPAA access response
 
@@ -12,7 +12,7 @@ Re: Your request for access to your health information, received [date received]
 
 We have completed a search of our records for information about you. The search covered our document, scanned-form, photo and recording folders and was carried out on our own system; your records were not sent to any outside service.
 
-We located [number of included files] records. They are listed in the attached index. [number of copies] are enclosed as copies. [If extracts exist:] [number of extracts] records also contain information about other patients; for those we enclose an extract with only the entries about you. [If retained or withheld items exist:] The following records are not enclosed because [reason]: [list].
+We located [number of included files] records. They are listed in the enclosed list. [number of copies] are enclosed as copies. [If extracts exist:] [number of extracts] records also contain information about other patients; for those we enclose an extract with only the entries about you. [If retained or withheld items exist:] The following records are not enclosed because [reason]: [list].
 
 [If unreadable files exist:] We also located [number] files we could not open automatically and have reviewed them by hand: [outcome].
 
@@ -28,7 +28,7 @@ To: [person's full name]
 
 Re: Your subject access request received [date received]
 
-In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, listed in the attached index ([number of included files] items). Where a record also contains other people's data, we enclose an extract of the parts about you, as Article 15(4) requires. The search covered the folders named in the index and was performed entirely on our own system.
+In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, with a list of the [number of included files] records it covers. Where a record also contains other people's data, we enclose an extract of the parts about you, as Article 15(4) requires. The search covered our document, scanned-form, photo and recording folders and was performed entirely on our own system.
 
 Purposes of processing: [purposes]. Recipients: [recipients or "none outside the organisation"]. Retention period: [period or criteria]. Source of the data: [source]. You have the right to rectification, erasure, restriction and objection, and the right to lodge a complaint with a supervisory authority.
 
@@ -60,7 +60,7 @@ The search was performed on our own system; no data was transferred to an outsid
 
 ## Rules for filling
 
-- "File descriptions" are the human description of each item (for example "intake form dated 12 March 2025"), not file paths, unless the user asks for paths.
+- "File descriptions" are the descriptions from the enclosure list (for example "intake form dated 14 January 2025"), not file paths. Each description was checked in step 5 to name no person.
 - The letter never names other people found in the same files.
 - The hand-edited and surveillance sentences are filled by the user after doing the manual step; until then the brackets stay.
 - If the writing delegation does not complete, the unfilled template is saved next to the evidence index and the user fills it.
