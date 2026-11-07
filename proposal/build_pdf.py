@@ -24,8 +24,8 @@ MUTED = colors.HexColor("#5c6470")
 RULE = colors.HexColor("#c9ced6")
 ACCENT = colors.HexColor("#0b5fa5")
 
-body = ParagraphStyle("body", fontName="Helvetica", fontSize=9.6, leading=13.2, textColor=INK, alignment=TA_LEFT, spaceAfter=4)
-q = ParagraphStyle("q", parent=body, fontName="Helvetica-Bold", fontSize=9.8, leading=13, spaceBefore=6, spaceAfter=1.5, textColor=INK)
+body = ParagraphStyle("body", fontName="Helvetica", fontSize=9.4, leading=12.6, textColor=INK, alignment=TA_LEFT, spaceAfter=3)
+q = ParagraphStyle("q", parent=body, fontName="Helvetica-Bold", fontSize=9.6, leading=12.4, spaceBefore=5, spaceAfter=1.2, textColor=INK)
 title = ParagraphStyle("title", parent=body, fontName="Helvetica-Bold", fontSize=20, leading=24, spaceAfter=2)
 sub = ParagraphStyle("sub", parent=body, fontSize=9.2, textColor=MUTED, spaceAfter=6)
 small = ParagraphStyle("small", parent=body, fontSize=8.4, leading=11.4, textColor=MUTED, spaceAfter=3)
@@ -40,7 +40,7 @@ class Flow(Flowable):
     def __init__(self, width: float):
         super().__init__()
         self.width = width
-        self.height = 17 * mm
+        self.height = 19.5 * mm
 
     def draw(self):
         c = self.canv
@@ -48,7 +48,7 @@ class Flow(Flowable):
         gap = 4.2 * mm
         bw = (self.width - gap * (n - 1)) / n
         bh = 12.5 * mm
-        y = (self.height - bh) / 2
+        y = self.height - bh - 0.5 * mm
         for i, lab in enumerate(self.LABELS):
             x = i * (bw + gap)
             writes = i == 5
@@ -109,7 +109,7 @@ def main():
     assert words <= 500, "over the 500-word limit"
     assert "—" not in md and "–" not in md, "dash characters found"
 
-    doc = SimpleDocTemplate(str(OUT), pagesize=A4, leftMargin=18 * mm, rightMargin=18 * mm, topMargin=15 * mm, bottomMargin=14 * mm,
+    doc = SimpleDocTemplate(str(OUT), pagesize=A4, leftMargin=18 * mm, rightMargin=18 * mm, topMargin=13 * mm, bottomMargin=12 * mm,
                             title=doc_title + " proposal", author="Ujwal Vanjare", subject="UGREEN Hackathon 2026 on AI NAS, Round 1")
     W = A4[0] - doc.leftMargin - doc.rightMargin
     story = [Paragraph(esc(doc_title), title), Paragraph(esc(doc_sub), sub), Flow(W),
@@ -117,16 +117,17 @@ def main():
              HRFlowable(width="100%", thickness=0.6, color=RULE, spaceAfter=4)]
     for qline, ans in items:
         story.append(KeepTogether([Paragraph(esc(qline), q), Paragraph(esc(ans), body)]))
-    story += [Spacer(1, 4), HRFlowable(width="100%", thickness=0.6, color=RULE, spaceBefore=2, spaceAfter=5),
-              Paragraph("Not counted toward the 500 words", ParagraphStyle("nc", parent=small, fontName="Helvetica-Bold"))]
+    tail = [Spacer(1, 4), HRFlowable(width="100%", thickness=0.6, color=RULE, spaceBefore=2, spaceAfter=5),
+            Paragraph("Not counted toward the 500 words", ParagraphStyle("nc", parent=small, fontName="Helvetica-Bold"))]
     for p in notes:
         if p.startswith("Test corpus"):
             label, _, url = p.partition(": ")
             p_html = f'{esc(label)}: <a href="{url}" color="#0b5fa5">{esc(url)}</a>'
-            story.append(Paragraph(p_html, small))
+            tail.append(Paragraph(p_html, small))
         else:
-            story.append(Paragraph(esc(p), small))
-    story.append(Paragraph(f"Word count of the ten answers: {words}. Laptop numbers in item 8 are stand-in measurements and will be replaced by NAS results in Round 2.", small))
+            tail.append(Paragraph(esc(p), small))
+    tail.append(Paragraph(f"Word count of the ten answers: {words}. Laptop numbers in item 8 are stand-in measurements and will be replaced by NAS results in Round 2.", small))
+    story.append(KeepTogether(tail))
     doc.build(story)
     size = OUT.stat().st_size
     print(f"wrote {OUT} ({size} bytes)")
