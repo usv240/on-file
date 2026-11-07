@@ -35,13 +35,27 @@ Earlier versions and what each fixed are recorded with the test corpora.
 - Erasure and backups: deleted files stay in the recycle bin until it is emptied or the recycle window ends, and in NAS snapshots and backups until their schedule removes them. The Skill does not change snapshots or backups.
 - Surveillance face identities are reported, not removed; the platform offers no removal action to a Skill.
 - Video: the Skill reads subtitle files as text and searches the video library by title and description. The library search covers the whole library; results outside the folders in scope are discarded unread. Speech in a video without a subtitle file is transcribed only when the video is in the recordings list; a person seen but not named in a video is not found.
-- Approvals: a report-only run asks for four (saving the index and the enclosure list, drafting and saving the letter), plus one for a translation. An access hand-over asks for one per copy or extract, one per 10 files for the audit log, one for the hand-over folder and up to three for the case tag: 45 for the main test case. An erasure asks for one per deletion and one audit-log write after each, because a restore needs the recycle-bin path: 27 for the main test case's 12 deletions. The platform's copy action takes one file; deletions are kept to one approval each on purpose, even though a batch deletion exists. The count is stated before the first approval and will be timed on the NAS in the final round.
+- Approvals: a report-only run asks for four (saving the index and the enclosure list, drafting and saving the letter), plus one for a translation. An access hand-over asks for one per copy or extract, one per 10 files for the audit log and one for the hand-over folder: 42 for the main test case's 37 records. An erasure asks for one per deletion and one audit-log write after each, because a restore needs the recycle-bin path, plus one final write: 25 for the main test case's 12 deletions. The optional case tag adds up to three; closing an erasure case adds two. Each approval confirms one file the user has already seen on the enclosure list. The platform's copy action takes one file and its batch workflow documents no copy mode, so copies cannot share an approval; deletions are kept to one approval each on purpose, even though a batch deletion exists. The count is stated before the first approval and will be timed on the NAS in the final round.
 - Scale: reading scans and transcribing recordings are the slowest searches. Above 500 scans and images or 200 recordings in a folder, the Skill asks whether to process all, a date range, or none, and records the choice in the index.
 - Permissions: the Skill runs with the NAS account of the user who starts it. A folder that account cannot read is listed as not searched. The Skill never changes share or folder permissions; protecting the case folder is a setup step.
 - Models: the Skill never calls an outside service, but which model each NAS expert uses is a platform setting. The setup asks the user to confirm the on-device models, and the letter's sentence that records were not sent to an outside service is included only after that confirmation.
 - Identity: the Skill does not verify who the requester is. Before an access hand-over, the user confirms the identity check was done.
 - Search index: the content search depends on the NAS knowledge index covering the folders in scope. A file not yet indexed is caught only if its name or folder contains the person's name, or, for scans and images, by the reading pass; a new text document with an unrelated name is missed until indexed. The Skill says this in the closing message when a scope folder returned no content hits but did return file-name hits.
 - The audit log is a plain append-only text file with its checksum reported at close. It shows later edits; it does not prevent them.
+
+## Not yet confirmed on a NAS, with the fallback for each
+
+The catalog lists these actions, but what they return has not been seen on a device. Each has a fallback, so an unexpected answer never drops a file silently.
+
+| Assumption | If it does not hold |
+|---|---|
+| The content search returns every file that contains the exact term, not only the top matches | Files are still caught by the file-name pass and the scan and image reading pass; the closing message reports the content-search count per folder, so a short result is visible |
+| The document expert reads text in scanned PDF pages | A PDF with no text returned is listed as unreadable, "scanned pages not read", for the user to check |
+| The document metadata action returns author and last-modified-by | The index records "properties not read" for the file |
+| The photo metadata action returns the image description | The index records "properties not read"; the photo is still searched by its text and by recognised faces |
+| The delete returns the file's recycle-bin path | The original path is logged, and a restore looks for the file by name in the share's recycle-bin folder |
+| Saving a text file keeps the case name in the file name | The saved path returned by each save is shown at close and recorded in the audit log, and a re-run is pointed at it |
+| The photo expert answers a question about an image with a quote | Answers are checked against the OCR text; an answer that cannot be checked sends the photo to the user |
 - Round 1 is static; all runtime behaviour is validated in the final round on the assigned NAS.
 
 ## Not legal advice

@@ -28,7 +28,7 @@ Remove the Skill from the Skills page (or uninstall it from the Skills Hub). The
 What remains after removal, all of it created on the user's request and kept deliberately as the record of the response:
 
 - The case folders the user named, each holding an evidence index, a letter and, for act runs, an audit log and a hand-over folder.
-- File tags named dsar followed by the date received. They carry no names and can be removed with the tag tools of the file manager.
+- If the user chose to tag cases, a tag named dsar followed by the date received on the files in each case folder. It carries no names, is never on the person's own files, and can be removed with the tag tools of the file manager.
 - Deleted files in the recycle bin until the recycle window ends.
 - The Requests shared folder, if the user let the Skill create it.
 
@@ -68,7 +68,7 @@ The scorer reads the evidence index as a tab-separated file with at least the co
 
 ### Repeat use
 
-Run the access case twice with the same case name. Expected on the second run: the Skill finds and reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new approval for copies, the hand-over folder or the tag, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix.
+Run the access case twice with the same case name. Expected on the second run: the Skill finds and reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new approval for copies, the hand-over folder or the tag, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix. Decide the needs-confirmation items in the first run; the second run must not ask about them again, because they are read from the decisions file.
 
 ### What to look at if a test fails
 

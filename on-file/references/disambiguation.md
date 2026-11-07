@@ -38,7 +38,7 @@ For every candidate where the rules above call for them, the parent asks the doc
 1. Advocate: quote every passage showing this is the same person as described by the identifiers.
 2. Skeptic: quote every passage showing this is a different person (different date of birth, ID, email or phone, a generational suffix such as Sr. or Jr., an employer, a role, a relationship).
 
-For a photo or scan the expert reads the image; for a recording it reads the transcript.
+For documents and PDFs the document expert answers; for a photo or scanned image the photo expert answers, and its quotes are checked against the OCR text. Recordings get no model check: a recording with the name only, or only a phone number or address, goes to the user with its transcript sentence.
 
 | Advocate | Skeptic | Decision |
 |---|---|---|

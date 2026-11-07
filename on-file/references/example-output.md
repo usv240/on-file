@@ -72,7 +72,8 @@ Saved in the case folder:
   enclosure list   dsar-2026-11-03-lopez-maria enclosure list.txt (sent with the letter)
   reply letter     dsar-2026-11-03-lopez-maria letter.txt (Template A, HIPAA access)
 
-Please decide these 4 items (include or exclude):
+Please decide these 4 items (include or exclude). Your answers are saved in
+dsar-2026-11-03-lopez-maria decisions.txt, so you are never asked twice:
   1. Admin/calendar-2025-Q1.csv (name only; the file also lists Maria Lopez-Ruiz)
   2. Patients/Lopez, Maria/treatment-plan-summary.docx (name only in document properties)
   3. Patients/Lopez, Maria/referral-note-to-orthodontist.docx (name only in document properties)
@@ -87,10 +88,10 @@ Please check these 3 files by hand; I could not read them:
 No camera face identity matched. Nothing was copied or deleted (report-only mode).
 Also check systems outside these folders: practice software, x-ray archive, mail server.
 Approvals asked in this run: 4 (saving the index and the enclosure list, drafting and saving the letter).
-To hand over, run again in act mode with the same case name. Expect 30 copy
-approvals, 7 extract approvals, 4 audit-log approvals, 1 for the hand-over folder
-and up to 3 for the case tag: 45 in all. Before act mode, confirm
-that Maria Lopez's identity was checked.
+To hand over, run again in act mode with the same case name. Expect 42 approvals:
+30 copies, 7 extracts, 4 audit-log writes and the hand-over folder, each a single
+confirmation of a record already on the enclosure list. Tagging the case is optional
+(up to 3 more). Before act mode, confirm that Maria Lopez's identity was checked.
 ```
 
 ## Enclosure list (excerpt, 6 of 37 rows; sent with the letter)
