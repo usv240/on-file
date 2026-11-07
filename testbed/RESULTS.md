@@ -4,35 +4,44 @@ These numbers come from `standin_run.py` replaying the Skill's workflow on a lap
 
 Input to every run: the name "Maria Lopez" only, no other identifiers, the way most requests arrive.
 
-## Run 4 (2026-11-07, current rules)
+## Run 5 (2026-11-07, current rules)
 
 | Measure | Main corpus (122 files) | Hard corpus (129 files) |
 |---|---|---|
 | Target files shown to the user (included or on the confirmation list) | 40 of 40 | 43 of 43 |
-| Target files included automatically | 37 | 35 |
-| Precision of automatic inclusion | 37 of 37 | 35 of 35 |
-| Decoy, Maria Lopez-Ruiz, included automatically | 0 of 12 (11 excluded, 1 to the user) | 0 of 12 (10 excluded, 2 to the user) |
+| Target files included automatically | 37 | 34 |
+| Precision of automatic inclusion | 37 of 37 | 34 of 34 |
+| Decoy, Maria Lopez-Ruiz, included automatically | 0 of 12 (11 excluded, 1 to the user) | 0 of 12 (11 excluded, 1 to the user) |
 | Noise (Lopez Construction, Mario Lopez, Lopez Avenue) included automatically | 0 of 10 | 0 of 10 |
 | Same-name mother at the same address included automatically | not in corpus | 0 of 3 (2 excluded, 1 to the user) |
 | Spouse at the same address included automatically | not in corpus | 0 of 1 (excluded) |
 | Unreadable files listed with a reason | 3 of 3 | 3 of 3 |
-| Shared files (other patients' data) flagged | 7 of 7 | 8 of 8 |
+| Included shared files (other patients' data) flagged | 7 of 7 | 7 of 7 |
 | Single-person files wrongly flagged as shared | 0 of 30 | 0 of 27 |
-| Record type correct | 36 of 37 | 33 of 35 |
-| Confirmation list | 4 (3 target, 1 decoy) | 11 (8 target, 1 mother, 2 decoy) |
-| Planned access actions | 30 copies, 7 extracts | 27 copies, 8 extracts |
-| Planned erasure actions | 12 delete, 18 retain, 7 edit by hand | 9 delete, 18 retain, 8 edit by hand |
-| Wall time | 391 s | 392 s |
+| Record type correct | 36 of 37 | 32 of 34 |
+| Confirmation list | 4 (3 target, 1 decoy) | 11 (9 target, 1 mother, 1 decoy) |
+| Planned access actions | 30 copies, 7 extracts | 27 copies, 7 extracts |
+| Planned erasure actions | 12 delete, 18 retain, 7 edit by hand | 9 delete, 18 retain, 7 edit by hand |
+| Wall time | 353 s | 355 s |
 
-Run directories: `run4_main`, `run4_hard`, and `run4_hard_noanswer`. The last one is the hard corpus without an answer to the question. It stopped after 85 s in the waiting-for-user state and asked which of the two exact-name intake forms, born 1958 or 1984, is the requester's. `run4_hard` is the same corpus with that answer given as 1984 through `--choose-dob`.
+Run directories: `run5_main`, `run5_hard`, and `run4_hard_noanswer`. The last is the hard corpus without an answer to the question. It stopped after 85 s in the waiting-for-user state and asked which of the two exact-name intake forms, born 1958 or 1984, is the requester's. That stage did not change between runs 4 and 5. `run5_hard` is the same corpus with the answer given as 1984 through `--choose-dob`.
 
-On the hard corpus, 8 target files went to the user. Four are recall letters addressed to "Maria Lopez, 18 Birch Lane". Once the mother at the same address is known, those letters could be for either woman, so the user decides. The other four are the calendar, two files with the name only in document properties, and a subtitle file with the name only.
+On the hard corpus, 9 target files went to the user:
+
+- Four recall letters addressed to "Maria Lopez, 18 Birch Lane". Once the mother at the same address is known, they could be for either woman.
+- A lab pickup sheet with only the name and a phone number. Since run 5, a file with the exact name and only a phone or address gets the against-check first, because a same-name relative at the same home would match too. The model's against-quote here was the requester's own line, weak evidence, and the rule sends any such quote to the user, which is the safe direction.
+- The calendar, two files with the name only in document properties, and a subtitle file with the name only.
+
+Shared files: the main corpus has 8 and the hard corpus 9. The included ones were all flagged. The rest (the calendar, and in the hard corpus the lab sheet) went to the user before any action.
+
+Run 4 differed from run 5 only in that rule. It included the lab sheet automatically, which was correct, and put one more decoy email on the confirmation list instead of excluding it. Files decided by an identifier gave the same result in every run. Files decided by the model's two checks can vary between runs, which is why the checks can send a file to the user or exclude it with a quote, but never include it.
 
 What changed from run 3, and why. A review of the first package against the judging criteria found gaps, and each became a rule:
 
 - Files that also hold other patients' data are handed over as extracts and never deleted. The model is asked to list the people named in a file, with roles. An earlier version asked yes or no, and Qwen3 4B answered no for a sign-in sheet that names three other patients. Asked for a list, it named all three.
 - In an erasure request, clinical and billing records are retained by default, with the reason.
 - An ID or personal email belongs to one person. A birth date, phone or address can be shared by a household, so it counts only with the exact name. When a same-name person is found, the Skill stops and asks, then excludes that person's identifiers.
+- A file with the exact name and only a phone number or address gets the against-check before it is included, because a same-name relative at the same home would match too. The user confirms the identifiers taken from an intake form before they are used; the harness assumes that confirmation.
 - Names match in surname-first order and without accents. Phone numbers match by digits. Birth dates match in common formats.
 - Every quoted passage must exist in the file. Evidence for inclusion must name the person. An automatic exclusion needs a quote showing a longer name or a same-name person's identifier. A model's opinion alone never includes a file, and never excludes one without such a quote.
 

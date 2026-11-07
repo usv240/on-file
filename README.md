@@ -48,10 +48,10 @@ Qwen3 4B and Qwen3-VL 2B through Ollama stand in for the NAS models. Input was t
 | Measure | Main | Hard |
 |---|---|---|
 | Requester's files found | 40 of 40 | 43 of 43 |
-| Included automatically, none wrong | 37 | 35 |
+| Included automatically, none wrong | 37 | 34 |
 | Look-alike files included | 0 of 22 | 0 of 26 |
 | Unreadable files listed | 3 of 3 | 3 of 3 |
-| Shared files flagged for extraction | 7 of 7 | 8 of 8 |
+| Included shared files flagged for extraction | 7 of 7 | 7 of 7 |
 | Items left for the user | 4 | 11 |
 
 Details, the earlier runs and what each fix changed are in `testbed/RESULTS.md`. These numbers will be replaced by NAS measurements in Round 2.

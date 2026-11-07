@@ -5,7 +5,7 @@
 The Skill is a Markdown package: `SKILL.md` and the `references/` folder, nothing else. It has no scripts, no binaries and no configuration file.
 
 - Round 1 (static): unzip the package and run the official Uliya Skill Kit checker on the folder. Expected result: static-pass with zero errors, zero warnings and zero notes.
-- On the NAS: add the package through the UGOS AI assistant's Skills page, or install it from the UGREEN Skills Hub once published there. The Skill appears under the name `on-file` and is triggered by requests such as "a patient asked for everything we hold about her" or "a customer asked to be deleted".
+- On the NAS: add the package through the UGOS AI assistant's Skills page, or install it from the UGREEN Skills Hub once published there. The Skill appears under the name `on-file` and is triggered by requests such as "a patient asked for everything we hold about them" or "a customer asked to be deleted".
 
 Nothing is installed outside the Skills directory. No model, library or service is downloaded.
 
@@ -13,7 +13,7 @@ Nothing is installed outside the Skills directory. No model, library or service 
 
 There is no configuration. Every run collects its inputs from the user (see Required input in `SKILL.md`). Five NAS settings affect results and are worth checking once:
 
-1. On-device models. In the AI settings, confirm that the document, photo and knowledge experts use the models that run on the NAS. The Skill itself never names a cloud model or an outside service, but which model an expert uses is a platform setting, and the privacy promise depends on it.
+1. On-device models. In the AI settings, confirm that the document, photo and knowledge experts use the models that run on the NAS. The Skill itself never names a cloud model or an outside service, but which model an expert uses is a platform setting, and the privacy promise depends on it. The letter states that records were not sent to an outside service only when this is confirmed.
 2. Recycle bin enabled on the shares that will be in scope, so that erasure can be undone within the recycle window. The Skill cannot read this setting, so it asks in step 0 and repeats the answer before the first deletion.
 3. Knowledge index covering the folders that will be in scope, so content search finds text documents. A file not yet indexed is only partly covered: it is caught if its name or folder contains the person's name, and scans and images are caught by the reading pass in step 3, but a new text document with an unrelated name is missed until it is indexed.
 4. Photos indexing of the folders that hold phone photos, so OCR text and recognised people are searchable.

@@ -12,7 +12,7 @@ One plain-text file in the case folder, written with the file expert in append m
 - `approval state` is approved, pending or declined as reported by the platform for that file.
 - `note` holds the recycle-bin path of a deleted file, the failure reason, "declined by user", "already done", or "duplicate of" plus the original path.
 
-When it is written: after every 10 files acted on, when the user stops the run, and at the end. Each write is an append and asks for one platform approval, so a 12-file erasure asks for 12 deletion approvals and 2 log approvals rather than 24. The log is never rewritten.
+When it is written: after every deletion, because a restore needs the recycle-bin path that the deletion returned; after every 10 copies or extracts; when the user stops the run; and at the end. Each write is an append and asks for one platform approval, so a 12-file erasure asks for 12 deletion and 12 log approvals, and a 37-file hand-over for 37 and 4. The log is never rewritten.
 
 At the close, the Skill reports the audit log's own sha256. The user keeps that value with the case; if the log is edited later, its checksum no longer matches. The log is a record, not a tamper-proof ledger.
 
@@ -38,4 +38,4 @@ Erasure is complete only when the recycle-bin entry is emptied or expires. NAS s
 
 ## Case tag
 
-At the end of an act run the Skill looks for a tag named dsar followed by the date received, creates it if it does not exist (one approval), and attaches it to the files in one call (up to one approval). The tag carries the date only, never the person's name, because tags are visible to every NAS user who can see a file. For access requests it is attached to every original that was copied or extracted. For erasure requests the deleted files are gone, so it is attached to the case files in the case folder. Files that already carry the tag are skipped, so a re-run asks for no new tag approval. Later, the user can list everything belonging to the case by tag, and the index says which person each date belongs to.
+At the end of an act run the Skill looks for a tag named dsar followed by the date received, creates and names it if it does not exist (up to two approvals), and attaches it to the files in one call (up to one approval). The tag carries the date only, never the person's name, because tags are visible to every NAS user who can see a file. For access requests it is attached to every original that was copied or extracted. For erasure requests the deleted files are gone, so it is attached to the case files in the case folder. Files that already carry the tag are skipped, so a re-run asks for no new tag approval. Later, the user can list everything belonging to the case by tag, and the index says which person each date belongs to.

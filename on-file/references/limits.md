@@ -9,17 +9,17 @@ Input was the requester's name only, the way most requests arrive. Stand-ins: Qw
 | Measure | Main corpus | Hard corpus |
 |---|---|---|
 | Files about the requester shown to the user | 40 of 40 | 43 of 43 |
-| Included automatically | 37 | 35 |
+| Included automatically | 37 | 34 |
 | Automatically included files that were wrong | 0 | 0 |
 | Look-alike files included automatically (longer name, company, staff member, street, same-name mother, spouse) | 0 of 22 | 0 of 26 |
 | Unreadable files listed with a reason | 3 of 3 | 3 of 3 |
-| Files holding other patients' data flagged, so they are extracted and never deleted | 7 of 7 | 8 of 8 |
+| Included files holding other patients' data flagged, so they are extracted and never deleted | 7 of 7 | 7 of 7 |
 | Single-person files wrongly flagged as shared | 0 of 30 | 0 of 27 |
-| Record type correct (drives the retention default) | 36 of 37 | 33 of 35 |
+| Record type correct (drives the retention default) | 36 of 37 | 32 of 34 |
 | Items the user had to decide | 4 | 11 |
-| Time on a laptop | about 6.5 minutes | about 6.5 minutes |
+| Time on a laptop | about 6 minutes | about 6 minutes |
 
-The hard corpus's longer confirmation list is the intended behaviour: once a same-name mother at the same address is known, a letter addressed to "Maria Lopez, 18 Birch Lane" could be for either of them, and only a person can tell. The same corpus without an answer stopped after about 1.5 minutes and asked which of the two intake forms, born 1958 or 1984, is the requester's.
+The other shared files went to the user before any action: the calendar in both corpora, and in the hard corpus a lab sheet that carries only the name and a phone number. The hard corpus's longer confirmation list is the intended behaviour: once a same-name mother at the same address is known, a letter addressed to "Maria Lopez, 18 Birch Lane" could be for either of them, and only a person can tell. The same corpus without an answer stopped after about 1.5 minutes and asked which of the two intake forms, born 1958 or 1984, is the requester's.
 
 Earlier versions and what each fixed are recorded with the test corpora.
 
@@ -35,10 +35,11 @@ Earlier versions and what each fixed are recorded with the test corpora.
 - Erasure and backups: deleted files stay in the recycle bin until it is emptied or the recycle window ends, and in NAS snapshots and backups until their schedule removes them. The Skill does not change snapshots or backups.
 - Surveillance face identities are reported, not removed; the platform offers no removal action to a Skill.
 - Video: the Skill reads subtitle files as text and searches the video library by title and description. The library search covers the whole library; results outside the folders in scope are discarded unread. Speech in a video without a subtitle file is transcribed only when the video is in the recordings list; a person seen but not named in a video is not found.
-- Approvals: act mode asks for one approval per copy, extract or deletion, plus one per audit-log checkpoint (every 10 files), one for the hand-over folder and up to two for the case tag; the main test case comes to 44. A report-only run asks for four: saving the index, saving the enclosure list, drafting the letter and saving the letter, plus one for a translation. One approval per file is deliberate even though the platform offers a batch deletion: each copy discloses a record to someone outside the practice and each deletion removes one. The count is stated before the first approval and will be timed on the NAS in the final round.
+- Approvals: a report-only run asks for four (saving the index and the enclosure list, drafting and saving the letter), plus one for a translation. An access hand-over asks for one per copy or extract, one per 10 files for the audit log, one for the hand-over folder and up to three for the case tag: 45 for the main test case. An erasure asks for one per deletion and one audit-log write after each, because a restore needs the recycle-bin path: 27 for the main test case's 12 deletions. The platform's copy action takes one file; deletions are kept to one approval each on purpose, even though a batch deletion exists. The count is stated before the first approval and will be timed on the NAS in the final round.
 - Scale: reading scans and transcribing recordings are the slowest searches. Above 500 scans and images or 200 recordings in a folder, the Skill asks whether to process all, a date range, or none, and records the choice in the index.
 - Permissions: the Skill runs with the NAS account of the user who starts it. A folder that account cannot read is listed as not searched. The Skill never changes share or folder permissions; protecting the case folder is a setup step.
-- Models: the Skill never calls an outside service, but which model each NAS expert uses is a platform setting. The setup asks the user to confirm the on-device models.
+- Models: the Skill never calls an outside service, but which model each NAS expert uses is a platform setting. The setup asks the user to confirm the on-device models, and the letter's sentence that records were not sent to an outside service is included only after that confirmation.
+- Identity: the Skill does not verify who the requester is. Before an access hand-over, the user confirms the identity check was done.
 - Search index: the content search depends on the NAS knowledge index covering the folders in scope. A file not yet indexed is caught only if its name or folder contains the person's name, or, for scans and images, by the reading pass; a new text document with an unrelated name is missed until indexed. The Skill says this in the closing message when a scope folder returned no content hits but did return file-name hits.
 - The audit log is a plain append-only text file with its checksum reported at close. It shows later edits; it does not prevent them.
 - Round 1 is static; all runtime behaviour is validated in the final round on the assigned NAS.

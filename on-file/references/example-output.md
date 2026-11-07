@@ -42,7 +42,7 @@ Columns: path, source, matched identifiers, passage, decision, decided by, other
 | Photos/IMG_20250114_0917.jpg | text in photo | name, ID | 09:10 Maria Lopez LD-10432 | included | auto | yes | clinical | extract |
 | Photos/DSC_0412.jpg | caption | name, ID | Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26 | included | auto | no | clinical | copy |
 | Voicemail/vm_2025-02-15_10.m4a | recording | name, phone, ID | Hi, this is Maria Lopez, patient ID LD-10432 ... call me back on (555) 014-2231 | included | auto | no | correspondence | copy |
-| Admin/Recall-Letters/recall-2025-07-05-01.pdf | content | name, address | Maria Lopez, 18 Birch Lane, Lakeside | included | auto | no | correspondence | copy |
+| Admin/Recall-Letters/recall-2025-07-05-01.pdf | content | name, address | Maria Lopez, 18 Birch Lane, Lakeside | included | auto, against-check clear | no | correspondence | copy |
 | Admin/calendar-2025-Q1.csv | content | name | 2025-01-13, 10:30, Maria Lopez, Dr. Anita Rowe | needs your decision: the same file lists Maria Lopez-Ruiz on 2025-01-15 | user | | | |
 | Patients/Lopez, Maria/treatment-plan-summary.docx | folder name, properties | name | last modified by: Maria Lopez | needs your decision: name only in the document properties | user | | | |
 | Admin/Invoices/invoices-2025-extractions-1.xlsx | content | longer name | Maria Lopez-Ruiz, Extraction, LD-11871 | needs your decision: a longer name is never included automatically | user | | | |
@@ -63,7 +63,7 @@ Search complete for Maria Lopez (HIPAA access): 1 folder with its subfolders, 12
 Due 2026-12-03, 26 days left.
 Included 37, excluded 14, needs your decision 4, unreadable 3, duplicates 0.
 Identifiers used: the name, plus email, phone, date of birth, address and patient ID
-from the intake form dated 2025-01-14.
+from the intake form dated 2025-01-14, which you confirmed as the requester's.
 Planned hand-over: 30 copies and 7 extracts. The 7 files also hold other patients'
 data, so only Maria Lopez's own entries would be handed over from them.
 
@@ -89,7 +89,8 @@ Also check systems outside these folders: practice software, x-ray archive, mail
 Approvals asked in this run: 4 (saving the index and the enclosure list, drafting and saving the letter).
 To hand over, run again in act mode with the same case name. Expect 30 copy
 approvals, 7 extract approvals, 4 audit-log approvals, 1 for the hand-over folder
-and up to 2 for the case tag.
+and up to 3 for the case tag: 45 in all. Before act mode, confirm
+that Maria Lopez's identity was checked.
 ```
 
 ## Enclosure list (excerpt, 6 of 37 rows; sent with the letter)
@@ -136,7 +137,7 @@ The two bracketed fields stay bracketed because the enclosure list has nothing f
 
 ```text
 2026-11-07 14:02:11 | copy    | Patients/Lopez, Maria/intake-form-2025-01-14.docx | 9f3a2c... | completed        | approved |
-2026-11-07 14:02:26 | extract | Admin/Insurance/claims-batch-1.xlsx                | 41d0e7... | completed        | approved | saved as extract of claims-batch-1.xlsx
+2026-11-07 14:02:26 | extract | Admin/Insurance/claims-batch-1.xlsx                | 41d0e7... | completed        | approved | saved as extract of insurance claims batch, first quarter 2025
 2026-11-07 14:02:40 | copy    | Photos/DSC_0412.jpg                                | c7b19a... | cancelled        | declined | declined by user
 2026-11-07 14:03:05 | copy    | Voicemail/vm_2025-02-15_10.m4a                     | 5e88d0... | waiting_approval | pending  | revisited at close
 ```

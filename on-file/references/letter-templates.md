@@ -10,7 +10,7 @@ To: [person's full name]
 
 Re: Your request for access to your health information, received [date received]
 
-We have completed a search of our records for information about you. The search covered our document, scanned-form, photo and recording folders and was carried out on our own system; your records were not sent to any outside service.
+We have completed a search of our records for information about you. The search covered our document, scanned-form, photo and recording folders and was carried out on our own system. [If the on-device model setting was confirmed at setup:] Your records were not sent to any outside service.
 
 We located [number of included files] records. They are listed in the enclosed list. [number of copies] are enclosed as copies. [If extracts exist:] [number of extracts] records also contain information about other patients; for those we enclose an extract with only the entries about you. [If retained or withheld items exist:] The following records are not enclosed because [reason]: [list].
 
@@ -28,7 +28,7 @@ To: [person's full name]
 
 Re: Your subject access request received [date received]
 
-In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, with a list of the [number of included files] records it covers. Where a record also contains other people's data, we enclose an extract of the parts about you, as Article 15(4) requires. The search covered our document, scanned-form, photo and recording folders and was performed entirely on our own system.
+In response to your request under Article 15 of the General Data Protection Regulation, we confirm that we hold personal data about you. A copy is enclosed, with a list of the [number of included files] records it covers. Where a record also contains other people's data, we enclose an extract of the parts about you, as Article 15(4) requires. The search covered our document, scanned-form, photo and recording folders and was performed on our own system. [If the on-device model setting was confirmed at setup:] No data was sent to an outside service for this search.
 
 Purposes of processing: [purposes]. Recipients: [recipients or "none outside the organisation"]. Retention period: [period or criteria]. Source of the data: [source]. You have the right to rectification, erasure, restriction and objection, and the right to lodge a complaint with a supervisory authority.
 
@@ -54,7 +54,7 @@ The following have been deleted from our working files: [list of file descriptio
 
 [If a surveillance identity was found:] A face identity in our camera system was removed by our staff on [date].
 
-The search was performed on our own system; no data was transferred to an outside service for this purpose. You have the right to lodge a complaint with a supervisory authority.
+The search was performed on our own system. [If the on-device model setting was confirmed at setup:] No data was transferred to an outside service for this purpose. You have the right to lodge a complaint with a supervisory authority.
 
 [Signature block]
 

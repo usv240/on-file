@@ -4,8 +4,8 @@
   ],
   "timing": {
     "step1": 0.0,
-    "step2_3": 74.1,
-    "step4_5": 317.5,
+    "step2_3": 69.6,
+    "step4_5": 285.2,
     "step6": 0.1
   },
   "files_in_scope": 129,
@@ -34,16 +34,16 @@
     }
   ],
   "decisions": {
-    "excluded": 16,
-    "included": 35,
+    "excluded": 17,
+    "included": 34,
     "needs confirmation": 11,
     "unreadable": 3
   },
   "plan": {
     "access_action: copy": 27,
     "erasure_action: retain (clinical record)": 15,
-    "access_action: extract": 8,
-    "erasure_action: edit by hand": 8,
+    "access_action: extract": 7,
+    "erasure_action: edit by hand": 7,
     "erasure_action: retain (billing record)": 3,
     "erasure_action: delete": 9
   },
@@ -56,5 +56,5 @@
     "address",
     "pid"
   ],
-  "total_seconds": 391.7
+  "total_seconds": 355.0
 }

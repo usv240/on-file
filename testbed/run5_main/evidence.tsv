@@ -10,10 +10,10 @@ Admin/Invoices/invoices-2025-extractions-2.xlsx	excluded, skeptic found a differ
 Admin/Lab-Orders/lab-order-1000.txt	included	content	name,pid	Patient ID: LD-10432 / Patient: Maria Lopez	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Admin/Lab-Orders/lab-order-1037.txt	included	content	name,pid	Patient ID: LD-10432 / Patient: Maria Lopez	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Admin/Lab-Orders/lab-order-1074.txt	included	content	name,pid	Patient ID: LD-10432 / Patient: Maria Lopez	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
-Admin/Recall-Letters/recall-2025-07-05-01.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with identifier: address		auto	no	correspondence	copy	delete
-Admin/Recall-Letters/recall-2025-07-12-02.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with identifier: address		auto	no	correspondence	copy	delete
-Admin/Recall-Letters/recall-2025-07-19-03.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with identifier: address		auto	no	correspondence	copy	delete
-Admin/Recall-Letters/recall-2025-07-26-04.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with identifier: address		auto	no	correspondence	copy	delete
+Admin/Recall-Letters/recall-2025-07-05-01.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with household identifier: address		auto, against-check clear	no	correspondence	copy	delete
+Admin/Recall-Letters/recall-2025-07-12-02.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with household identifier: address		auto, against-check clear	no	correspondence	copy	delete
+Admin/Recall-Letters/recall-2025-07-19-03.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with household identifier: address		auto, against-check clear	no	correspondence	copy	delete
+Admin/Recall-Letters/recall-2025-07-26-04.pdf	included	content	address,name	18 Birch Lane, Lakeside / Maria Lopez	exact name with household identifier: address		auto, against-check clear	no	correspondence	copy	delete
 Admin/Receipts/receipt-2025-01-27-007.pdf	included	content	name,pid	Patient ID: LD-10432 / Received from: Maria Lopez	exact name with identifier: pid		auto	no	billing	copy	retain (billing record)
 Admin/Receipts/receipt-2025-02-11-022.pdf	excluded, skeptic found a different person	content	name-partial		none	Received from: Maria Lopez-Ruiz [partial name]	auto				
 Admin/Receipts/receipt-2025-03-28-008.pdf	included	content	name,pid	Patient ID: LD-10432 / Received from: Maria Lopez	exact name with identifier: pid		auto	no	billing	copy	retain (billing record)
@@ -21,7 +21,7 @@ Admin/Receipts/receipt-2025-05-27-009.pdf	included	content	name,pid	Patient ID: 
 Admin/Staff/contract-mario-lopez.docx	excluded, no mention	file name			none		auto				
 Admin/Suppliers/lopez-construction-invoice-1.pdf	excluded, no mention	file name			none		auto				
 Admin/Suppliers/lopez-construction-invoice-2.pdf	excluded, no mention	file name			none		auto				
-Admin/calendar-2025-Q1.csv	needs confirmation	content	name	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe / 2025-01-15,14:00,Maria Lopez-Ruiz,Dr. Samuel Okafor	user				
+Admin/calendar-2025-Q1.csv	needs confirmation	content	name	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe / 2025-01-15,14:00,Maria Lopez-Ruiz,Dr. Samuel Okafor [name only, no identifier]	user				
 Email/2025-01-11_appointment_01.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
 Email/2025-02-08_appointment_D1.txt	excluded, skeptic found a different person	content	name-partial		none	Dear Maria Lopez-Ruiz, [partial name]	auto				
 Email/2025-02-10_appointment_02.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
@@ -40,14 +40,14 @@ Patients/Lopez, Maria/intake-form-2025-01-14.docx	included	file name,content	add
 Patients/Lopez, Maria/old-notes-corrupt.docx	unreadable	file name,unreadable in scope		unreadable:PackageNotFoundError			user checks by hand				
 Patients/Lopez, Maria/radiograph-report-2025-01-20.pdf	included	file name,content	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: address,dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
 Patients/Lopez, Maria/referral-letter-2025-03-02.docx	included	file name,content	dob,name	Re: Maria Lopez, DOB 1984-03-12	exact name with identifier: dob		auto	no	clinical	copy	retain (clinical record)
-Patients/Lopez, Maria/referral-note-to-orthodontist.docx	needs confirmation	file name,metadata	name	Dr. Samuel Okafor Maria Lopez	Dr. Samuel Okafor Maria Lopez	Dr. Samuel Okafor Maria Lopez	user				
+Patients/Lopez, Maria/referral-note-to-orthodontist.docx	needs confirmation	file name,metadata	name	[document properties] Dr. Samuel Okafor Maria Lopez	[document properties] Dr. Samuel Okafor Maria Lopez	Dr. Samuel Okafor Maria Lopez [name only, no identifier]	user				
 Patients/Lopez, Maria/treatment-note-2025-01-26.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Patients/Lopez, Maria/treatment-note-2025-03-12.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Patients/Lopez, Maria/treatment-note-2025-04-26.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Patients/Lopez, Maria/treatment-note-2025-06-10.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Patients/Lopez, Maria/treatment-note-2025-07-25.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
 Patients/Lopez, Maria/treatment-note-2025-09-08.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
-Patients/Lopez, Maria/treatment-plan-summary.docx	needs confirmation	file name,metadata	name	[document properties] Dr. Samuel Okafor Maria Lopez	none	[document properties] Dr. Samuel Okafor Maria Lopez	user				
+Patients/Lopez, Maria/treatment-plan-summary.docx	needs confirmation	file name,metadata	name	[document properties] Dr. Samuel Okafor Maria Lopez	none	Dr. Samuel Okafor Maria Lopez [name only, no identifier]	user				
 Patients/Lopez-Ruiz, Maria/intake-form-2025-02-03.docx	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz / Date of birth: 1991-07-30 / Patient ID: LD-11871 / Email: m.lopezruiz@example.com / Phone: (5:55) 019-8807 / Address: 402 Harbor Street, Lakeside [partial name]	auto				
 Patients/Lopez-Ruiz, Maria/radiograph-report-2025-02-10.pdf	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz / Date of birth: 1991-07-30 / Patient ID: LD-11871 / Email: m.lopezruiz@example.com / Phone: (555) 019-8807 / Address: 402 Harbor Street, Lakeside [partial name]	auto				
 Patients/Lopez-Ruiz, Maria/treatment-note-2025-02-10.docx	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz (LD-11871) [partial name]	auto				

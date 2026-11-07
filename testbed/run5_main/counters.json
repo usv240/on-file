@@ -4,9 +4,9 @@
   ],
   "timing": {
     "step1": 0.0,
-    "step2_3": 114.4,
-    "step4_5": 276.2,
-    "step6": 0.3
+    "step2_3": 91.5,
+    "step4_5": 261.8,
+    "step6": 0.1
   },
   "files_in_scope": 122,
   "step1_filename_candidates": 20,
@@ -44,5 +44,5 @@
     "address",
     "pid"
   ],
-  "total_seconds": 390.9
+  "total_seconds": 353.4
 }

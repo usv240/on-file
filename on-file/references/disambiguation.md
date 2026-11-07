@@ -7,7 +7,8 @@ The most common error in a person search is including someone else who shares th
 | Kind | Identifiers | With the exact full name | Without the name |
 |---|---|---|---|
 | Belongs to one person | patient or customer ID, personal email | include automatically | include automatically |
-| Can be shared by a household | date of birth, phone number, postal address | include automatically, unless a same-name person shares it | the two checks; never automatic |
+| Personal, not unique | date of birth | include automatically, unless a same-name person shares it | the two checks; never automatic |
+| Can be shared by a household | phone number, postal address | the against-check runs first; any checked passage sends the file to the user, otherwise include | the two checks; never automatic |
 | Context | employer, role, a family member's name, a city | the two checks | not a hit |
 | Weak | first name alone, surname alone, initials | never a hit on its own; only widens the candidate list in step 1 | not a hit |
 
@@ -27,6 +28,8 @@ Nicknames, former names and transliterations are matched only when the user supp
 ## Quote check
 
 Every passage a model returns must appear in the file, regardless of case, spacing and punctuation. A passage offered as evidence that the file is about the person must also contain the name or an identifier. A quote that fails the check is treated as no answer. A model cannot add a file to the index by inventing or paraphrasing a passage, and cannot remove one by quoting something that is not evidence of a different person.
+
+The text a quote is checked against comes from a different action than the quote: the content search's passage, the full text of a plain-text file, the photo expert's OCR text, a recording's transcript, or the document properties. When the only text of a Word, PDF or spreadsheet file comes from the same expert that gave the quote, the quote is marked unverified and the file goes to the user.
 
 ## The two opposing checks
 
@@ -51,7 +54,7 @@ The checks never include a file on their own. A file is included automatically o
 
 Most requests arrive with a name and nothing else. The Skill reads the exact-name intake, registration or consent forms first and extracts their fields.
 
-- All such forms give the same date of birth: their identifiers are adopted and the run continues.
+- All such forms give the same date of birth: the Skill shows the form and the identifiers taken from it, the user confirms that this is the requester, and the run continues with them.
 - No such form: every hit is name-only and goes through the two checks. Expect a long confirmation list, and say so.
 - Forms with different dates of birth: two people share the name, often a parent and child at the same address. The Skill stops and asks the user which form is the requester's.
 

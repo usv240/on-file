@@ -16,3 +16,4 @@ testbed/run*.log
 testbed/*/calls.jsonl
 dist/
 testbed/run4_status.txt
+testbed/run5_status.txt

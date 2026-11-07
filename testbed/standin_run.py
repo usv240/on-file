@@ -558,10 +558,22 @@ def main():
             row["decision"], row["decided_by"] = "needs confirmation", "user"
             row["advocate"] = "requester and same-name person both present"
             row["passage"] = exact_passage(text, ids, m)
-        elif name and (uniq or pers):
+        elif name and (uniq or "dob" in pers):
             row["decision"] = "included"
             row["advocate"] = "exact name with identifier: " + ",".join(sorted(uniq + pers))
             row["passage"] = exact_passage(text, ids, m) or " / ".join(verified(qa(text, "Quote the passage that mentions the person or one of the identifiers."), text))
+        elif name and pers:
+            # exact name with only a phone or address: a relative with the same name and the same home
+            # would match too, so the against-check runs first; any checked quote sends the file to the user
+            skp = verified(qa(text, SKP_Q), text)
+            row["advocate"] = "exact name with household identifier: " + ",".join(sorted(pers))
+            row["passage"] = exact_passage(text, ids, m)
+            if skp:
+                row["skeptic"] = " / ".join(skp)[:600] + " [identifier a household can share]"
+                row["decision"], row["decided_by"] = "needs confirmation", "user"
+            else:
+                row["decision"] = "included"
+                row["decided_by"] = "auto, against-check clear"
         elif not name and not partial and uniq:
             row["decision"] = "included"
             row["advocate"] = "identifier that belongs to one person: " + ",".join(sorted(uniq))

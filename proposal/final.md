@@ -12,7 +12,7 @@ Small clinics and shops with forms, scans, photos and voicemails on a NAS. When 
 
 ## 3. What is your solution?
 
-It searches file names, text, scanned pages, photo text and captions, document properties, voicemails, subtitles and camera face names. It separates same-name people and extracts the person's entries from shared files. It sends nothing off the NAS.
+It searches file names, text, scanned pages, photo text and captions, document properties, voicemails, subtitles and camera face names. It separates same-name people and extracts the person's entries from shared files. The Skill itself sends nothing off the NAS.
 
 ## 4. What is the main user flow?
 
@@ -20,7 +20,7 @@ Input: request type, name, date received, folders, case folder, report-only or a
 
 ## 5. How is your idea different from existing tools or common AI solutions?
 
-PII Crawler (497 USD, local) finds personal data, including in scans; OneTrust and Transcend automate requests across business systems; chat assistants need uploads, itself a disclosure. On File runs on the NAS and finishes the job: tells same-name people apart, extracts from shared files, keeps required records, drafts the reply, and approves each change.
+PII Crawler (497 USD, local) finds personal data, including in scans; OneTrust and Transcend automate requests across business systems; chat assistants need uploads, itself a disclosure. On File runs on the NAS and finishes the job: it separates same-name relatives with checked quotes, extracts from shared files, keeps required records, drafts the reply, and approves each change.
 
 ## 6. Which UGREEN AI NAS features does your Skill use, and at which step?
 
@@ -28,11 +28,11 @@ file-agent: find, cat, stat, sha256sum, scan-dedupe, share-mkdir, mkdir, cpmv, d
 
 ## 7. What is your technical approach?
 
-The Skill directs six NAS expert agents. Only step 7 changes the person's files, one approval each. A name counts only beside the person's ID, email, birth date, phone or address; name-only files get for and against checks; unclear ones go to the user. Quotes must exist in the file. On-device models.
+The Skill directs six NAS expert agents. Only step 7 changes the person's files, one approval each. A name counts only beside the person's identifiers; name-only files get for and against checks; unclear ones go to the user. Quotes must exist in the file. On-device models.
 
 ## 8. What have you built so far? What is not built yet? What still needs testing on a NAS?
 
-Built: SKILL.md, eight references, passing UGREEN's checker; two synthetic dental corpora with answer keys. Laptop stand-in (small open models, exact-text search, name only), harder corpus written with its rules: all 43 requester files found, 35 included automatically, none wrongly; 0 of 26 look-alikes included; 8 of 8 shared files flagged. Not built: nothing planned. Needs a NAS: search index, photo text, approvals, restore, audio.
+Built: SKILL.md, eight references, passing UGREEN's checker; two synthetic dental corpora with answer keys. Laptop stand-in (small open models, exact-text search, name only), harder corpus written with its rules: all 43 requester files found, 34 included automatically, none wrongly; 0 of 26 look-alikes included; 7 of 7 included shared files flagged. Not built: nothing planned. Needs a NAS: search index, photo text, approvals, restore, audio.
 
 ## 9. How will you test your Skill if you become a Finalist?
 
