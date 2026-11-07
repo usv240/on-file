@@ -1,0 +1,17 @@
+# strategy notes and compiled rules stay local
+PLAN.md
+idea-brief.md
+winner-patterns.md
+Rules.md
+starter-kit/
+.claude/
+.vscode/
+proposal/proposal.md
+proposal/sources.md
+
+# generated
+__pycache__/
+*.pyc
+testbed/run*.log
+testbed/*/calls.jsonl
+dist/

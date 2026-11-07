@@ -1,0 +1,37 @@
+{
+  "identifiers_at_start": [
+    "name"
+  ],
+  "timing": {
+    "step1": 0.0,
+    "step2_3": 94.5,
+    "step4_5": 108.3,
+    "step6": 0.1
+  },
+  "files_in_scope": 122,
+  "step1_filename_candidates": 20,
+  "step2_3_candidates_total": 58,
+  "identifiers_seeded_from": "Patients/Lopez, Maria/intake-form-2025-01-14.docx",
+  "identifiers_extracted": {
+    "email": "maria.lopez84@example.com",
+    "phone": "(555) 014-2231",
+    "dob": "1984-03-12",
+    "address": "18 Birch Lane, Lakeside",
+    "pid": "LD-10432"
+  },
+  "decisions": {
+    "included": 37,
+    "excluded": 11,
+    "needs confirmation": 7,
+    "unreadable": 3
+  },
+  "identifiers_at_end": [
+    "name",
+    "email",
+    "phone",
+    "dob",
+    "address",
+    "pid"
+  ],
+  "total_seconds": 203.0
+}

@@ -1,0 +1,1376 @@
+{
+  "requester": {
+    "name": "Maria Lopez",
+    "dob": "1984-03-12",
+    "email": "maria.lopez84@example.com",
+    "phone": "(555) 014-2231",
+    "pid": "LD-10432",
+    "address": "18 Birch Lane, Lakeside"
+  },
+  "decoy": {
+    "name": "Maria Lopez-Ruiz",
+    "dob": "1991-07-30",
+    "email": "m.lopezruiz@example.com",
+    "phone": "(555) 019-8807",
+    "pid": "LD-11871",
+    "address": "402 Harbor Street, Lakeside"
+  },
+  "seed": 20261107,
+  "counts": {
+    "target": 40,
+    "decoy": 12,
+    "noise": 10,
+    "unreadable_requester": 2,
+    "unreadable": 1,
+    "background": 57
+  },
+  "files": [
+    {
+      "path": "Admin/Insurance/claims-batch-1.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Insurance/claims-batch-2.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Invoices/invoices-2025-Q1.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "one row among other patients"
+    },
+    {
+      "path": "Admin/Invoices/invoices-2025-Q2.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "one row among other patients"
+    },
+    {
+      "path": "Admin/Invoices/invoices-2025-Q3.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "one row among other patients"
+    },
+    {
+      "path": "Admin/Invoices/invoices-2025-Q4.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "one row among other patients"
+    },
+    {
+      "path": "Admin/Invoices/invoices-2025-extractions-1.xlsx",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Invoices/invoices-2025-extractions-2.xlsx",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Lab-Orders/lab-order-1000.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Lab-Orders/lab-order-1037.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Lab-Orders/lab-order-1074.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Recall-Letters/recall-2025-07-05-01.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "name plus postal address"
+    },
+    {
+      "path": "Admin/Recall-Letters/recall-2025-07-12-02.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "name plus postal address"
+    },
+    {
+      "path": "Admin/Recall-Letters/recall-2025-07-19-03.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "name plus postal address"
+    },
+    {
+      "path": "Admin/Recall-Letters/recall-2025-07-26-04.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "name plus postal address"
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-01-09-200.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-01-27-007.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-02-11-022.pdf",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-02-22-204.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-03-28-008.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-04-07-208.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-05-21-212.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Admin/Receipts/receipt-2025-05-27-009.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Admin/Staff/contract-mario-lopez.docx",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Staff/rota-2025.xlsx",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Staff/timesheet-2025-01-06.txt",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Staff/timesheet-2025-01-20.txt",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Staff/timesheet-2025-02-03.txt",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Staff/timesheet-2025-02-17.txt",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Suppliers/lopez-construction-invoice-1.pdf",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "note": "company name"
+    },
+    {
+      "path": "Admin/Suppliers/lopez-construction-invoice-2.pdf",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "note": "company name"
+    },
+    {
+      "path": "Admin/Suppliers/supplier-cedar.txt",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "street name"
+    },
+    {
+      "path": "Admin/Suppliers/supplier-northwind.txt",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "street name"
+    },
+    {
+      "path": "Admin/calendar-2025-Q1.csv",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": "name only, no identifier; decoy also in this file; must go to confirmation or be confirmed via other files"
+    },
+    {
+      "path": "Email/2025-01-08_supplier_01.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-01-11_appointment_01.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "email with address"
+    },
+    {
+      "path": "Email/2025-01-31_supplier_02.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-02-08_appointment_D1.txt",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-02-10_appointment_02.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "email with address"
+    },
+    {
+      "path": "Email/2025-02-23_supplier_03.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-02-28_appointment_D2.txt",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-03-12_appointment_03.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "email with address"
+    },
+    {
+      "path": "Email/2025-03-18_supplier_04.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-03-20_appointment_D3.txt",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-04-10_supplier_05.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-04-11_appointment_04.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "email with address"
+    },
+    {
+      "path": "Email/2025-05-03_supplier_06.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-05-11_appointment_05.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "email with address"
+    },
+    {
+      "path": "Email/2025-06-10_appointment_06.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "email with address"
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-01-08_100.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-01-14_041.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "note": "scanned consent, no text layer"
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-01-15_042.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "note": "scanned consent, no text layer"
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-01-30_blank.jpg",
+      "group": "unreadable",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "note": "blank page; OCR returns nothing"
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-02-03_063.pdf",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-02-10_103.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-03-15_106.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-04-17_109.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-05-20_112.pdf",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Alvarez, Diego/intake-form-2025-04-15.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Alvarez, Diego/treatment-note-2025-04-30.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Berg, Thomas/intake-form-2025-01-06.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Berg, Thomas/treatment-note-2025-01-21.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Chen, Lucy/intake-form-2025-05-18.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Chen, Lucy/treatment-note-2025-06-02.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Doyle, Patrick/intake-form-2025-05-29.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Doyle, Patrick/treatment-note-2025-06-13.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Farouk, Omar/intake-form-2025-05-07.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Farouk, Omar/treatment-note-2025-05-22.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Haddad, Noor/intake-form-2025-03-02.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Haddad, Noor/treatment-note-2025-03-17.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Hartmann, Felix/intake-form-2025-02-19.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Hartmann, Felix/treatment-note-2025-03-06.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lindqvist, Jonas/intake-form-2025-01-28.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lindqvist, Jonas/treatment-note-2025-02-12.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/insurance-letter-protected.pdf",
+      "group": "unreadable_requester",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "password-protected; mentions requester but cannot be read without the password"
+    },
+    {
+      "path": "Patients/Lopez, Maria/intake-form-2025-01-14.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "intake form; source of identifiers"
+    },
+    {
+      "path": "Patients/Lopez, Maria/old-notes-corrupt.docx",
+      "group": "unreadable_requester",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": "truncated docx; mentions requester but cannot be opened"
+    },
+    {
+      "path": "Patients/Lopez, Maria/radiograph-report-2025-01-20.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/referral-letter-2025-03-02.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/referral-note-to-orthodontist.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "metadata",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "note": "name only in last-modified-by and parent folder"
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-01-26.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-03-12.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-04-26.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-06-10.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-07-25.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-09-08.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-plan-summary.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "metadata",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "note": "name only in last-modified-by and parent folder"
+    },
+    {
+      "path": "Patients/Lopez-Ruiz, Maria/intake-form-2025-02-03.docx",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez-Ruiz, Maria/radiograph-report-2025-02-10.pdf",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez-Ruiz, Maria/treatment-note-2025-02-10.docx",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Lopez-Ruiz, Maria/treatment-note-2025-03-22.docx",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Patients/Mensah, Kwame/intake-form-2025-03-24.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Mensah, Kwame/treatment-note-2025-04-08.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Mwangi, Grace/intake-form-2025-02-08.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Mwangi, Grace/treatment-note-2025-02-23.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Petrova, Elena/intake-form-2025-03-13.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Petrova, Elena/treatment-note-2025-03-28.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Rahman, Aisha/intake-form-2025-01-17.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Rahman, Aisha/treatment-note-2025-02-01.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Rinaldi, Sofia/intake-form-2025-04-26.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Rinaldi, Sofia/treatment-note-2025-05-11.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Solberg, Ingrid/intake-form-2025-06-09.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Solberg, Ingrid/treatment-note-2025-06-24.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Weiss, Hannah/intake-form-2025-04-04.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Patients/Weiss, Hannah/treatment-note-2025-04-19.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Photos/DSC_0412.jpg",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": true,
+      "note": "name only in EXIF ImageDescription"
+    },
+    {
+      "path": "Photos/IMG_20250114_0917.jpg",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "note": "phone photo of sign-in sheet"
+    },
+    {
+      "path": "Photos/IMG_20250203_0855.jpg",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "note": ""
+    },
+    {
+      "path": "Photos/IMG_20250301_1203.jpg",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Photos/IMG_20250302_1203.jpg",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Photos/IMG_20250303_1203.jpg",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Photos/IMG_20250304_1203.jpg",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Policies/complaints-procedure.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Policies/infection-control.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Policies/privacy-notice.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Policies/retention-schedule.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Policies/sterilisation-log-2025.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Voicemail/vm_2025-01-09_00.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Voicemail/vm_2025-02-15_10.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": true,
+      "note": "stand-in for audio; replace with real recording on NAS"
+    },
+    {
+      "path": "Voicemail/vm_2025-03-20_01.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    },
+    {
+      "path": "Voicemail/vm_2025-04-06_11.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": true,
+      "note": "stand-in for audio; replace with real recording on NAS"
+    },
+    {
+      "path": "Voicemail/vm_2025-05-29_02.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": false,
+      "note": ""
+    }
+  ]
+}

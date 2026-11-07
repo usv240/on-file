@@ -1,0 +1,22 @@
+{
+  "identifiers_at_start": [
+    "name"
+  ],
+  "timing": {
+    "step1": 0.0,
+    "step2_3": 80.7,
+    "step4_5": 1969.7,
+    "step6": 2.8
+  },
+  "files_in_scope": 122,
+  "step1_filename_candidates": 20,
+  "step2_3_candidates_total": 57,
+  "decisions": {
+    "needs confirmation": 55,
+    "unreadable": 2
+  },
+  "identifiers_at_end": [
+    "name"
+  ],
+  "total_seconds": 2053.2
+}
