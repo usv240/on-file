@@ -8,11 +8,11 @@ On File finds files in chosen NAS folders that mention one person, quotes each p
 
 ## 2. Who is your target user, and what is their problem?
 
-Small practices keeping patient records on a NAS. When someone requests all their data, US law (HIPAA) allows 30 days and EU law (GDPR) one month, no small-business exemption. In 2026 a solo dental practice paid 140,000 USD after an unanswered records request; regulators found no access procedure.
+Clinics and small businesses keeping client records on a NAS. When someone requests their data, US law (HIPAA) allows 30 days and EU law (GDPR) one month, no small-business exemption. In 2026 a solo dental practice paid 140,000 USD after an unanswered records request; regulators found no access procedure.
 
 ## 3. What is your solution?
 
-Practice software holds the chart; the rest sits on the NAS. On File searches file names, text, scans, photos, properties, voicemails, subtitles and camera events. It separates same-name people, extracts from shared files and sends nothing; the practice delivers copies.
+Practice software holds the chart; the rest sits on the NAS. On File replaces opening every file by hand: a laptop run read 122 test files in 8.4 minutes. It separates same-name people, extracts from shared files and sends nothing; the practice delivers copies.
 
 ## 4. What is the main user flow?
 
@@ -20,19 +20,19 @@ Input: request type, name, date received, folders, case folder, report-only or a
 
 ## 5. How is your idea different from existing tools or common AI solutions?
 
-Purview and OneTrust serve Microsoft 365 and large firms; PII Crawler (497 USD, local) finds one person's files, scans included; chat assistants need uploads. On File decides each file: only the person's identifiers include it, quotes must exist in the file, no model alone adds or removes one, so a same-name mother stays out. It extracts from shared files, keeps required records, drafts the letter, deletes per approval.
+Purview and OneTrust serve Microsoft 365 and large firms; PII Tools and PII Crawler find a person's data on-premises, scans included. On File also hears voicemails, reads captions, properties and camera events, keeps a same-name mother out because only the person's identifiers include a file, extracts from shared files, keeps required records, drafts the letter, deletes per approval.
 
 ## 6. Which UGREEN AI NAS features does your Skill use, and at which step?
 
-file-agent: find, cat, stat, sha256sum, scan-dedupe, share-mkdir, mkdir, cpmv, del, echo, restore, tag-get-by-name, tag-add, tag-set, tag-add-file (setup, search, act, verify). knowledge-agent: collect-evidence, audio-transcription, save-text (search, saving). document-agent: qa, metadata, extract, writing, translate (search, confirm, letter). photo-agent: search-picture, vision-ocr, vision-vlm, meta (search, confirm). media-agent: search; security-monitor-agent: faces, event-timeline, event-evidence (search).
+file-agent: find, cat, stat, sha256sum, scan-dedupe, share-mkdir, mkdir, cpmv, del, echo, restore, tag actions (setup, search, act, verify). knowledge-agent: collect-evidence, audio-transcription, save-text (search, saving). document-agent: qa, metadata, extract, writing, translate (search, confirm, letter). photo-agent: search-picture, vision-ocr, vision-vlm, meta (search, confirm). media-agent: search; security-monitor-agent: faces, event-timeline, event-evidence (search).
 
 ## 7. What is your technical approach?
 
-It directs six NAS expert agents. Searching changes no file and saves progress, so stopped runs resume. Only the act stage changes files, one approval each; reruns never act twice. Closed cases keep a record, no passages or copies.
+It directs six NAS expert agents. Searching changes no file in scope; progress goes to the case folder, so stopped runs resume. Only the act stage touches the person's files, one approval each; reruns never act twice. Closed cases keep a record, no passages or copies.
 
 ## 8. What have you built so far? What is not built yet? What still needs testing on a NAS?
 
-Built: SKILL.md, eight references (checker-clean), three answer-keyed test corpora, one written blind by another agent. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 37 and 34 auto-included, none wrongly. Blind: first run 18 of 30 surfaced, none auto-included; after fixes 29 surfaced, 18 auto-included, none wrongly. Act replay changed only planned files. Not built: nothing. Needs a NAS: its assistant applying the rules, recall, OCR, cameras, approvals.
+Built: SKILL.md, eight references (checker-clean), three answer-keyed test corpora, one written blind by another agent. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 37 and 34 auto-included, none wrongly. Blind: first 18 of 30 surfaced, none auto-included; after fixes 29 surfaced, 18 auto-included, none wrongly. Act replay changed only planned files. Every step written; untested until the NAS: its assistant applying the rules, recall, OCR, cameras, approvals.
 
 ## 9. How will you test your Skill if you become a Finalist?
 

@@ -208,7 +208,7 @@ Apply the rules in [disambiguation](references/disambiguation.md). Process intak
 
 A patient or customer ID and a personal email belong to one person; a date of birth, phone or address can be shared by a household.
 
-For each file, first write down six answers, yes or no, from the search terms that returned it in step 2. An identifier the requester shares with a same-name person (see "Starting from a name only") counts for neither of them.
+For each file, first write down six answers, yes or no, from every text found for it in steps 1 to 4: the content-search passages, the document pass quote, the OCR text of a photo or scan, the transcript sentence of a recording, the document or photo properties, and the passages confirmed in step 4. A value counts when it appears in that text in any of the forms listed in step 2. An identifier the requester shares with a same-name person (see "Starting from a name only") counts for neither of them.
 
 - (a) The exact full name.
 - (b) Only a longer form of the name, such as a hyphenated surname.
@@ -298,7 +298,7 @@ If the request language is not English:
 
 Save the letter with `knowledge-agent` the same way. If drafting returns `failed` or `cancelled`, save the unfilled template instead and say so.
 
-In report-only mode, show the counters, the due date, the saved paths, the planned actions, the confirmation list, the unreadable list and the surveillance finding, and stop. That is six approvals: two progress saves, the index, the enclosure list, and drafting and saving the letter; plus one for a translation and one per batch of decisions the user saves.
+In report-only mode, show the counters, the due date, the saved paths, the planned actions, the confirmation list, the unreadable list and the surveillance finding, and stop. That is six approvals: two progress saves, the index, the enclosure list, and drafting and saving the letter; plus one for a translation, one per batch of decisions the user saves, and, above 500 files in scope, one progress save per folder.
 
 Decisions the user makes on confirmation items or planned actions, in any run, are appended with the date to the decisions file, so nothing is asked twice:
 
@@ -310,7 +310,7 @@ One approval per batch of decisions. If a decision changes what is enclosed, red
 
 Only included files are acted on, each by its planned action. Unconfirmed, retained and hand-edit files are never changed.
 
-Before the first action, state the approvals to expect: one per copy, extract or deletion, one per audit-log write, one for the hand-over folder, and up to three for the optional tag. Each confirms one file already on the enclosure list. Deletions stay one approval each on purpose, although a batch deletion exists. The platform offers "Allow once" and "Always allow", and "Always allow" covers every file under the target's parent folder, so the Skill asks the user to choose "Allow once" for every copy, extract and deletion: one approval must never cover the person's other files, or another patient's. "Always allow" is suitable only for saves into the case folder, which then stop asking. See [limits](references/limits.md).
+Before the first action, state the approvals to expect: one per copy, extract or deletion, one per audit-log write, one for the hand-over folder, and up to three for the optional tag. Each confirms one file already on the enclosure list. Deletions stay one approval each on purpose, although a batch deletion exists. The platform offers "Allow once" and "Always allow". UGREEN's community technical FAQ states that "Always allow" covers every file under the target's parent folder, so the Skill asks the user to choose "Allow once" for every copy, extract and deletion: one approval must never cover the person's other files, or another patient's. "Always allow" is suitable only for saves into the case folder, which then stop asking. See [limits](references/limits.md).
 
 For access, create the hand-over folder if the size-and-time check below finds none:
 
