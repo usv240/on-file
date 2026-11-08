@@ -1,6 +1,6 @@
 # On File
 
-A Uliya Skill for UGREEN AI NAS that answers a data access or erasure request (HIPAA right of access, GDPR Articles 15 and 17) for one named person. It finds the files in the folders you choose that mention them, including scans, photos, voicemails, captions and subtitles, and quotes the passage in each. It tells same-name people apart and prepares extracts so other patients' data is never handed over. It keeps records the law requires, drafts the reply letter, and copies, extracts or deletes files only after per-file approval, with an audit log. Entry for the UGREEN Hackathon 2026 on AI NAS, Open Innovation track.
+A Uliya Skill for UGREEN AI NAS that answers a data access or erasure request (HIPAA right of access, GDPR Articles 15 and 17) for one named person. It finds the files in the folders you choose that mention them, including scans, photos, voicemails, captions, subtitles and camera events, and quotes the passage in each. It tells same-name people apart and prepares extracts so other patients' data is never handed over. It keeps records the law requires, drafts the reply letter, and copies, extracts or deletes files only after per-file approval, with an audit log. Entry for the UGREEN Hackathon 2026 on AI NAS, Open Innovation track.
 
 The Skill itself never sends anything off the NAS.
 

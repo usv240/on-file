@@ -14,7 +14,7 @@ The user-visible result is four plain files saved in a case folder the user name
 3. For access requests in act mode: a hand-over folder with a copy of each file that is only about the person, and an extract of the person's own entries from each file that also holds other people's data.
 4. For erasure requests in act mode: the files that may be erased deleted to the recycle bin, the files the law requires the practice to keep listed as retained, the shared files listed for editing by hand, and an audit log of every action. See [audit and undo](references/audit-and-undo.md).
 
-Supported scope: documents, spreadsheets, PDFs, scanned PDFs, photos with text, photos of the person recognised by Photos, photo captions, audio recordings, subtitle files, videos in the media library, document properties, file and folder names, and named face identities in the surveillance system (reported only). Out of scope and reported as such: archives, password-protected files, mailboxes, practice-management databases, imaging systems, anything outside the chosen folders. See [limits](references/limits.md).
+Supported scope: documents, spreadsheets, PDFs, scanned PDFs, photos with text, photos of the person recognised by Photos, photo captions, audio recordings, subtitle files, videos in the media library, document properties, file and folder names, and the surveillance system's named face identities and camera events recognised under the person's name (reported for the user to confirm, never changed). Out of scope and reported as such: archives, password-protected files, mailboxes, practice-management databases, imaging systems, anything outside the chosen folders. See [limits](references/limits.md).
 
 Default mode is report only. No copy or delete happens unless the user chooses act mode, and then each file waits for its own platform approval.
 
@@ -27,13 +27,14 @@ Collect these from the user before any delegation. Stop with `waiting_user` if t
 - Request type: one of HIPAA access, GDPR access, GDPR erasure.
 - The person's full name as written in the request.
 - The date the request was received. It sets the legal due date shown at every step and goes into the letter.
-- Folders in scope: one or more folder paths the user names. Nothing outside them is read.
+- Folders in scope: one or more folder paths the user names. No file outside them is read. The video library and the surveillance system cannot be limited to a folder, so they are searched only for the person's name, and library results outside the folders are dropped unread.
 - Case folder: a folder path where the evidence index, letter and audit log are saved. The user names it; the Skill does not guess a path. It must not be inside a folder in scope. It will hold personal data, so the Skill reminds the user to choose a folder that only the people handling the request can open.
 - Case name: proposed by the Skill as dsar, the date received and the person's surname and given name, for example dsar-2026-11-03-lopez-maria, and confirmed or changed by the user. The index, decisions file, enclosure list, letter, audit log and case record start with it; hand-over copies keep their own file names. A re-run with the same case name continues the same case.
 - Mode: report only (default) or act.
 - Identity: before act mode on an access request, the user confirms that the requester's identity was checked, for example against the photo ID or contact details on file. The Skill does not verify identity itself, and it hands nothing to a requester whose identity the user has not confirmed.
 - Optional identifiers: email, phone, date of birth, patient or customer ID, postal address, nickname or former name. Each one improves disambiguation. See [disambiguation](references/disambiguation.md).
 - Optional: the language the request was written in, if not English.
+- Optional: how long the NAS cameras keep recordings, if the practice has cameras.
 
 Do not collect anything a child expert owns (album IDs, tag IDs, face IDs). Child experts resolve those themselves.
 
@@ -49,7 +50,7 @@ Do not collect anything a child expert owns (album IDs, tag IDs, face IDs). Chil
 
 # Workflow
 
-Steps 1 to 5 only read. Step 6 creates new files inside the case folder and nowhere else, each through a platform-approved write. Step 7 is the only step that touches the person's files, only in act mode, one file per approval. Each delegation below is self-contained: it repeats the person's name, the identifiers, and the exact folder or file it applies to. Downstream steps use only the real result returned by the upstream delegation; nothing is assumed from a result that was not returned.
+Steps 1 to 5 only read the person's files. Steps 3 and 5 end by saving the progress so far into the evidence index, so a stopped run resumes without searching again; step 6 completes the index and adds the enclosure list and letter. All of these writes go into the case folder and nowhere else, each through a platform-approved write. Step 7 is the only step that touches the person's files, only in act mode, one file per approval. Each delegation below is self-contained: it repeats the person's name, the identifiers, and the exact folder or file it applies to. Downstream steps use only the real result returned by the upstream delegation; nothing is assumed from a result that was not returned.
 
 Keep running counters and show them after every step, together with the legal due date and the days left: folders scanned, files searched, candidates, confirmed, excluded, needs confirmation, unreadable, duplicates.
 
@@ -74,6 +75,8 @@ If an evidence index is found, this is a re-run. Read it, the decisions file and
 `delegate --target file-agent --instruction 'Return the full text content of the files at the given paths.'`
 
 On a re-run, the included list, descriptions and checksums come from the saved index and the user's decisions from the decisions file, unless the user asks for a fresh search; go to step 7 for act mode or step 6 to redraft the letter.
+
+An index whose first line reads "progress: saved after step 3" or "progress: saved after step 5" belongs to a run that stopped early. The run continues with the next step, using the candidates, passages and decisions the index holds; folders are searched again only if the user asks.
 
 ## Step 1. Candidates by file and folder name
 
@@ -137,7 +140,7 @@ Videos in the media library are searched by title and description only; nothing 
 
 `delegate --target media-agent --instruction 'Search the video library for media whose title or description contains the person's full name. Do not play anything. Return the video paths and titles, or say no results.'`
 
-Keep only results inside a folder in scope; the library search cannot be limited to a folder.
+Keep only results inside a folder in scope; the library search cannot be limited to a folder. A result returned without a path is listed by title as "library item, location not confirmed" and is never acted on.
 
 Recordings are transcribed from a list of paths:
 
@@ -149,19 +152,33 @@ If a folder holds more than 2000 documents, 500 scans and images or 200 recordin
 
 `delegate --target security-monitor-agent --instruction 'List the known face identities in the surveillance system and report whether any identity name equals the person's full name. Read only. Return the identity name and, if available, the cameras it appears on, or no results.'`
 
-Surveillance hits are not files: record them in a "surveillance" section of the index for manual action. The Skill never changes surveillance data.
+Camera recordings of an identifiable person are personal data too. The event search covers the retention period the user gave, up to the date received, or the 90 days before the date received if none was given; the index records which:
+
+`delegate --target security-monitor-agent --instruction 'List the camera events with people or faces recognised as the known person whose name equals the person's full name, from the start date given to the date received. Return every event, not only the first ten, with its event ID, time and camera. Read only. Return no results if there are none.'`
+
+Recognition under a name cannot tell apart two people enrolled with the same name, so no camera event is decided automatically. When the user wants to check an event, show its snapshot:
+
+`delegate --target security-monitor-agent --instruction 'Return the snapshot of the event with the event ID given, for the user to review. Read only.'`
+
+Surveillance hits are not files: record the identities and events in a "surveillance" section of the index, for the user to confirm and to copy or remove in the surveillance application. The Skill never exports, changes or deletes surveillance data.
 
 If steps 1 to 3 find no candidate in any folder, save an index with zero rows and the counters (step 6), report "no files found in scope", and stop. Never search other folders.
 
+Otherwise save the progress before confirming, because steps 2 and 3 take longest:
+
+`delegate --target file-agent --instruction 'Write the text given to the file in the case folder the user named whose name is the case name followed by index, replacing its content if the file exists.'`
+
+The text has "progress: saved after step 3" on its first line, then every candidate with its source, matched identifiers and passage, the unreadable list, the surveillance section and the counters, in the step 6 columns. This asks for one approval.
+
 ## Step 4. Confirm each candidate and read the passage
 
-For each candidate file that is a document, spreadsheet, PDF or subtitle file:
+For the candidate documents, spreadsheets, PDFs and subtitle files, in batches of up to 20 as in step 2, with a file missing from an answer's coverage asked about again on its own:
 
-`delegate --target document-agent --instruction 'Open the file at the given path. Answer: does this file mention the person's full name or any of the identifiers listed? Quote the exact passage. If the file cannot be opened or read, say unreadable and give the reason.'`
+`delegate --target document-agent --instruction 'Open each file at the given paths. For each file, answer: does it mention the person's full name or any of the identifiers listed? Quote the exact passage and give the path. If a file cannot be opened or read, say unreadable and give the reason.'`
 
-Also read the document properties:
+Also read the document properties of the same batch in one call:
 
-`delegate --target document-agent --instruction 'Return the metadata of the file at the given path: author, last modified by, title, subject, keywords. Report whether any field contains the person's full name.'`
+`delegate --target document-agent --instruction 'Return the metadata of each file at the given paths: author, last modified by, title, subject, keywords. Report for each file whether any field contains the person's full name.'`
 
 For each candidate that is a photo or scanned image not already confirmed by OCR text:
 
@@ -237,6 +254,8 @@ The answer sets the planned action, shown in the index and changed by the user i
 | Also holds other people's data | extract of the person's own entries | edit by hand; never deleted |
 | Clinical or billing record | copy or extract as above | retained by default, with the reason; the user may override per file |
 
+Save the progress again with the step 3 delegation, with "progress: saved after step 5" on the first line and every decision so far.
+
 ## Step 6. Duplicates, evidence index and letter
 
 The first two delegations only read:
@@ -249,9 +268,9 @@ A file identical to an included file is included as "duplicate of" the original,
 
 Run it for the included files and a sample of up to 20 files in scope that are not included; the checksums go into the index before step 7.
 
-The remaining delegations write new files into the case folder only; each one asks for the platform's approval.
+The remaining delegations write into the case folder only; each one asks for the platform's approval.
 
-`delegate --target knowledge-agent --instruction 'Save a text file in the case folder the user named, with the case name followed by index as the file name. Content: the evidence index as tab-separated text with one header line and the columns path, description, source, matched identifiers, passage, advocate quote, skeptic quote, decision, decided by, other people in file (yes or no, never their names), record type, planned action, sha256 before; then the surveillance section; then the unreadable list; then the counters and the legal due date.'`
+`delegate --target file-agent --instruction 'Write the text given to the file in the case folder the user named whose name is the case name followed by index, replacing the progress saved earlier. Content: the evidence index as tab-separated text with one header line and the columns path, description, source, matched identifiers, passage, advocate quote, skeptic quote, decision, decided by, other people in file (yes or no, never their names), record type, planned action, sha256 before; then the surveillance section; then the unreadable list; then the counters and the legal due date.'`
 
 The index is internal: it quotes excluded and undecided files, which can be about other people, so it is never sent to the requester. The enclosure list is built from included rows only: description, record type, and how each is provided. It holds no paths, passages or other names.
 
@@ -267,7 +286,7 @@ If the request language is not English:
 
 Save the letter with `knowledge-agent` the same way. If drafting returns `failed` or `cancelled`, save the unfilled template instead and say so.
 
-In report-only mode, show the counters, the due date, the saved paths, the planned actions, the confirmation list, the unreadable list and the surveillance finding, and stop. That is four approvals, plus one for a translation and one per batch of decisions the user saves.
+In report-only mode, show the counters, the due date, the saved paths, the planned actions, the confirmation list, the unreadable list and the surveillance finding, and stop. That is six approvals: two progress saves, the index, the enclosure list, and drafting and saving the letter; plus one for a translation and one per batch of decisions the user saves.
 
 Decisions the user makes on confirmation items or planned actions, in any run, are appended with the date to the decisions file, so nothing is asked twice:
 
@@ -314,13 +333,17 @@ Run it on the not-included sample, on every included file that was not changed, 
 
 Close with: counters; approvals asked, approved, declined and pending; due date and days left; the saved paths, noting the index is never sent; the audit log's checksum; open confirmation items; retained files with reasons; shared files to edit by hand, with the passages; unreadable files; any surveillance identity to remove manually; and a reminder to check practice software, imaging systems and the mail server.
 
+The Skill sends nothing to the requester. For access, the user delivers the letter and the hand-over folder by the practice's own method, for example on an encrypted USB drive, by secure email, on paper, or through a NAS sharing link with a password and an expiry date that the user creates. The user gives the date and method, and they are appended to the decisions file as part of the case record.
+
 For erasure, also say: "Deleted files are in the recycle bin and can be restored by path. Erasure is complete when the recycle bin entry is emptied or expires; snapshots and backups expire on their own schedule."
 
-An erasure case should not keep the data it erased. When every item is decided and the deletions are done, offer to save a case record with paths, descriptions, decisions, actions, approval states and checksums but no passages, then delete the full index:
+A closed case should not keep more personal data than its record needs. Offer to close it once every item is decided and the actions are done: for erasure after the deletions, for access after the user has recorded the delivery. Closing saves a case record with paths, descriptions, decisions, actions, approval states and checksums but no passages, then deletes the full index and, for access, the hand-over folder, whose files are copies:
 
 `delegate --target knowledge-agent --instruction 'Save a text file in the case folder the user named, with the case name followed by record as the file name, containing exactly the rows given.'`
 
 `delegate --target file-agent --instruction 'Delete the evidence index file at the given path in the case folder.'`
+
+`delegate --target file-agent --instruction 'Delete the folder named hand-over in the case folder the user named, with its contents.'`
 
 The case record and audit log show what was done, not what the files said. In the Requests share from step 0 the recycle bin is off, so the deletion is final; if the case folder is elsewhere, the closing message tells the user to empty the index from that share's recycle bin.
 
@@ -340,7 +363,7 @@ Report a business result only after the delegated expert returns `completed`. Tr
 - `waiting_user`: stop and ask for the missing input. Nothing is assumed.
 - `waiting_approval`: the item is pending. Report it as pending, continue with items that do not depend on it, and list all pending items at close.
 
-Partial results are always saved: the index with checksums before any change, the audit log at every checkpoint. A re-run with the same case name resumes.
+Partial results are always saved: the progress after steps 3 and 5, the index with checksums before any change, and the audit log at every checkpoint. A re-run with the same case name resumes from the last of these.
 
 Never report "all files found" or "deleted". Report exact counts: found, confirmed, excluded, needs confirmation, unreadable, duplicates, copied, extracted, deleted, retained, to edit by hand, already done, pending, declined, failed.
 

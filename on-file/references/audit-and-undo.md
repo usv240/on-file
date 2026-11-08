@@ -18,6 +18,8 @@ At the close, the Skill reports the audit log's own sha256. The user keeps that 
 
 ## Resuming an interrupted run
 
+A run that stopped during the search resumes from the progress saved in the evidence index at the end of step 3 or step 5. The index's first line says which, and the run continues with the next step without searching again.
+
 A re-run with the same case name first reads the saved evidence index and audit log (step 0), so the included list, the planned actions and the checksums come from the first run. Every file is then checked before it is acted on. For erasure, a path that is already gone is logged as "already done". For access, a copy or extract that already exists in the hand-over folder is logged as "already done". A re-run therefore never acts on a file twice, even if the run stopped between two log checkpoints.
 
 ## Verification
@@ -36,9 +38,9 @@ The Skill cannot read whether the recycle bin is enabled on a share, so it asks 
 
 Erasure is complete only when the recycle-bin entry is emptied or expires. NAS snapshots and backups keep their own copies until their schedule removes them; the Skill does not touch them, and the closing message and Template C say so.
 
-## Closing an erasure case
+## Closing a case
 
-An erasure case should not keep the data it erased. Once every item is decided, the Skill offers to close the case: it saves a case record with paths, descriptions, decisions, actions, approval states and checksums, but no passages or quotes, and then deletes the full evidence index. That takes two approvals. The case record, the decisions file and the audit log remain as the organisation's proof of how the request was handled. They show what was done, not what the files said.
+An erasure case should not keep the data it erased, and an access case should not keep copies once they are delivered. Once every item is decided and the actions are done, and for access once the user has recorded the delivery date and method, the Skill offers to close the case: it saves a case record with paths, descriptions, decisions, actions, approval states and checksums, but no passages or quotes, and then deletes the full evidence index and, for access, the hand-over folder. That takes two approvals, three for an access case. The case record, the decisions file and the audit log remain as the organisation's proof of how the request was handled. They show what was done, not what the files said.
 
 ## Case tag
 

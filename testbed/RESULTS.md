@@ -84,3 +84,5 @@ The other 11 blind items sent to the user include the requester's maiden-name no
 - The NAS OCR and Photos index on real phone photos and scans, compared with the 2B stand-in.
 - Per-file approval flow, the number of approvals in practice, recycle-bin restore, and tag creation.
 - Transcription of real phone recordings; the laptop test used synthesized speech.
+- The camera event search by person name and what the face list returns; the laptop corpora have no cameras.
+- Resuming from the progress saved after steps 3 and 5, and closing an access case.

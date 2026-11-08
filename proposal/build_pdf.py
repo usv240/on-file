@@ -72,7 +72,7 @@ class Flow(Flowable):
                 c.line(ax0, ay, ax1, ay)
                 c.line(ax1, ay, ax1 - 1.4 * mm, ay + 1.0 * mm)
                 c.line(ax1, ay, ax1 - 1.4 * mm, ay - 1.0 * mm)
-        # read-only bracket under the search, confirm and disambiguate boxes (steps 1 to 5)
+        # bracket under the search, confirm and disambiguate boxes (steps 1 to 5): the person's files are only read; progress goes to the case folder
         c.setStrokeColor(RULE)
         c.setLineWidth(0.6)
         x0 = 1 * (bw + gap)
@@ -80,7 +80,7 @@ class Flow(Flowable):
         c.line(x0, y - 1.6 * mm, x1, y - 1.6 * mm)
         c.setFillColor(MUTED)
         c.setFont("Helvetica-Oblique", 6.8)
-        c.drawCentredString((x0 + x1) / 2, y - 4.6 * mm, "read only")
+        c.drawCentredString((x0 + x1) / 2, y - 4.6 * mm, "files unchanged")
         c.drawCentredString(4 * (bw + gap) + bw / 2, y - 4.6 * mm, "case folder")
         c.drawCentredString(5 * (bw + gap) + bw / 2, y - 4.6 * mm, "changes files")
 
@@ -107,7 +107,7 @@ def main():
     words = sum(len(a.split()) for _, a in items)
     print(f"answers: {len(items)} items, {words} words")
     assert len(items) == 10, "expected ten items"
-    label_words = sum(len(x.split()) for x in Flow.LABELS) + len("read only case folder changes files".split())
+    label_words = sum(len(x.split()) for x in Flow.LABELS) + len("files unchanged case folder changes files".split())
     print(f"answers plus diagram labels: {words + label_words} words")
     assert words + label_words <= 500, "over 500 words even if a judge counts the diagram labels"
     assert "—" not in md and "–" not in md, "dash characters found"

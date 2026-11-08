@@ -17,7 +17,7 @@ There is no configuration. Every run collects its inputs from the user (see Requ
 2. Recycle bin enabled on the shares that will be in scope, so that erasure can be undone within the recycle window. The Skill cannot read this setting, so it asks in step 0 and repeats the answer before the first deletion.
 3. Knowledge index covering the folders that will be in scope, so content search finds text documents. A file not yet indexed is only partly covered: it is caught if its name or folder contains the person's name, and scans and images are caught by the reading pass in step 3, but a new text document with an unrelated name is missed until it is indexed.
 4. Photos indexing of the folders that hold phone photos, so OCR text and recognised people are searchable.
-5. A case-folder location outside the folders in scope that only the people handling requests can open. If there is none, the Skill offers to create a shared folder named Requests, hidden from users without permission; the user then sets who may open it. Case folders hold personal data: the index quotes passages, and access cases hold copies and extracts.
+5. A case-folder location outside the folders in scope that only the people handling requests can open. If there is none, the Skill offers to create a shared folder named Requests, hidden from users without permission; the user then sets who may open it. Case folders hold personal data until a case is closed: the index quotes passages, and access cases hold copies and extracts.
 
 No credentials, API keys or network access are needed or used. The Skill runs with the NAS account of the user who starts it and reads only what that account can read.
 
@@ -27,7 +27,7 @@ Remove the Skill from the Skills page (or uninstall it from the Skills Hub). The
 
 What remains after removal, all of it created on the user's request and kept deliberately as the record of the response:
 
-- The case folders the user named, each holding an evidence index, a letter and, for act runs, an audit log and a hand-over folder.
+- The case folders the user named, each holding an evidence index or, once the case is closed, a case record without passages; a letter; and, for act runs, an audit log and, until the case is closed, a hand-over folder.
 - If the user chose to tag cases, a tag named dsar followed by the date received on the files in each case folder. It carries no names, is never on the person's own files, and can be removed with the tag tools of the file manager.
 - Deleted files in the recycle bin until the recycle window ends.
 - The Requests shared folder, if the user let the Skill create it.
@@ -78,6 +78,8 @@ Test cases and expected results:
 The scorer reads the evidence index as a tab-separated file with at least the columns path and decision, and prints recall, precision, decoy, noise, same-name and household counts, unreadable counts, shared-file detection, record-type accuracy, and the integrity result after erasure. Laptop stand-in results are in [limits](limits.md); they will be replaced by NAS results.
 
 ### Repeat use
+
+Stop a run during step 4 and start it again with the same case name. Expected: it reads the progress saved after step 3, does not search again, and ends with the same index as an uninterrupted run.
 
 Run the access case twice with the same case name. Expected on the second run: the Skill finds and reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new approval for copies, the hand-over folder or the tag, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix. Decide the needs-confirmation items in the first run; the second run must not ask about them again, because they are read from the decisions file.
 

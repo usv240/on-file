@@ -25,9 +25,9 @@ The Skill computes the due date from the date received: 30 days for HIPAA access
 - Whether a retention duty applies to a file, and for how long. The defaults above are a starting point, not a legal opinion.
 - The needs-confirmation items: files that mention the name but where the checks could not tell who is meant.
 - Unreadable files: the Skill lists them; the user opens them by hand.
-- Named face identities in the surveillance system: reported only; removal is done in the surveillance application.
+- Named face identities and camera events in the surveillance system: reported for the user to confirm. Copies of footage, with other people obscured, and removal are done in the surveillance application.
 - Data held outside the folders in scope: practice-management software, imaging systems, the mail server and paper records.
 
 ## Data that is usually forgotten
 
-The Skill searches these because requests commonly miss them: scanned sign-in sheets and consent forms photographed with a phone, voicemail recordings, document author fields, photo captions, subtitle files, byte-identical duplicate copies, a person's rows inside shared spreadsheets, and face identities in the camera system.
+The Skill searches these because requests commonly miss them: scanned sign-in sheets and consent forms photographed with a phone, voicemail recordings, document author fields, photo captions, subtitle files, byte-identical duplicate copies, a person's rows inside shared spreadsheets, and camera recordings of the person.

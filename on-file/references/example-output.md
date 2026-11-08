@@ -21,11 +21,12 @@ Step 1 file and folder names   files 122   candidates 20
 Step 2 content                 candidates 58 (merged by path)
 Step 3 scans, photos, sound    text in scans and photos 5   captions and properties 3
                                recordings 2   subtitle files 0   video titles 0   camera faces 0
+                               camera events 0 (90 days before the request)   progress saved
 Step 4 confirm                 unreadable 3   excluded, no mention 3
 Step 5 disambiguate            identifiers taken from the scanned consent form dated 2025-01-14:
                                email, phone, date of birth, address, patient ID
                                included 37   excluded, a different person 11   needs your decision 4
-                               of the 37: copy 30, extract 7 (other patients in the file)
+                               of the 37: copy 30, extract 7 (other patients in the file)   progress saved
 Step 6 index and letter        duplicates 0   checksums recorded 57 (37 included + 20 sample)
 Total: 37 + 11 + 4 + 3 + 3 = 58 candidates
 ```
@@ -50,7 +51,7 @@ Columns: path, source, matched identifiers, passage, decision, decided by, other
 | Admin/Suppliers/lopez-construction-invoice-1.pdf | file name | none | no mention of the person | excluded, no mention | auto | | | |
 | Patients/Lopez, Maria/insurance-letter-protected.pdf | folder name | none | unreadable: password protected | unreadable | you check by hand | | | |
 
-Surveillance section: no face identity named Maria Lopez in the camera system.
+Surveillance section: no face identity named Maria Lopez in the camera system, and no camera events recognised under that name in the 90 days before the request.
 
 Unreadable list: insurance-letter-protected.pdf (password protected), old-notes-corrupt.docx (cannot be opened), scan_2025-01-30_blank.jpg (no text found).
 
@@ -85,13 +86,17 @@ Please check these 3 files by hand; I could not read them:
   Patients/Lopez, Maria/old-notes-corrupt.docx (cannot be opened)
   Forms-Scanned/scan_2025-01-30_blank.jpg (no text found)
 
-No camera face identity matched. Nothing was copied or deleted (report-only mode).
+No camera face identity or camera event matched. Nothing was copied or deleted (report-only mode).
 Also check systems outside these folders: practice software, x-ray archive, mail server.
-Approvals asked in this run: 4 (saving the index and the enclosure list, drafting and saving the letter).
+Approvals asked in this run: 6 (two progress saves, saving the index and the enclosure list,
+drafting and saving the letter).
 To hand over, run again in act mode with the same case name. Expect 42 approvals:
 30 copies, 7 extracts, 4 audit-log writes and the hand-over folder, each a single
 confirmation of a record already on the enclosure list. Tagging the case is optional
 (up to 3 more). Before act mode, confirm that Maria Lopez's identity was checked.
+I send nothing to Maria Lopez: deliver the letter and copies your usual way and tell me
+the date and method. I then offer to close the case, which keeps a record and deletes
+the copies and the passages.
 ```
 
 ## Enclosure list (excerpt, 6 of 37 rows; sent with the letter)
@@ -124,6 +129,8 @@ We located 37 records. They are listed in the enclosed list. 30 are enclosed as
 copies. 7 records also contain information about other patients; for those we enclose
 an extract with only the entries about you.
 
+[How the records are provided: to be entered by the practice.]
+
 We also located 3 files we could not open automatically and have reviewed them by
 hand: [outcome to be entered by the practice].
 
@@ -132,7 +139,7 @@ If you have questions about this response, contact [practice contact].
 [Signature block]
 ```
 
-The two bracketed fields stay bracketed because the enclosure list has nothing for them; the user fills them. The letter never names the other patients found in the same files.
+The three bracketed fields stay bracketed because the enclosure list has nothing for them; the user fills them. The letter never names the other patients found in the same files.
 
 ## Audit log (excerpt from the act-mode run of the same case)
 
