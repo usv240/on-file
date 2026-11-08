@@ -50,7 +50,7 @@ Do not collect anything a child expert owns (album IDs, tag IDs, face IDs). Chil
 
 # Workflow
 
-Steps 1 to 5 only read the person's files. Steps 3 and 5 end by saving the progress so far into the evidence index, so a stopped run resumes without searching again; step 6 completes the index and adds the enclosure list and letter. All of these writes go into the case folder and nowhere else, each through a platform-approved write. Step 7 is the only step that touches the person's files, only in act mode, one file per approval. Each delegation below is self-contained: it repeats the person's name, the identifiers, and the exact folder or file it applies to. Downstream steps use only the real result returned by the upstream delegation; nothing is assumed from a result that was not returned.
+Steps 1 to 5 change no file in scope: they read every file in scope, and steps 3 and 5 end by saving the progress so far into the evidence index, so a stopped run resumes without searching again; step 6 completes the index and adds the enclosure list and letter. All of these writes go into the case folder and nowhere else, each through a platform-approved write. Step 7 is the only step that touches the person's files, only in act mode, one file per approval. Each delegation below is self-contained: it repeats the person's name, the identifiers, and the exact folder or file it applies to. Downstream steps use only the real result returned by the upstream delegation; nothing is assumed from a result that was not returned.
 
 Keep running counters and show them after every step, together with the legal due date and the days left: folders scanned, files searched, candidates, confirmed, excluded, needs confirmation, unreadable, duplicates.
 
@@ -208,12 +208,15 @@ Apply the rules in [disambiguation](references/disambiguation.md). Process intak
 
 A patient or customer ID and a personal email belong to one person; a date of birth, phone or address can be shared by a household.
 
-- Exact full name with an ID, email or date of birth of the requester: "included, auto".
-- Exact full name with only the requester's phone or address: a relative with the same name and home would match too, so the second check below runs first. If it returns a checked passage, for example a different birth date or a "Sr.", the file goes to the confirmation list; otherwise it is "included, auto, against-check clear".
-- An ID or personal email of the requester without the name: "included, auto".
-- A date of birth, phone or address of the requester without the name: the two checks below, never auto-included.
-- The name only as part of a longer name, for example a hyphenated surname that begins with the requester's surname: the two checks, never auto-included.
-- The exact full name with no identifier: the two checks below; never auto-included.
+Decide each file by the first rule below that fits. The identifiers that matched are the search terms that returned the file in step 2. An identifier the requester shares with a same-name person (see "Starting from a name only") does not count as the requester's.
+
+1. A same-name person's own ID, email, date of birth or phone, and none of the requester's own identifiers (the name does not count here): "excluded, identifiers of a same-name person", with the quote.
+2. A same-name person's own identifier and one of the requester's own: "needs confirmation".
+3. The exact full name with the requester's ID, email or date of birth: "included, auto".
+4. The exact full name with only the requester's phone or address: a relative with the same name and home would match too, so the check against runs first. A checked passage, for example a different birth date or a "Sr.", sends the file to the confirmation list; otherwise it is "included, auto, against-check clear". The closing message lists these files apart, because a same-name relative with no form in scope would pass this check.
+5. The requester's ID or email without the name or a longer form of it: "included, auto".
+6. Any other file a search term returned: the exact name alone or with only a shared identifier, a longer form of the name such as a hyphenated surname, or a date of birth, phone or address without the name. The two checks below run. If the check for returns no checked passage holding the name or an identifier, and the check against returns a checked passage holding a longer form of the name or a same-name person's identifier: "excluded, skeptic found a different person", with the quote. Otherwise "needs confirmation", with both quotes.
+7. A file no search term returned, kept by step 4: "needs confirmation" if the expert quoted a checked passage, its file or folder name holds the full name, or the content search returned it; otherwise "excluded, no mention".
 
 `delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is the same person as the one described by the identifiers listed. If there is none, say none.'`
 
@@ -227,12 +230,12 @@ The two delegations above are for documents, spreadsheets and PDFs, including sc
 
 Image answers are checked against the step 4 OCR text. Recordings get no model check: one with the name only, or only a phone or address, goes to the user with its transcript sentence.
 
-If the first check returns none and the second returns a checked passage showing a longer form of the name or a known same-name person's identifier: "excluded, skeptic found a different person", with the quote. Every other combination is "needs confirmation" with both quotes. The checks never include a file; only an identifier does. Nothing on the confirmation list is acted on until the user decides it.
+The checks never include a file; only an identifier does. Nothing on the confirmation list is acted on until the user decides it.
 
 Starting from a name only:
 
 - No file can be auto-included yet. Read the intake, registration or consent forms whose name matches first with the extraction below. A form matches when its given name and surname equal the request's; a middle name or initial on the form is ignored, because requests often leave it out. If every such form gives the same date of birth, show the form and the identifiers taken from it, and ask the user to confirm that this is the requester before using them. Then re-run step 2 for them and continue. The re-run finds files that hold only the person's ID or email, without the name.
-- If the forms give different dates of birth, two people share the name. Stop with `waiting_user`, show the forms, and ask which is the requester's. After the answer, adopt the chosen form's identifiers and re-run step 2 for them. The other form describes a same-name person: any date of birth, phone or address the two share stops counting for the requester; a file holding the other person's own ID, email, date of birth or phone is "excluded, identifiers of a same-name person" with the quote, unless it also holds any of the requester's own identifiers, in which case it goes to the confirmation list; and a file with the exact name and only a shared identifier goes to the two checks and at best to the confirmation list.
+- If the forms give different dates of birth, two people share the name. Stop with `waiting_user`, show the forms, and ask which is the requester's. After the answer, adopt the chosen form's identifiers and re-run step 2 for them, and also for the other form's own identifiers, so the files that hold them are known. The other form describes a same-name person: any date of birth, phone or address the two share stops counting for the requester; a file holding the other person's own ID, email, date of birth or phone is "excluded, identifiers of a same-name person" with the quote, unless it also holds any of the requester's own identifiers, in which case it goes to the confirmation list; and a file with the exact name and only a shared identifier goes to the two checks and at best to the confirmation list.
 
 `delegate --target document-agent --instruction 'Extract from the file at the given path the fields: full name, date of birth, email, phone, postal address, patient or customer ID. Return them as a list.'`
 
@@ -331,7 +334,7 @@ The list is the case-folder files. Files already tagged are skipped. The tag lin
 
 Run it on the not-included sample, on every included file that was not changed, and on the audit log. Report "untouched files verified: N of N unchanged" or each difference. For erasure, each deleted path must return not found.
 
-Close with: counters; approvals asked, approved, declined and pending; due date and days left; the saved paths, noting the index is never sent; the audit log's checksum; open confirmation items; retained files with reasons; shared files to edit by hand, with the passages; unreadable files; any surveillance identity to remove manually; and a reminder to check practice software, imaging systems and the mail server.
+Close with: counters; the files included on the name with only a phone or address, for a look before act mode; approvals asked, approved, declined and pending; due date and days left; the saved paths, noting the index is never sent; the audit log's checksum; open confirmation items; retained files with reasons; shared files to edit by hand, with the passages; unreadable files; any surveillance identity to remove manually; and a reminder to check practice software, imaging systems and the mail server.
 
 The Skill sends nothing to the requester. For access, the user delivers the letter and the hand-over folder by the practice's own method, for example on an encrypted USB drive, by secure email, on paper, or through a NAS sharing link with a password and an expiry date that the user creates. The user gives the date and method, and they are appended to the decisions file as part of the case record.
 

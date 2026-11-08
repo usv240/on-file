@@ -16,7 +16,7 @@ Input was the requester's name only. Stand-ins: Qwen3 4B for text and Qwen3-VL 2
 | Included files holding others' data, flagged so they are extracted and never deleted | 7 of 7 | 7 of 7 | 6 of 6 |
 | Items the user had to decide | 4 | 12 | 15 |
 
-Stress test: with the content search limited to 10 files per search term and quotes checked against search snippets only, the main and hard results did not change. The document pass found the 9 and 8 files that the capped search dropped.
+Stress test: with the content search limited to 10 files per search term and quotes checked against search snippets only, the files found, the files included automatically and the wrong inclusions did not change on the main and hard corpora. The document pass found the 9 and 8 files that the capped search dropped. The stress runs used the code before the last same-name fix, so the hard corpus left one fewer item to the user than the full run.
 
 The blind corpus was first run before the fixes it led to, and that run is the unbiased one: 18 of 30 found, none included automatically, none wrongly included. It exposed three rule flaws, now fixed: a middle name on the intake form stopped identifiers being adopted; a client named only in the body of meeting minutes was missed by the people list, so another client's ID now also marks a file as shared; and a log listing both same-name women was excluded, so a file with both people's identifiers now goes to the user. The one blind file still missed is a reminder sent by mistake to the other woman's email address; only the appointment's context shows whose it is.
 
@@ -27,6 +27,7 @@ Act mode was replayed on a copy of each corpus from the planned actions (`act_re
 
 ## Known gaps
 
+- A same-name relative with no form in scope: a file with the exact name and only the shared phone or address is included when the check against finds nothing. The closing message lists such files apart for a look before act mode.
 - Names: the Skill matches the full name in given-first and surname-first order and without accents. Nicknames, former names, transliterations and misspellings are found only if the user supplies them as identifiers. The Skill does not guess variants.
 - Scans and photos: reading text in low-quality scans misses names; recall on scans is lower than on text documents, and the index marks which hits came from scanned pages or photos so the user can weigh them.
 - Recordings: transcription accuracy depends on recording quality and language; hits from recordings are marked as such.
@@ -63,6 +64,7 @@ The catalog lists these actions, but what they return has not been seen on a dev
 | The video library search returns each result's file path | A result without a path is listed by title as "library item, location not confirmed" and never acted on |
 | The face list returns identity names | If it returns only face IDs, the camera event search by name still runs; if neither returns names, the surveillance section says "not checked" and the closing message asks the user to check the surveillance application |
 | The camera event search filters by a known person's name and returns every event asked for | The count is shown with the results; if events come back under other names, the filter did not apply, and the section says "not checked" instead of listing them |
+| The delete action removes a folder with its contents | Each file in the hand-over folder is deleted by path, then the empty folder |
 | Writing a file with replace keeps one index file | Each save's returned path is shown, and a re-run reads the newest file whose name starts with the case name followed by index |
 - Round 1 is static; all runtime behaviour is validated in the final round on the assigned NAS.
 

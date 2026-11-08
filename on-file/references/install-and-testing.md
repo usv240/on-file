@@ -39,7 +39,7 @@ Deleting a case folder, its tags and its recycle-bin entries removes every trace
 ### Quick check without a corpus (about 5 minutes)
 
 1. Create a scratch folder with four files: a text document mentioning an invented person with an invented email address; a second document mentioning a different invented person with a similar, longer name; a copy of the first document under a different name; and a small table listing the invented person, with the same email, and two other invented people.
-2. Run the Skill in report-only mode with the invented name and email and the scratch folder in scope. With a name alone and no intake form, nothing is included automatically and every file goes to the confirmation list, as the rules require.
+2. Run the Skill in report-only mode with the invented name and email and the scratch folder in scope. The email is given because, with a name alone and no intake form, the rules include nothing automatically and every file would go to the confirmation list.
 3. Expected: the first document and its copy are "included" with planned action "copy" (the copy with source "duplicate of"); the table is "included" with planned action "extract"; the similar-name document is "needs confirmation" or "excluded"; the index and letter appear in the case folder. Nothing is copied or deleted.
 
 ### Full measurement with the Lakeside Dental corpora
@@ -81,7 +81,7 @@ The scorer reads the evidence index as a tab-separated file with at least the co
 
 Stop a run during step 4 and start it again with the same case name. Expected: it reads the progress saved after step 3, does not search again, and ends with the same index as an uninterrupted run.
 
-Run the access case twice with the same case name. Expected on the second run: the Skill finds and reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new approval for copies, the hand-over folder or the tag, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders and case tags do not mix. Decide the needs-confirmation items in the first run; the second run must not ask about them again, because they are read from the decisions file.
+Run the access case twice with the same case name. Expected on the second run: the Skill finds and reads the saved index, reports every file as "already done", makes no new copy or extract, asks for no new approval for copies, the hand-over folder or the tag, and extends the audit log with "already done" lines. Then run a second case for a different invented person in the same folders and check that the two case folders do not mix. Two cases received on the same day share a case tag, because the tag carries the date only; the case folders keep them apart. Decide the needs-confirmation items in the first run; the second run must not ask about them again, because they are read from the decisions file.
 
 ### What to look at if a test fails
 

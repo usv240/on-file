@@ -63,6 +63,8 @@ If this were a GDPR erasure request for the same person, the planned actions for
 Search complete for Maria Lopez (HIPAA access): 1 folder with its subfolders, 122 files.
 Due 2026-12-03, 26 days left.
 Included 37, excluded 14, needs your decision 4, unreadable 3, duplicates 0.
+Included on the name and home address only, please look over before act mode:
+  4 recall letters, Admin/Recall-Letters, July 2025.
 Identifiers used: the name, plus email, phone, date of birth, address and patient ID
 from the scanned consent form dated 2025-01-14, which you confirmed as the requester's.
 Planned hand-over: 30 copies and 7 extracts. The 7 files also hold other patients'

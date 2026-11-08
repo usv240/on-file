@@ -8,11 +8,11 @@ On File finds files in chosen NAS folders that mention one person, quotes each p
 
 ## 2. Who is your target user, and what is their problem?
 
-Small practices with forms, scans, photos and voicemails on a NAS. When someone requests all their data, US law (HIPAA) allows 30 days and EU law (GDPR) one month, no small-business exemption. In 2026 a solo dental practice paid 140,000 USD after an unanswered records request; regulators found no access procedure.
+Small practices keeping patient records on a NAS. When someone requests all their data, US law (HIPAA) allows 30 days and EU law (GDPR) one month, no small-business exemption. In 2026 a solo dental practice paid 140,000 USD after an unanswered records request; regulators found no access procedure.
 
 ## 3. What is your solution?
 
-Practice software holds the chart; the rest sits on the NAS. On File searches file names, text, scans, photo text, captions, document properties, voicemails, subtitles and camera events. It separates same-name people, extracts from shared files and sends nothing; the practice delivers copies.
+Practice software holds the chart; the rest sits on the NAS. On File searches file names, text, scans, photos, properties, voicemails, subtitles and camera events. It separates same-name people, extracts from shared files and sends nothing; the practice delivers copies.
 
 ## 4. What is the main user flow?
 
@@ -20,7 +20,7 @@ Input: request type, name, date received, folders, case folder, report-only or a
 
 ## 5. How is your idea different from existing tools or common AI solutions?
 
-PII Crawler (497 USD, local) finds one person's data, scans included; chat assistants need uploads. On File decides each file: only the person's identifiers include it, quotes must exist in the file, and no model alone adds or removes one, so a same-name mother stays out. It also extracts from shared files, keeps required records, drafts the letter, and deletes per approval, with undo.
+Purview and OneTrust serve Microsoft 365 and large firms; PII Crawler (497 USD, local) finds one person's files, scans included; chat assistants need uploads. On File decides each file: only the person's identifiers include it, quotes must exist in the file, no model alone adds or removes one, so a same-name mother stays out. It extracts from shared files, keeps required records, drafts the letter, deletes per approval.
 
 ## 6. Which UGREEN AI NAS features does your Skill use, and at which step?
 
@@ -28,15 +28,15 @@ file-agent: find, cat, stat, sha256sum, scan-dedupe, share-mkdir, mkdir, cpmv, d
 
 ## 7. What is your technical approach?
 
-It directs six NAS expert agents. Searching only reads the person's files and saves progress, so stopped runs resume. Only the act stage changes files, one approval each; reruns never act twice. Closed cases keep a record, no passages or copies.
+It directs six NAS expert agents. Searching changes no file and saves progress, so stopped runs resume. Only the act stage changes files, one approval each; reruns never act twice. Closed cases keep a record, no passages or copies.
 
 ## 8. What have you built so far? What is not built yet? What still needs testing on a NAS?
 
-Built: SKILL.md, eight references (checker-clean), three answer-keyed test corpora, one written blind by another agent. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 37 and 34 auto-included, none wrongly. Blind: first 18 of 30 surfaced, none auto-included; after fixes 29 and 18, never wrong. Act replay changed only planned files. Not built: nothing. Needs a NAS: recall, OCR, cameras, approvals.
+Built: SKILL.md, eight references (checker-clean), three answer-keyed test corpora, one written blind by another agent. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 37 and 34 auto-included, none wrongly. Blind: first run 18 of 30 surfaced, none auto-included; after fixes 29 surfaced, 18 auto-included, none wrongly. Act replay changed only planned files. Not built: nothing. Needs a NAS: its assistant applying the rules, recall, OCR, cameras, approvals.
 
 ## 9. How will you test your Skill if you become a Finalist?
 
-Three corpora. Core 1: every requester file found, shared files planned as extracts, letter written. Core 2, erasure: approve each deletion; only planned deletions gone, all else unchanged; a rerun acts on nothing. Edge: a same-name mother at the same address; it asks once, then includes none of hers.
+Three corpora. Core 1: every requester file found, shared files planned as extracts, letter written. Core 2, erasure: approve each deletion; only planned deletions gone, all else unchanged; a rerun acts on nothing. Edge: a same-name mother at the same address; it asks once, includes none of hers.
 
 ## 10. What are the known limits, risks, or outside dependencies of your Skill?
 
