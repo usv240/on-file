@@ -148,7 +148,7 @@ Recordings are transcribed from a list of paths:
 
 `delegate --target knowledge-agent --instruction 'Transcribe the recordings at the given paths. For each file, report whether the transcript contains the person's full name or any identifier listed, and return the path and the matching sentence. List any file that could not be transcribed with the reason. Return no results if nothing matches.'`
 
-If a folder holds more than 2000 documents, 500 scans and images or 200 recordings, show the count and ask whether to process all, a date range, or none of that kind; record the choice in the index.
+If a folder holds more than 2000 documents, 500 scans and images or 200 recordings, show the count and ask whether to process all, a date range, or none of that kind; record the choice in the index. Above 500 files in scope, the progress is also saved after each folder in steps 2 and 3, and step 4 reads the candidates back from the saved index instead of carrying them in the conversation.
 
 `delegate --target security-monitor-agent --instruction 'List the known face identities in the surveillance system and report whether any identity name equals the person's full name. Read only. Return the identity name and, if available, the cameras it appears on, or no results.'`
 
@@ -208,15 +208,24 @@ Apply the rules in [disambiguation](references/disambiguation.md). Process intak
 
 A patient or customer ID and a personal email belong to one person; a date of birth, phone or address can be shared by a household.
 
-Decide each file by the first rule below that fits. The identifiers that matched are the search terms that returned the file in step 2. An identifier the requester shares with a same-name person (see "Starting from a name only") does not count as the requester's.
+For each file, first write down six answers, yes or no, from the search terms that returned it in step 2. An identifier the requester shares with a same-name person (see "Starting from a name only") counts for neither of them.
 
-1. A same-name person's own ID, email, date of birth or phone, and none of the requester's own identifiers (the name does not count here): "excluded, identifiers of a same-name person", with the quote.
-2. A same-name person's own identifier and one of the requester's own: "needs confirmation".
-3. The exact full name with the requester's ID, email or date of birth: "included, auto".
-4. The exact full name with only the requester's phone or address: a relative with the same name and home would match too, so the check against runs first. A checked passage, for example a different birth date or a "Sr.", sends the file to the confirmation list; otherwise it is "included, auto, against-check clear". The closing message lists these files apart, because a same-name relative with no form in scope would pass this check.
-5. The requester's ID or email without the name or a longer form of it: "included, auto".
-6. Any other file a search term returned: the exact name alone or with only a shared identifier, a longer form of the name such as a hyphenated surname, or a date of birth, phone or address without the name. The two checks below run. If the check for returns no checked passage holding the name or an identifier, and the check against returns a checked passage holding a longer form of the name or a same-name person's identifier: "excluded, skeptic found a different person", with the quote. Otherwise "needs confirmation", with both quotes.
-7. A file no search term returned, kept by step 4: "needs confirmation" if the expert quoted a checked passage, its file or folder name holds the full name, or the content search returned it; otherwise "excluded, no mention".
+- (a) The exact full name.
+- (b) Only a longer form of the name, such as a hyphenated surname.
+- (c) The requester's own ID or email.
+- (d) The requester's own date of birth.
+- (e) The requester's own phone or address.
+- (f) A same-name person's own ID, email, date of birth or phone.
+
+Then apply the first rule that fits:
+
+1. (f), and none of (c), (d), (e): "excluded, identifiers of a same-name person", with the quote.
+2. (f), with any of (c), (d), (e): "needs confirmation".
+3. (a), with (c) or (d): "included, auto".
+4. (a), with (e) only: a relative with the same name and home would match too, so the check against runs first. A checked passage, for example a different birth date or a "Sr.", sends the file to the confirmation list; otherwise it is "included, auto, against-check clear". The closing message lists these files apart, because a same-name relative with no form in scope would pass this check.
+5. (c), without (a) or (b): "included, auto".
+6. Any of (a), (b), (d), (e): the two checks below run. If the check for returns no checked passage holding the name or an identifier, and the check against returns a checked passage holding a longer form of the name or a same-name person's identifier: "excluded, skeptic found a different person", with the quote. Otherwise "needs confirmation", with both quotes.
+7. None of (a) to (f), so the file was kept by step 4: "needs confirmation" if the expert quoted a checked passage, its file or folder name holds the full name, or the content search returned it; otherwise "excluded, no mention".
 
 `delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is the same person as the one described by the identifiers listed. If there is none, say none.'`
 
@@ -301,7 +310,7 @@ One approval per batch of decisions. If a decision changes what is enclosed, red
 
 Only included files are acted on, each by its planned action. Unconfirmed, retained and hand-edit files are never changed.
 
-Before the first action, state the approvals to expect: one per copy, extract or deletion, one per audit-log write, one for the hand-over folder, and up to three for the optional tag. Each confirms one file already on the enclosure list. Deletions stay one approval each on purpose, although a batch deletion exists. See [limits](references/limits.md).
+Before the first action, state the approvals to expect: one per copy, extract or deletion, one per audit-log write, one for the hand-over folder, and up to three for the optional tag. Each confirms one file already on the enclosure list. Deletions stay one approval each on purpose, although a batch deletion exists. The platform offers "Allow once" and "Always allow", and "Always allow" covers every file under the target's parent folder, so the Skill asks the user to choose "Allow once" for every copy, extract and deletion: one approval must never cover the person's other files, or another patient's. "Always allow" is suitable only for saves into the case folder, which then stop asking. See [limits](references/limits.md).
 
 For access, create the hand-over folder if the size-and-time check below finds none:
 

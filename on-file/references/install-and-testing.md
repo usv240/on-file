@@ -77,6 +77,19 @@ Test cases and expected results:
 
 The scorer reads the evidence index as a tab-separated file with at least the columns path and decision, and prints recall, precision, decoy, noise, same-name and household counts, unreadable counts, shared-file detection, record-type accuracy, and the integrity result after erasure. Laptop stand-in results are in [limits](limits.md); they will be replaced by NAS results.
 
+### Round 2 test day plan
+
+The finalist NAS is available for one day and is reset afterwards, so the tests run in this order of priority:
+
+1. Install and settings: add the package, run the quick check above, confirm the on-device models and the five settings, and copy the three corpora into a scratch share.
+2. Rule-following: run the main corpus in report-only mode and compare the assistant's step 5 decisions with the published laptop index, file by file. Whether the NAS assistant applies the rules as written is the main open question, so it is measured first.
+3. Core 1 and the edge case: the main corpus as an access request, then the hard corpus with its same-name question, each scored with the scorer.
+4. Core 2: an erasure in act mode on a copy of the main corpus, with every approval timed, then the verify step and the restore of one file.
+5. The blind corpus in report-only mode, scored.
+6. Repeat use: stop a run during step 4 and resume it, then re-run the access case as described below.
+7. Cameras, only if the NAS has cameras with an enrolled test face; otherwise recorded as not tested.
+8. Before the reset: copy every case folder, index, audit log and score output off the NAS, and record the demo video from the core 2 run.
+
 ### Repeat use
 
 Stop a run during step 4 and start it again with the same case name. Expected: it reads the progress saved after step 3, does not search again, and ends with the same index as an uninterrupted run.
