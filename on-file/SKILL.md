@@ -217,15 +217,21 @@ For each file, first write down six answers, yes or no, from every text found fo
 - (e) The requester's own phone or address.
 - (f) A same-name person's own ID, email, date of birth or phone.
 
-Then apply the first rule that fits:
+Then answer these questions in order and stop at the first one whose answer is yes:
 
-1. (f), and none of (c), (d), (e): "excluded, identifiers of a same-name person", with the quote.
-2. (f), with any of (c), (d), (e): "needs confirmation".
-3. (a), with (c) or (d): "included, auto".
-4. (a), with (e) only: a relative with the same name and home would match too, so the check against runs first. A checked passage, for example a different birth date or a "Sr.", sends the file to the confirmation list; otherwise it is "included, auto, against-check clear". The closing message lists these files apart, because a same-name relative with no form in scope would pass this check.
-5. (c), without (a) or (b): "included, auto".
-6. Any of (a), (b), (d), (e): the two checks below run. If the check for returns no checked passage holding the name or an identifier, and the check against returns a checked passage holding a longer form of the name or a same-name person's identifier: "excluded, skeptic found a different person", with the quote. Otherwise "needs confirmation", with both quotes.
-7. None of (a) to (f), so the file was kept by step 4: "needs confirmation" if the expert quoted a checked passage, its file or folder name holds the full name, or the content search returned it; otherwise "excluded, no mention".
+1. Is (f) yes? Then: is (c), (d) or (e) also yes? Yes: "needs confirmation". No: "excluded, identifiers of a same-name person", with the quote.
+2. Is (b) yes? Then run the two checks.
+3. Is (c) yes? Then "included, auto".
+4. Is (a) yes? Then: is (d) yes? Yes: "included, auto". No: is (e) yes? Yes: run the check against. No: run the two checks.
+5. Is (d) or (e) yes? Then run the two checks.
+6. All six are no: the file keeps its step 4 outcome. "Needs confirmation" if the step 4 reading quoted a checked passage holding the name or an identifier, even one shared with a same-name person, its file or folder name holds the full name, or the content search returned it; otherwise "excluded, no mention".
+
+Write the path to each decision in the index's "decided by" column: the letters that are yes, then each question's answer up to the first yes, for example "a, e: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) yes: check against". A reviewer can then re-check every decision from the row.
+
+A file sent to a check is not decided until that check has returned. A checked passage is one that passed the quote check. The checks decide by the same kind of questions, in order:
+
+- The check against, from question 4. Did it return a checked passage, for example a different birth date or a "Sr."? Yes: "needs confirmation". No: "included, auto, against-check clear". A relative with the same name and home would match the name and the phone or address too, so the closing message lists these files apart: a same-name relative with no form in scope would pass this check.
+- The two checks, from questions 2, 4 and 5. First, did the check for return a checked passage holding the exact name or one of the requester's identifiers? Yes: "needs confirmation", with both quotes. No: second, did the check against return a checked passage holding a longer form of the name or a same-name person's identifier? Yes: "excluded, skeptic found a different person", with the quote. No: "needs confirmation", with both quotes.
 
 `delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is the same person as the one described by the identifiers listed. If there is none, say none.'`
 

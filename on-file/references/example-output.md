@@ -33,22 +33,22 @@ Total: 37 + 11 + 4 + 3 + 3 = 58 candidates
 
 ## Evidence index (excerpt, 13 of 58 rows)
 
-Columns: path, source, matched identifiers, passage, decision, decided by, other people in file, record type, planned action. The saved index is tab-separated and also has the description, the advocate and skeptic quotes and a sha256-before column; they are left out here for width. The index is internal: it quotes passages from excluded and undecided files, some about other people, so it is never sent to the requester.
+Columns: path, source, matched identifiers, passage, decision, decided by, other people in file, record type, planned action. "By" holds the path step 5 wrote: the letters (a) to (f) that are yes, then each question's answer up to the first yes. The saved index is tab-separated and also has the description, the advocate and skeptic quotes and a sha256-before column; they are left out here for width. The index is internal: it quotes passages from excluded and undecided files, some about other people, so it is never sent to the requester.
 
 | Path | Source | Matched | Passage | Decision | By | Others in file | Type | Planned action |
 |---|---|---|---|---|---|---|---|---|
-| Patients/Lopez, Maria/intake-form-2025-01-14.docx | folder name, content | name, DOB, email, phone, address, ID | Patient: Maria Lopez. Date of birth: 1984-03-12. Patient ID: LD-10432 | included | auto | no | clinical | copy |
-| Admin/Insurance/claims-batch-1.xlsx | content | name, DOB | CLM-0M, Maria Lopez, 2025-01-31, 240, 1984-03-12 | included | auto | yes | billing | extract |
-| Forms-Scanned/scan_2025-01-14_041.pdf | text in scan | name, DOB, email, phone, address, ID | Patient: Maria Lopez. Patient ID: LD-10432 | included | auto | no | clinical | copy |
-| Photos/IMG_20250114_0917.jpg | text in photo | name, ID | 09:10 Maria Lopez LD-10432 | included | auto | yes | clinical | extract |
-| Photos/DSC_0412.jpg | caption | name, ID | Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26 | included | auto | no | clinical | copy |
-| Voicemail/vm_2025-02-15_10.m4a | recording | name, ID | this is Maria Lopez Asians ID Ld. 10432 I need to move my appointment please call me back on 555 142231 | included | auto | no | correspondence | copy |
-| Admin/Recall-Letters/recall-2025-07-05-01.pdf | content | name, address | Maria Lopez, 18 Birch Lane, Lakeside | included | auto, against-check clear | no | correspondence | copy |
-| Admin/calendar-2025-Q1.csv | content | name | 2025-01-13, 10:30, Maria Lopez, Dr. Anita Rowe | needs your decision: the same file lists Maria Lopez-Ruiz on 2025-01-15 | user | | | |
-| Patients/Lopez, Maria/treatment-plan-summary.docx | folder name, properties | name | last modified by: Maria Lopez | needs your decision: name only in the document properties | user | | | |
-| Admin/Invoices/invoices-2025-extractions-1.xlsx | content | longer name | no passage for the requester; the check against quoted another patient's row, not proof of a different Maria | needs your decision: a longer name is never included automatically | user | | | |
-| Email/2025-02-28_appointment_D2.txt | content | longer name | Dear Maria Lopez-Ruiz, | excluded, a different person | auto | | | |
-| Admin/Suppliers/lopez-construction-invoice-1.pdf | file name | none | no mention of the person | excluded, no mention | auto | | | |
+| Patients/Lopez, Maria/intake-form-2025-01-14.docx | folder name, content | name, DOB, email, phone, address, ID | Patient: Maria Lopez. Date of birth: 1984-03-12. Patient ID: LD-10432 | included | auto; a, c, d, e: 1 no, 2 no, 3 yes | no | clinical | copy |
+| Admin/Insurance/claims-batch-1.xlsx | content | name, DOB | CLM-0M, Maria Lopez, 2025-01-31, 240, 1984-03-12 | included | auto; a, d: 1 no, 2 no, 3 no, 4 yes, (d) yes | yes | billing | extract |
+| Forms-Scanned/scan_2025-01-14_041.pdf | text in scan | name, DOB, email, phone, address, ID | Patient: Maria Lopez. Patient ID: LD-10432 | included | auto; a, c, d, e: 1 no, 2 no, 3 yes | no | clinical | copy |
+| Photos/IMG_20250114_0917.jpg | text in photo | name, ID | 09:10 Maria Lopez LD-10432 | included | auto; a, c: 1 no, 2 no, 3 yes | yes | clinical | extract |
+| Photos/DSC_0412.jpg | caption | name, ID | Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26 | included | auto; a, c: 1 no, 2 no, 3 yes | no | clinical | copy |
+| Voicemail/vm_2025-02-15_10.m4a | recording | name, ID | this is Maria Lopez Asians ID Ld. 10432 I need to move my appointment please call me back on 555 142231 | included | auto; a, c: 1 no, 2 no, 3 yes | no | correspondence | copy |
+| Admin/Recall-Letters/recall-2025-07-05-01.pdf | content | name, address | Maria Lopez, 18 Birch Lane, Lakeside | included | auto; a, e: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) yes: check against clear | no | correspondence | copy |
+| Admin/calendar-2025-Q1.csv | content | name | 2025-01-13, 10:30, Maria Lopez, Dr. Anita Rowe | needs your decision: the same file lists Maria Lopez-Ruiz on 2025-01-15 | user; a: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) no: two checks | | | |
+| Patients/Lopez, Maria/treatment-plan-summary.docx | folder name, properties | name | last modified by: Maria Lopez | needs your decision: name only in the document properties | user; a: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) no: two checks | | | |
+| Admin/Invoices/invoices-2025-extractions-1.xlsx | content | longer name | no passage for the requester; the check against quoted another patient's row, not proof of a different Maria | needs your decision: a longer name is never included automatically | user; b: 1 no, 2 yes: two checks | | | |
+| Email/2025-02-28_appointment_D2.txt | content | longer name | Dear Maria Lopez-Ruiz, | excluded, a different person | auto; b: 1 no, 2 yes: two checks | | | |
+| Admin/Suppliers/lopez-construction-invoice-1.pdf | file name | none | no mention of the person | excluded, no mention | auto; none: 1 to 5 no, 6 | | | |
 | Patients/Lopez, Maria/insurance-letter-protected.pdf | folder name | none | unreadable: password protected | unreadable | you check by hand | | | |
 
 Surveillance section: no face identity named Maria Lopez in the camera system, and no camera events recognised under that name in the 90 days before the request.

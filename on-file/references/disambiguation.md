@@ -78,4 +78,4 @@ When the request came with some identifiers and the first included file is an in
 
 ## What the index records for each decision
 
-Path, source step, matched identifiers, the passage, advocate quote, skeptic quote, decision, decided by (auto or user), other people in the file, record type and planned action. A reviewer can re-check any decision from the index without re-running the search.
+Path, source step, matched identifiers, the passage, advocate quote, skeptic quote, decision, decided by (auto or user, then the step 5 path: the letters (a) to (f) that are yes and each question's answer up to the first yes), other people in the file, record type and planned action. A reviewer can re-check any decision from the index without re-running the search.
