@@ -1,0 +1,63 @@
+1
+00:00:00,500 --> 00:00:06,000
+A dental patient, Maria Lopez, asks for every record the practice holds about her.
+
+2
+00:00:06,000 --> 00:00:12,000
+The law gives 30 days. Her data sits in forms, scans, phone photos and voicemails, and her mother has the same name.
+
+3
+00:00:12,500 --> 00:00:21,000
+On File is a Skill for the NAS assistant. I give it the request type, her name, the date it arrived and the folders.
+
+4
+00:00:21,000 --> 00:00:29,500
+It shows the due date and proposes a case name.
+
+5
+00:00:30,000 --> 00:00:42,000
+It searches file names, document text, text in scans and photos, photo captions, document properties and voicemail recordings,
+
+6
+00:00:42,000 --> 00:00:54,500
+with the NAS's own experts. Nothing is uploaded.
+
+7
+00:00:55,000 --> 00:01:07,000
+Two intake forms carry her exact name, one born in 1984 and one in 1958, at the same address.
+
+8
+00:01:07,000 --> 00:01:19,500
+It stops and asks which one is the requester's.
+
+9
+00:01:20,000 --> 00:01:31,000
+Every decision keeps its quote and the path of rules that made it.
+
+10
+00:01:31,000 --> 00:01:42,000
+Her mother's files are excluded, with the line that proves it.
+
+11
+00:01:42,000 --> 00:01:54,500
+A name with no identifier is never included: it comes to me, with the evidence for and against.
+
+12
+00:01:55,000 --> 00:02:05,000
+Files that also hold other patients become extracts of her own entries.
+
+13
+00:02:05,000 --> 00:02:14,500
+The letter and the list of records name no one else.
+
+14
+00:02:15,000 --> 00:02:39,500
+In act mode, each copy is its own approval, and every action goes into an audit log with checksums.
+
+15
+00:02:40,000 --> 00:02:49,500
+At the end it checks that every file it did not touch is unchanged. Search, decisions, letter: all on the NAS.
+
+16
+00:02:50,000 --> 00:02:59,000
+On File.

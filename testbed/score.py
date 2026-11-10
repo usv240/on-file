@@ -5,10 +5,11 @@ Subcommands:
     python score.py verify <corpus-root> <before.json>         compare current files to the recorded hashes
     python score.py score <expected.json> <evidence.tsv>       compute recall, precision, decoy touches, unreadable reported
 
-The evidence index is a tab-separated file with a header line containing at least:
-    path    decision
-where decision is one of: included | excluded | needs confirmation | unreadable
-Paths are relative to the corpus root, forward slashes. Extra columns are ignored.
+The evidence index is a tab-separated table with a header line containing at least the columns
+path and decision: the laptop harness's evidence.tsv, or the index the Skill saves on the NAS, read as written
+(title lines before the table and sections after it are skipped; full NAS paths are matched to the answer key
+by their ending; a decision is read by its first word: included, excluded, needs, unreadable). The Skill's
+column names "other people in file" and "record type" are read as shared and record_type.
 """
 from __future__ import annotations
 
@@ -50,18 +51,56 @@ def cmd_verify(root: Path, before_path: Path):
     return deleted, changed, added
 
 
+HEADER_ALIASES = {"other people in file": "shared", "others in file": "shared", "record type": "record_type",
+                  "decided by": "decided_by", "planned action": "planned_action", "matched identifiers": "matched"}
+
+
+def read_index(evidence_path: Path, known_paths) -> list[dict]:
+    """Rows of an evidence index: the laptop harness's evidence.tsv, or the index the Skill writes on the NAS.
+    The NAS index may start with title lines, uses the Skill's column names ("other people in file", "record type"),
+    may hold full NAS paths, and ends with the surveillance section, the unreadable list and the counters;
+    the table is the header line holding "path" and "decision" and the tab-separated lines after it."""
+    lines = evidence_path.read_text(encoding="utf-8-sig").splitlines()
+    start = next((i for i, ln in enumerate(lines)
+                  if "\t" in ln and {"path", "decision"} <= {c.strip().lower() for c in ln.split("\t")}), None)
+    if start is None:
+        raise SystemExit(f"{evidence_path}: no header line with the columns path and decision")
+    table = [lines[start]]
+    for ln in lines[start + 1:]:
+        if not ln.strip() or "\t" not in ln:
+            break
+        table.append(ln)
+    hdr = [HEADER_ALIASES.get(c.strip().lower(), c.strip().lower()) for c in table[0].split("\t")]
+    known = sorted(known_paths, key=len, reverse=True)
+    rows = []
+    for rec in csv.reader(table[1:], delimiter="\t"):
+        r = dict(zip(hdr, (v.strip() for v in rec)))
+        p = (r.get("path") or "").replace("\\", "/").strip().strip('"')
+        # full or prefixed paths (/volume1/Records/lakeside-dental/...) are matched to the answer key by their ending
+        r["path"] = next((k for k in known if p == k or p.endswith("/" + k)), p)
+        rows.append(r)
+    return rows
+
+
+def kind(decision: str) -> str:
+    """The Skill writes "included, auto", "included, auto, against-check clear", "excluded, no mention" and so on;
+    the first word decides."""
+    d = decision.strip().lower()
+    for k in ("included", "excluded", "needs", "unreadable"):
+        if d.startswith(k):
+            return k
+    return d
+
+
 def cmd_score(expected_path: Path, evidence_path: Path):
     exp = json.loads(expected_path.read_text(encoding="utf-8"))
     files = {f["path"]: f for f in exp["files"]}
-    with open(evidence_path, encoding="utf-8", newline="") as fh:
-        rows = list(csv.DictReader(fh, delimiter="\t"))
+    rows = read_index(evidence_path, files)
     decision = {}
     row_by_path = {}
     for r in rows:
-        p = (r.get("path") or "").strip().replace("\\", "/")
-        if p.startswith("lakeside-dental/"):
-            p = p[len("lakeside-dental/"):]
-        decision[p] = (r.get("decision") or "").strip().lower()
+        p = r["path"]
+        decision[p] = kind(r.get("decision") or "")
         row_by_path[p] = r
 
     targets = [p for p, f in files.items() if f["group"] == "target"]
@@ -124,10 +163,10 @@ def cmd_score(expected_path: Path, evidence_path: Path):
         for p in over:
             print("  over-flagged", p, "|", row_by_path[p].get("shared", "")[:60])
         typed = [p for p in inc_targets if files[p].get("record_type")]
-        rt_ok = sum(1 for p in typed if (row_by_path[p].get("record_type") or "") == files[p]["record_type"])
+        rt_ok = sum(1 for p in typed if (row_by_path[p].get("record_type") or "").lower() == files[p]["record_type"])
         print(f"Record type correct:                                {pct(rt_ok, len(typed))}")
         for p in typed:
-            got = row_by_path[p].get("record_type") or ""
+            got = (row_by_path[p].get("record_type") or "").lower()
             if got != files[p]["record_type"]:
                 print(f"  type {got:>14} expected {files[p]['record_type']:<14} {p}")
     if missed:

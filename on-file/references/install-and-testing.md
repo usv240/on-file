@@ -79,16 +79,19 @@ The scorer reads the evidence index as a tab-separated file with at least the co
 
 ### Round 2 test day plan
 
-The finalist NAS is available for one day and is reset afterwards, so the tests run in this order of priority:
+The finalist NAS is available for one day and is reset afterwards, so the tests run in this order of priority, with a time box for each (the full runbook with cut list is `round2/RUNBOOK.md` in the repository):
 
-1. Install and settings: add the package, run the quick check above, confirm the on-device models and the five settings, and copy the three corpora into a scratch share.
-2. Rule-following: run the main corpus in report-only mode and compare the assistant's step 5 decisions with the published laptop index, file by file. Whether the NAS assistant applies the rules as written is the main open question, so it is measured first.
-3. Core 1 and the edge case: the main corpus as an access request, then the hard corpus with its same-name question, each scored with the scorer.
-4. Core 2: an erasure in act mode on a copy of the main corpus, with every approval timed, then the verify step and the restore of one file.
-5. The blind corpus in report-only mode, scored.
-6. Repeat use: stop a run during step 4 and resume it, then re-run the access case as described below.
-7. Cameras, only if the NAS has cameras with an enrolled test face; otherwise recorded as not tested.
-8. Before the reset: copy every case folder, index, audit log and score output off the NAS, and record the demo video from the core 2 run.
+1. Install and settings, 40 minutes: add the package, confirm the on-device models and the five settings, and copy the four corpora, with the voicemails as recordings, into a scratch share.
+2. Rule-following, 40 minutes: run the 28-file demo corpus (`testbed/corpus-demo`, chosen from the hard corpus so one short run holds every case) in report-only mode and compare the assistant's decisions with the laptop index, file by file. Whether the NAS assistant applies the rules as written is the main open question, so it is measured first. Any file included on the NAS but not on the laptop is checked against the "decided by" path the assistant wrote before going on.
+3. The demo video, 70 minutes, recorded on the demo corpus: report only, then act mode on the same case.
+4. Core 1 and the edge case, 75 minutes: the main corpus as an access request, then the hard corpus with its same-name question, each scored with the scorer.
+5. Core 2, 60 minutes: an erasure in act mode on a copy of the main corpus, with every approval timed, then the verify step and the restore of one file.
+6. The blind corpus in report-only mode, scored, 45 minutes.
+7. Repeat use, 45 minutes: stop a run during step 4 and resume it, then re-run the access case as described below.
+8. Cameras, only if the NAS has cameras with an enrolled test face; otherwise recorded as not tested.
+9. Before the reset, 45 minutes: copy every case folder, index, audit log and score output off the NAS.
+
+If the day runs short, cameras, repeat use and the blind corpus are cut, in that order.
 
 ### Repeat use
 

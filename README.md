@@ -11,6 +11,7 @@ The Skill itself never sends anything off the NAS.
 | `on-file/` | The Skill package exactly as submitted: `SKILL.md` and eight files in `references/`. Markdown only. Passes the official Uliya Skill Kit checker with zero errors, warnings and notes. |
 | `testbed/` | Three synthetic practices with answer keys: two Lakeside Dental corpora and a blind Kestrel Bay Physiotherapy corpus written by an agent that never saw the rules. Also a scorer, a summary script, an audio round-trip script and a laptop stand-in harness that replays the Skill's workflow with small open models. Results are in `testbed/RESULTS.md`. |
 | `proposal/` | The Round 1 proposal (`final.md`, the PDF built from it by `build_pdf.py`, and the Devpost form text). |
+| `round2/` | The plan for a finalist's one day on a real NAS: a timed runbook with a cut list, the demo video's script and subtitles, a script that builds the four corpora with voicemails as recordings, a file-by-file comparison of the NAS index with the laptop's, and a stricter spare version of the Skill kept ready in case the NAS assistant mishandles one check. |
 
 ## The test corpora
 
@@ -34,6 +35,7 @@ Build and score:
 cd testbed
 python make_corpus.py --out corpus
 python make_corpus.py --variant hard --out corpus-hard
+python make_demo.py      # 28 files from the hard corpus: every case in one short run
 python score.py hash corpus/lakeside-dental before.json
 python score.py score corpus/expected.json path/to/evidence.tsv
 python score.py verify corpus/lakeside-dental before.json

@@ -1,0 +1,407 @@
+{
+  "requester": {
+    "name": "Maria Lopez",
+    "dob": "1984-03-12",
+    "email": "maria.lopez84@example.com",
+    "phone": "(555) 014-2231",
+    "pid": "LD-10432",
+    "address": "18 Birch Lane, Lakeside"
+  },
+  "decoy": {
+    "name": "Maria Lopez-Ruiz",
+    "dob": "1991-07-30",
+    "email": "m.lopezruiz@example.com",
+    "phone": "(555) 019-8807",
+    "pid": "LD-11871",
+    "address": "402 Harbor Street, Lakeside"
+  },
+  "namesake": {
+    "name": "Maria Lopez",
+    "dob": "1958-09-04",
+    "email": "",
+    "phone": "(555) 014-2200",
+    "pid": "LD-09811",
+    "address": "18 Birch Lane, Lakeside"
+  },
+  "variant": "demo (28 files chosen from the hard corpus)",
+  "seed": 20261115,
+  "counts": {
+    "target": 14,
+    "decoy": 2,
+    "noise": 2,
+    "unreadable_requester": 1,
+    "unreadable": 1,
+    "background": 4,
+    "namesake": 3,
+    "household": 1
+  },
+  "files": [
+    {
+      "path": "Forms-Scanned/scan_2025-01-14_041.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "scanned consent, no text layer"
+    },
+    {
+      "path": "Patients/Lopez, Maria/intake-form-2025-01-14.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "intake form; source of identifiers"
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-note-2025-01-26.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": ""
+    },
+    {
+      "path": "Admin/Insurance/claims-batch-1.xlsx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "billing",
+      "note": ""
+    },
+    {
+      "path": "Photos/IMG_20250114_0917.jpg",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "other",
+      "note": "phone photo of sign-in sheet"
+    },
+    {
+      "path": "Photos/DSC_0412.jpg",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "caption"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "name only in EXIF ImageDescription"
+    },
+    {
+      "path": "Voicemail/vm_2025-02-15_10.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "stand-in for audio; replace with real recording on NAS"
+    },
+    {
+      "path": "Email/2025-05-14_billing_question.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "billing",
+      "note": "accented name and DD/MM/YYYY birth date only"
+    },
+    {
+      "path": "Admin/Lab-Orders/lab-pickup-sheet-2025-04.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": true,
+      "record_type": "clinical",
+      "note": "surname-first name and dotted phone; other patients on the same sheet"
+    },
+    {
+      "path": "Admin/Recall-Letters/recall-2025-07-05-01.pdf",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "name plus postal address"
+    },
+    {
+      "path": "Email/2025-01-11_appointment_01.txt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": "correspondence",
+      "note": "email with address"
+    },
+    {
+      "path": "Patients/Lopez, Maria/treatment-plan-summary.docx",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "metadata",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": "clinical",
+      "note": "name only in last-modified-by and parent folder"
+    },
+    {
+      "path": "Videos/testimonial-2025.srt",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "subtitle"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": "other",
+      "note": "subtitle file, name only; expected on the confirmation list"
+    },
+    {
+      "path": "Admin/calendar-2025-Q1.csv",
+      "group": "target",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": true,
+      "record_type": "other",
+      "note": "name only, no identifier; decoy also in this file; must go to confirmation or be confirmed via other files"
+    },
+    {
+      "path": "Patients/Lopez, Maria/insurance-letter-protected.pdf",
+      "group": "unreadable_requester",
+      "mentions_requester": true,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
+      "note": "password-protected; mentions requester but cannot be read without the password"
+    },
+    {
+      "path": "Forms-Scanned/scan_2025-01-30_blank.jpg",
+      "group": "unreadable",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "ocr"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "blank page; OCR returns nothing"
+    },
+    {
+      "path": "Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx",
+      "group": "namesake",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "same exact name and address, different DOB and ID; must not be auto-included"
+    },
+    {
+      "path": "Patients/Lopez, Maria (1958)/treatment-note-2024-06-02.docx",
+      "group": "namesake",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "exact name with the namesake's own ID"
+    },
+    {
+      "path": "Admin/Recall-Letters/recall-2025-06-30-09.pdf",
+      "group": "namesake",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "exact name plus shared address only; genuinely ambiguous, must go to confirmation"
+    },
+    {
+      "path": "Patients/Lopez, Carlos/intake-form-2025-01-20.docx",
+      "group": "household",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "spouse; shares the requester's address only"
+    },
+    {
+      "path": "Patients/Lopez-Ruiz, Maria/intake-form-2025-02-03.docx",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
+      "note": ""
+    },
+    {
+      "path": "Email/2025-02-08_appointment_D1.txt",
+      "group": "decoy",
+      "mentions_requester": false,
+      "mentions_decoy": true,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": true,
+      "shared": false,
+      "record_type": null,
+      "note": ""
+    },
+    {
+      "path": "Admin/Staff/contract-mario-lopez.docx",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "staff member Mario Lopez"
+    },
+    {
+      "path": "Admin/Suppliers/lopez-construction-invoice-1.pdf",
+      "group": "noise",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text",
+        "filename"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": "company name"
+    },
+    {
+      "path": "Patients/Berg, Thomas/intake-form-2025-01-06.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": ""
+    },
+    {
+      "path": "Patients/Mwangi, Grace/intake-form-2025-02-08.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": ""
+    },
+    {
+      "path": "Policies/privacy-notice.docx",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "text"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": ""
+    },
+    {
+      "path": "Voicemail/vm_2025-01-09_00.txt",
+      "group": "background",
+      "mentions_requester": false,
+      "mentions_decoy": false,
+      "how": [
+        "audio_transcript"
+      ],
+      "strong_identifier_present": false,
+      "shared": false,
+      "record_type": null,
+      "note": ""
+    }
+  ]
+}

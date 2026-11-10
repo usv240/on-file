@@ -1,0 +1,25 @@
+path	decision	source	matched	passage	advocate	skeptic	decided_by	shared	record_type	access_action	erasure_action
+Admin/Insurance/claims-batch-1.xlsx	included	content	dob,name	CLM-0M | Maria Lopez | 2025-01-31 | 240 | 1984-03-12	exact name with identifier: dob		auto	yes: Ingrid Solberg, Jonas Lindqvist	billing	extract	edit by hand
+Admin/Lab-Orders/lab-pickup-sheet-2025-04.txt	needs confirmation	content	name,phone	LOPEZ, MARIA     555.014.2231	exact name with household identifier: phone	LOPEZ, MARIA     555.014.2231 [identifier a household can share]	user				
+Admin/Recall-Letters/recall-2025-06-30-09.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Recall-Letters/recall-2025-07-05-01.pdf	needs confirmation	content	address,name	Maria Lopez	Maria Lopez	none [identifier shared with a same-name person]	user				
+Admin/Staff/contract-mario-lopez.docx	excluded, no mention	file name			none		auto				
+Admin/Suppliers/lopez-construction-invoice-1.pdf	excluded, no mention	file name			none		auto				
+Admin/calendar-2025-Q1.csv	needs confirmation	content	name	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-13,10:30,Maria Lopez,Dr. Anita Rowe	2025-01-15,14:00,Maria Lopez-Ruiz,Dr. Samuel Okafor [name only, no identifier]	user				
+Email/2025-01-11_appointment_01.txt	included	content	email,name	To: maria.lopez84@example.com / Dear Maria Lopez,	exact name with identifier: email		auto	no	correspondence	copy	delete
+Email/2025-02-08_appointment_D1.txt	excluded, skeptic found a different person	content	name-partial		none	Dear Maria Lopez-Ruiz, [partial name]	auto				
+Email/2025-05-14_billing_question.txt	included	content	dob,name	Paciente: María López, fecha de nacimiento 12/03/1984.	exact name with identifier: dob		auto	no	billing	copy	retain (billing record)
+Forms-Scanned/scan_2025-01-14_041.pdf	included	ocr	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
+Forms-Scanned/scan_2025-01-30_blank.jpg	unreadable	unreadable in scope		unreadable:no text found by OCR			user checks by hand				
+Patients/Lopez, Carlos/intake-form-2025-01-20.docx	needs confirmation	file name,content	address		none		user				
+Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx	excluded, identifiers of a same-name person	file name,content	address,name	Patient ID: LD-09811 / Date of birth: 1958-09-04	namesake identifier: dob,pid		auto				
+Patients/Lopez, Maria (1958)/treatment-note-2024-06-02.docx	excluded, identifiers of a same-name person	file name,content	name	Patient: Maria Lopez (LD-09811)	namesake identifier: pid		auto				
+Patients/Lopez, Maria/insurance-letter-protected.pdf	unreadable	file name,unreadable in scope		unreadable:password-protected			user checks by hand				
+Patients/Lopez, Maria/intake-form-2025-01-14.docx	included	file name,content	address,dob,email,name,phone,pid	Patient ID: LD-10432 / Email: maria.lopez84@example.com / Date of birth: 1984-03-12 / Phone: (555) 014-2231 / Address: 18 Birch Lane, Lakeside / Patient: Maria Lopez	exact name with identifier: dob,email,phone,pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-note-2025-01-26.docx	included	file name,content	name,pid	Patient: Maria Lopez (LD-10432)	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Patients/Lopez, Maria/treatment-plan-summary.docx	needs confirmation	file name,metadata	name	[document properties] Dr. Samuel Okafor Maria Lopez	none	Patient details on file. [name only, no identifier]	user				
+Patients/Lopez-Ruiz, Maria/intake-form-2025-02-03.docx	excluded, skeptic found a different person	file name,content	name-partial		none	Patient: Maria Lopez-Ruiz / Patient ID: LD-11871 / Email: m.lopezruiz@example.com / Phone: (555) 019-8807 / Address: 402 Harbor Street, Lakeside / Reason for visit: wisdom tooth pain. / Emergency contact: Ana Ruiz (mother). [partial name]	auto				
+Photos/DSC_0412.jpg	included	metadata	name,pid	[document properties] Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26	exact name with identifier: pid		auto	no	clinical	copy	retain (clinical record)
+Photos/IMG_20250114_0917.jpg	included	ocr	name,pid	09:10 Maria Lopez LD-10432	exact name with identifier: pid		auto	yes: Thomas Berg, Grace Mwangi	clinical	extract	edit by hand
+Videos/testimonial-2025.srt	needs confirmation	subtitle	name	Hi, I am Maria Lopez.	Hi, I am Maria Lopez.	Hi, I am Maria Lopez. [name only, no identifier]	user				
+Voicemail/vm_2025-02-15_10.txt	included	audio transcript	name,pid	Type this is Maria Lopez Asians ID Ld. 10432 I need to move my appointment please call me back on 555 142231 thanks	exact name with identifier: pid		auto	no	correspondence	copy	delete
