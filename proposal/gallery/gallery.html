@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>On File gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=block" rel="stylesheet">
+<style>
+  /* Colour-coded chart labels from a practice's filing cabinet: each decision has its label colour. */
+  :root {
+    --paper: #eef1ef;
+    --paper-2: #e2e7e4;
+    --ink: #10171d;
+    --ink-2: #3c4851;
+    --blue: #1d4fd6;
+    --blue-ink: #dfe7ff;
+    --green: #17834a;
+    --vermilion: #d8401f;
+    --yellow: #f4c531;
+    --grey: #9aa6ae;
+    --white: #ffffff;
+    --m: 80px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #777; }
+  body { font-family: "Archivo", sans-serif; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .art { width: 1500px; height: 1000px; position: relative; overflow: hidden; margin: 0 0 40px; padding: var(--m); }
+  .cond { font-stretch: 68%; }
+  .label { display: inline-block; font-weight: 750; font-size: 21px; line-height: 1; padding: 11px 16px 10px; color: var(--white); white-space: nowrap; }
+  .label.in { background: var(--green); }
+  .label.out { background: var(--vermilion); }
+  .label.you { background: var(--yellow); color: var(--ink); }
+  .label.unread { background: var(--grey); color: var(--ink); }
+  .foot { position: absolute; left: var(--m); right: var(--m); bottom: 44px; font-size: 17px; color: var(--ink-2); display: flex; justify-content: space-between; }
+  mark { background: var(--yellow); color: var(--ink); padding: 0 3px; margin: 0 -3px; }
+
+  /* 1. cover */
+  .cover { background: var(--blue); color: var(--white); display: grid; grid-template-columns: 1fr 590px; column-gap: 72px; align-items: center; }
+  .cover h1 { font-stretch: 62%; font-weight: 850; font-size: 236px; line-height: .82; letter-spacing: -0.035em; }
+  .cover .claim { margin-top: 40px; font-weight: 700; font-size: 50px; line-height: 1.04; letter-spacing: -0.02em; max-width: 640px; }
+  .cover .sub { margin-top: 28px; font-size: 23px; line-height: 1.42; max-width: 600px; color: var(--blue-ink); }
+  .cover .foot { color: var(--blue-ink); }
+  .forms { display: flex; flex-direction: column; gap: 30px; }
+  .form { background: var(--white); color: var(--ink); position: relative; padding: 26px 30px 26px; }
+  .form .doc { font-weight: 750; font-size: 17px; color: var(--ink-2); margin-bottom: 14px; }
+  .form dl { display: grid; grid-template-columns: 150px 1fr; row-gap: 8px; font-size: 22px; }
+  .form dt { color: var(--ink-2); }
+  .form dd { font-weight: 600; }
+  .form .verdict { margin-top: 20px; display: flex; gap: 14px; align-items: center; }
+  .form .why { font-size: 18px; line-height: 1.35; color: var(--ink-2); }
+  .form.mother { margin-left: 46px; }
+
+  /* 2. sources */
+  .sources { background: var(--paper); }
+  .sources h2, .house h2, .gate h2, .results h2 { font-stretch: 68%; font-weight: 820; font-size: 84px; line-height: .95; letter-spacing: -0.03em; }
+  .sources .lede { margin-top: 18px; font-size: 23px; line-height: 1.4; max-width: 900px; color: var(--ink-2); }
+  .rows { margin-top: 40px; display: grid; grid-template-columns: 340px 1fr 262px; }
+  .rows > div { padding: 16px 22px; display: flex; align-items: center; min-height: 98px; }
+  .rows .src { font-weight: 720; font-size: 25px; line-height: 1.15; flex-direction: column; align-items: flex-start; justify-content: center; }
+  .rows .src small { font-weight: 450; font-size: 17px; color: var(--ink-2); margin-top: 4px; }
+  .rows .q { font-size: 24px; line-height: 1.3; }
+  .rows .d { justify-content: flex-start; }
+  .rows .alt { background: var(--paper-2); }
+
+  /* 3. household */
+  .house { background: var(--white); display: grid; grid-template-columns: 560px 1fr; column-gap: 64px; }
+  .house .left { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 6px; }
+  .house h2 { font-size: 96px; }
+  .house .lede { margin-top: 30px; font-size: 24px; line-height: 1.45; }
+  .house .lede + .lede { margin-top: 18px; }
+  .people { display: flex; flex-direction: column; gap: 16px; height: 780px; }
+  .person { flex: 1; align-content: center; background: var(--paper); padding: 22px 28px 24px; display: grid; grid-template-columns: 1fr auto; column-gap: 20px; row-gap: 8px; }
+  .person .name { font-weight: 780; font-size: 34px; letter-spacing: -0.01em; }
+  .person .rel { font-size: 20px; color: var(--ink-2); grid-column: 1; }
+  .person .label { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+  .person .q { grid-column: 1 / span 2; font-size: 23px; line-height: 1.35; margin-top: 6px; }
+  .person.req { background: #e3f1e8; }
+
+  /* 4. the gate */
+  .gate { background: var(--ink); color: var(--white); }
+  .gate .lede { margin-top: 18px; font-size: 23px; line-height: 1.4; max-width: 980px; color: #c9d2d8; }
+  .strip { margin-top: 46px; display: grid; grid-template-columns: 5fr 1.25fr 1.25fr 1.25fr; column-gap: 8px; }
+  .strip > div { padding: 26px 24px 28px; min-height: 300px; display: flex; flex-direction: column; }
+  .strip .n { font-stretch: 68%; font-weight: 820; font-size: 46px; line-height: 1; }
+  .strip .t { margin-top: 14px; font-weight: 700; font-size: 26px; line-height: 1.2; }
+  .strip .s { margin-top: 12px; font-size: 20px; line-height: 1.38; }
+  .strip .read { background: #263540; }
+  .strip .read .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 16px; }
+  .strip .read .steps span { background: #33475a; padding: 14px 12px; font-size: 19px; line-height: 1.28; min-height: 96px; }
+  .strip .write { background: var(--blue); }
+  .strip .act { background: var(--vermilion); }
+  .strip .verify { background: var(--green); }
+  .gate .msg { margin-top: 36px; background: #1b252e; padding: 28px 30px; font-size: 22px; line-height: 1.55; color: #e7ecef; }
+  .gate .msg b { color: var(--white); }
+  .gate .foot { color: #9fb0bb; }
+
+  /* 5. results */
+  .results { background: var(--paper); }
+  .results .lede { margin-top: 18px; font-size: 23px; line-height: 1.4; max-width: 1040px; color: var(--ink-2); }
+  table { margin-top: 44px; width: 100%; border-collapse: collapse; table-layout: fixed; }
+  th { text-align: left; font-weight: 720; font-size: 24px; padding: 0 20px 14px; vertical-align: bottom; }
+  th small { display: block; font-weight: 450; font-size: 17px; color: var(--ink-2); margin-top: 4px; }
+  td { padding: 26px 20px; font-size: 25px; }
+  td.num { font-stretch: 68%; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.01em; }
+  td.num small { font-stretch: 100%; font-weight: 450; font-size: 18px; color: var(--ink-2); letter-spacing: 0; margin-left: 6px; }
+  tr:nth-child(odd) td { background: var(--paper-2); }
+  td.zero { color: var(--green); }
+  th:first-child, td:first-child { width: 430px; }
+</style>
+</head>
+<body>
+
+<!-- 1. Cover -->
+<section class="art cover" id="g1">
+  <div>
+    <h1>On File</h1>
+    <p class="claim">Every file about one person, with the line that proves it.</p>
+    <p class="sub">A UGREEN AI NAS Skill that answers HIPAA and GDPR records requests. It reads scans, photos and voicemails on the NAS, so the records are never uploaded.</p>
+  </div>
+  <div class="forms">
+    <div class="form">
+      <p class="doc">New patient intake form, 2025-01-14</p>
+      <dl>
+        <dt>Patient</dt><dd>Maria Lopez</dd>
+        <dt>Date of birth</dt><dd>1984-03-12</dd>
+        <dt>Patient ID</dt><dd>LD-10432</dd>
+        <dt>Address</dt><dd>18 Birch Lane, Lakeside</dd>
+      </dl>
+      <div class="verdict"><span class="label in">Included</span><span class="why">The requester's own form</span></div>
+    </div>
+    <div class="form mother">
+      <p class="doc">New patient intake form, 2024-06-02</p>
+      <dl>
+        <dt>Patient</dt><dd>Maria Lopez</dd>
+        <dt>Date of birth</dt><dd><mark>1958-09-04</mark></dd>
+        <dt>Patient ID</dt><dd><mark>LD-09811</mark></dd>
+        <dt>Address</dt><dd>18 Birch Lane, Lakeside</dd>
+      </dl>
+      <div class="verdict"><span class="label out">Excluded</span><span class="why">Her mother: same name, same address, her own ID and birth date</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Invented test data, laptop stand-in run</span><span>Open Innovation track</span></div>
+</section>
+
+<!-- 2. Where the name hides -->
+<section class="art sources" id="g2">
+  <h2>Six places one patient's name hides</h2>
+  <p class="lede">From one run on 28 test files. Each passage is quoted exactly as it was read, machine-transcription errors included.</p>
+  <div class="rows">
+    <div class="src">Scanned consent form<small>text read from the scan</small></div>
+    <div class="q">“Patient: Maria Lopez … Patient ID: LD-10432”</div>
+    <div class="d"><span class="label in">Included</span></div>
+
+    <div class="src alt">Phone photo of a sign-in sheet<small>two other patients on it</small></div>
+    <div class="q alt">“09:10 Maria Lopez LD-10432”</div>
+    <div class="d alt"><span class="label in">Included as extract</span></div>
+
+    <div class="src">Photo caption<small>the picture shows no text</small></div>
+    <div class="q">“Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26”</div>
+    <div class="d"><span class="label in">Included</span></div>
+
+    <div class="src alt">Voicemail recording<small>machine transcript</small></div>
+    <div class="q alt">“this is Maria Lopez Asians ID Ld. 10432 I need to move my appointment”</div>
+    <div class="d alt"><span class="label in">Included</span></div>
+
+    <div class="src">Email in Spanish<small>accents, day-first date</small></div>
+    <div class="q">“Paciente: María López, fecha de nacimiento 12/03/1984.”</div>
+    <div class="d"><span class="label in">Included</span></div>
+
+    <div class="src alt">Subtitle file<small>name only, nothing else</small></div>
+    <div class="q alt">“Hi, I am Maria Lopez.”</div>
+    <div class="d alt"><span class="label you">Your decision</span></div>
+  </div>
+  <div class="foot"><span>Invented test data, laptop stand-in run</span><span>On File</span></div>
+</section>
+
+<!-- 3. The household -->
+<section class="art house" id="g3">
+  <div class="left">
+    <h2>Same name, same address, different person</h2>
+    <p class="lede">The requester's mother is also Maria Lopez, at 18 Birch Lane. The Skill stops once to ask which intake form is the requester's.</p>
+    <p class="lede">A file is excluded only with a quote that shows someone else. A name with nothing else is never included: it comes to you, with the evidence for and against.</p>
+  </div>
+  <div class="people">
+    <div class="person req">
+      <span class="name">Maria Lopez, born 1984</span>
+      <span class="rel">The requester</span>
+      <span class="label in">Included</span>
+      <span class="q">“Patient: Maria Lopez (LD-10432)”</span>
+    </div>
+    <div class="person">
+      <span class="name">Maria Lopez, born 1958</span>
+      <span class="rel">Her mother, same address</span>
+      <span class="label out">Excluded</span>
+      <span class="q">“Patient: Maria Lopez (<mark>LD-09811</mark>)”</span>
+    </div>
+    <div class="person">
+      <span class="name">Maria Lopez-Ruiz</span>
+      <span class="rel">Another patient, longer surname</span>
+      <span class="label out">Excluded</span>
+      <span class="q">“Dear <mark>Maria Lopez-Ruiz</mark>,”</span>
+    </div>
+    <div class="person">
+      <span class="name">Recall letter to Maria Lopez</span>
+      <span class="rel">Name and the address both women share</span>
+      <span class="label you">Your decision</span>
+      <span class="q">“Maria Lopez, 18 Birch Lane, Lakeside”</span>
+    </div>
+  </div>
+  <div class="foot"><span>Invented test data, laptop stand-in run</span><span>On File</span></div>
+</section>
+
+<!-- 4. Nothing changes until you approve -->
+<section class="art gate" id="g4">
+  <h2>Nothing changes until you approve it</h2>
+  <p class="lede">The search only reads. The index, list of records and letter go to a case folder you choose. In act mode each copy, extract or deletion is its own approval, and the end of the run checks the untouched files.</p>
+  <div class="strip">
+    <div class="read">
+      <span class="n">Steps 1 to 5</span>
+      <span class="t">Read only</span>
+      <div class="steps">
+        <span>File and folder names</span><span>Document text</span><span>Scans, photos, voicemails</span><span>Quote check</span><span>Same-name rules</span>
+      </div>
+    </div>
+    <div class="write"><span class="n">6</span><span class="t">Case folder</span><span class="s">Index, list of records, letter</span></div>
+    <div class="act"><span class="n">7</span><span class="t">One approval per file</span><span class="s">Act mode only</span></div>
+    <div class="verify"><span class="n">8</span><span class="t">Verify</span><span class="s">Untouched files checked by sha256</span></div>
+  </div>
+  <div class="msg">
+    <b>Included 37, excluded 14, needs your decision 4, unreadable 3.</b> Due 2026-12-03, 26 days left.<br>
+    Planned hand-over: 30 copies and 7 extracts. The 7 files also hold other patients' data, so only her own entries would be handed over.<br>
+    Nothing was copied or deleted (report-only mode). To hand over, run again in act mode: expect 42 approvals.
+  </div>
+  <div class="foot"><span>Closing message from the main test corpus, laptop stand-in run</span><span>On File</span></div>
+</section>
+
+<!-- 5. Results -->
+<section class="art results" id="g5">
+  <h2>Measured on three invented practices</h2>
+  <p class="lede">Name only as input. Qwen3 4B and Qwen3-VL 2B on a laptop stood in for the NAS models; Round 2 replaces these numbers with runs on the NAS. The physiotherapy practice was written by a separate agent that never saw the rules.</p>
+  <table>
+    <tr><th></th><th>Dental<small>122 files</small></th><th>Harder dental<small>129 files, same-name mother</small></th><th>Physiotherapy<small>65 files, written blind</small></th></tr>
+    <tr><td>Requester's files found</td><td class="num">40<small>of 40</small></td><td class="num">43<small>of 43</small></td><td class="num">29<small>of 30</small></td></tr>
+    <tr><td>Wrongly included</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td></tr>
+    <tr><td>Look-alike files included</td><td class="num zero">0<small>of 22</small></td><td class="num zero">0<small>of 26</small></td><td class="num zero">0<small>of 18</small></td></tr>
+    <tr><td>Shared files flagged for extracts</td><td class="num">7<small>of 7</small></td><td class="num">7<small>of 7</small></td><td class="num">6<small>of 6</small></td></tr>
+  </table>
+  <div class="foot"><span>Corpora, answer keys and scorer: github.com/usv240/on-file</span><span>On File</span></div>
+</section>
+
+<!-- video cards: opening and closing, rendered only for the walkthrough video -->
+<section class="art vcard cover" id="v0">
+  <div>
+    <h1>On File</h1>
+    <p class="claim">A prototype walkthrough in one minute.</p>
+    <p class="sub">Every screen shows output from a laptop stand-in run on invented test data: small open models standing in for the NAS's own. The run on a UGREEN AI NAS comes in Round 2.</p>
+  </div>
+  <div></div>
+</section>
+<section class="art vcard results" id="v6">
+  <h2>On File</h2>
+  <p class="lede" style="font-size:30px;max-width:1100px;color:var(--ink)">Markdown-only Uliya Skill. Six NAS expert agents, 31 catalog actions, one approval per file action, nothing sent off the NAS.</p>
+  <p class="lede" style="font-size:30px;max-width:1100px;margin-top:40px;color:var(--ink)">The test corpora, answer keys, scorer and the test-day plan are public: github.com/usv240/on-file</p>
+  <div class="foot"><span>Invented test data throughout</span><span>UGREEN Hackathon 2026 on AI NAS, Open Innovation track</span></div>
+</section>
+
+</body>
+</html>

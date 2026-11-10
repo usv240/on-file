@@ -48,6 +48,22 @@ The harder corpus adds the requester's mother with the same name at the same add
 
 Round 2 on the iDX6011 Pro: re-run both corpora with the real agents, replace the laptop numbers, measure approvals and transcription time, and record the three test cases.
 
+## Image gallery
+
+Upload in this order; Devpost uses the first image as the project thumbnail. Each is 3000 x 2000 (3:2), under 400 KB, built by `proposal/gallery/render.py` from real output of the laptop stand-in run on invented data.
+
+1. `proposal/gallery/on-file-gallery-1.png`: On File, the two intake forms of the two Maria Lopezes
+2. `proposal/gallery/on-file-gallery-2.png`: six places one patient's name hides
+3. `proposal/gallery/on-file-gallery-3.png`: same name, same address, different person
+4. `proposal/gallery/on-file-gallery-4.png`: nothing changes until you approve it
+5. `proposal/gallery/on-file-gallery-5.png`: measured on three invented practices
+
+Captions, if the form asks for them, are the image titles above.
+
+## Video demo link (optional in Round 1)
+
+`proposal/gallery/video/on-file-walkthrough.mp4` (61 seconds, silent, the text is on every slide) is built by `proposal/gallery/make_video.py`. Upload it to YouTube as unlisted or public, title "On File: prototype walkthrough (laptop stand-in, invented data)", and paste the link here. Its first card says that every screen comes from a laptop stand-in run on invented data and that the NAS run comes in Round 2.
+
 ## Built with
 
 uliya, ugos, markdown, python (test corpora only)

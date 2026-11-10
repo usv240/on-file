@@ -23,3 +23,6 @@ testbed/run*_status.txt
 testbed/run7.sh
 testbed/run8.sh
 testbed/replay/
+
+# walkthrough video: uploaded to YouTube, rebuilt by proposal/gallery/make_video.py
+proposal/gallery/video/*.mp4
