@@ -4,7 +4,31 @@ These numbers come from `standin_run.py` replaying the Skill's workflow on a lap
 
 Input to every run: the requester's name only, no other identifiers, the way most requests arrive. Voicemails in the two Lakeside corpora are synthesized speech: `audio_roundtrip.ps1` speaks each one with an offline Windows voice and transcribes the recording with the offline Windows recognizer.
 
-## Current results (runs 7 and 8, 2026-11-07)
+## Current results (run 9, 2026-11-11)
+
+Run 9 applies the rule that a file with the exact name and only a home phone or address always goes to the user: a parent with the same name at the same home would match it too, and no check can rule that out. Before run 9 such a file was included when the check against found nothing. Only the requester's own ID or email, or the name with the date of birth, now includes a file automatically.
+
+| Measure | Main | Hard | Blind | Main, stress | Hard, stress | Demo |
+|---|---|---|---|---|---|---|
+| Files in scope | 122 | 129 | 65 | 122 | 129 | 28 |
+| Requester's files found (included or sent to the user) | 40 of 40 | 43 of 43 | 30 of 30 | 40 of 40 | 43 of 43 | 14 of 14 |
+| Included automatically | 33 | 34 | 18 | 33 | 34 | 9 |
+| Wrongly included | 0 | 0 | 0 | 0 | 0 | 0 |
+| Look-alike files included (other people, companies, streets) | 0 of 22 | 0 of 26 | 0 of 18 | 0 of 22 | 0 of 26 | 0 of 8 |
+| Unreadable files listed with a reason | 3 of 3 | 3 of 3 | 6 of 6 | 3 of 3 | 3 of 3 | 2 of 2 |
+| Included files holding others' data, flagged | 7 of 7 | 7 of 7 | 6 of 6 | 7 of 7 | 7 of 7 | 2 of 2 |
+| Single-person files wrongly flagged as shared | 0 of 26 | 0 of 27 | 0 of 12 | 0 of 26 | 0 of 27 | 0 of 7 |
+| Items left for the user to decide | 7 | 12 | 16 | 8 | 11 | 7 |
+| Files added by the document pass | 0 | 0 | 0 | 9 | 9 | 0 |
+| Wall time, seconds | 496 | 541 | 263 | 599 | 579 | 129 |
+| Run folder | `run9_main` | `run9_hard` | `run9_blind` | `run9_main_stress` | `run9_hard_stress` | `run9_demo` |
+
+- Changes from run 8: on the main corpus the four recall letters addressed to the requester at her home went to the user instead of being included (included 37 to 33, items for the user 4 to 7), and one invoice with the longer-name patient was excluded with the quote instead of going to the user. On the blind corpus the husband's intake form, which holds the requester's name and their shared address, went to the user.
+- Blind corpus: in both blind runs under the current rules (`run9_blind`, `run9_blind_try1`, the same numbers) the text model misread the other Sarah Mitchell's email address on her intake form (as "sjm: 1961@example.org"). So a reminder sent by mistake to her address went to the user instead of being excluded, and a newsletter list holding both women's addresses was included as an extract instead of going to the user. With the address read correctly, as in run 8, the reminder is excluded and missed (29 of 30) and the list goes to the user (17 included). Neither way includes a file wrongly.
+- Demo: 28 files chosen from the hard corpus by `make_demo.py` so that one short run holds every case; it is the corpus for the finalist test day.
+
+## Run 8 (2026-11-07), before the rule change
+
 
 | Measure | Main | Hard | Blind | Main, stress | Hard, stress |
 |---|---|---|---|---|---|
@@ -28,16 +52,18 @@ Input to every run: the requester's name only, no other identifiers, the way mos
 
 ## Act mode, replayed
 
-`act_replay.py` carries out the planned copies, extracts and deletions from each run's index on a copy of the corpus, writes the audit log at the Skill's checkpoints, runs the same case a second time, restores one deleted file and checks every file in scope by sha256. It tests the plan and the bookkeeping, not the NAS file actions.
+Replayed from the run 9 indexes (`replay9_*.txt`). `act_replay.py` carries out the planned copies, extracts and deletions from each run's index on a copy of the corpus, writes the audit log at the Skill's checkpoints, runs the same case a second time, restores one deleted file and checks every file in scope by sha256. It tests the plan and the bookkeeping, not the NAS file actions.
 
-| Case | Acted on | Deleted equals planned | Other files changed or added | Second run acted on | Restore matches | Approvals |
+| Case (run 9) | Acted on | Deleted equals planned | Other files changed or added | Second run acted on | Restore matches | Approvals |
 |---|---|---|---|---|---|---|
-| Main, access | 30 copies, 7 extracts | none planned | 0 | 0 | none deleted | 42 |
-| Main, erasure | 12 deleted; 18 retained and 7 for editing by hand left untouched | yes | 0 | 0 | yes | 14 |
+| Main, access | 26 copies, 7 extracts | none planned | 0 | 0 | none deleted | 38 |
+| Main, erasure | 8 deleted; 18 retained and 7 for editing by hand left untouched | yes | 0 | 0 | yes | 9 |
 | Hard, access | 27 copies, 7 extracts | none planned | 0 | 0 | none deleted | 39 |
 | Hard, erasure | 9 deleted | yes | 0 | 0 | yes | 10 |
 | Blind, access | 12 copies, 6 extracts | none planned | 0 | 0 | none deleted | 21 |
 | Blind, erasure | 3 deleted | yes | 0 | 0 | yes | 4 |
+| Demo, access | 7 copies, 2 extracts | none planned | 0 | 0 | none deleted | 11 |
+| Demo, erasure | 3 deleted | yes | 0 | 0 | yes | 4 |
 
 Every extract kept only lines naming the person. That is the Skill's extract rule, which the replay applies, so it shows the rule leaves no other patient's row behind on these files; it does not test an extract written by the NAS document expert, which the Skill checks by the same rule before saving. The approval counts are the ones the Skill states before act mode: one per action, one per 10 actions for the audit log, and one for the hand-over folder.
 

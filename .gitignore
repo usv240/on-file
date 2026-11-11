@@ -26,3 +26,4 @@ testbed/replay/
 
 # walkthrough video: uploaded to YouTube, rebuilt by proposal/gallery/make_video.py
 proposal/gallery/video/*.mp4
+testbed/replay9/

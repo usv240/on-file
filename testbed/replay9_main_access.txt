@@ -1,0 +1,37 @@
+{
+  "mode": "access",
+  "files_in_scope": 122,
+  "planned": {
+    "copy": 26,
+    "extract": 7
+  },
+  "first_run": {
+    "acted": 33,
+    "already done": 0,
+    "skipped (retain or edit by hand)": 0,
+    "extract refused": 0,
+    "log writes": 4,
+    "hand-over folder created": 1
+  },
+  "second_run": {
+    "acted": 0,
+    "already done": 33,
+    "skipped (retain or edit by hand)": 0,
+    "extract refused": 0,
+    "log writes": 4
+  },
+  "integrity_after_first_run": {
+    "deleted": 0,
+    "deleted_equals_planned_deletions": true,
+    "changed": 0,
+    "added": 0
+  },
+  "second_run_changed_nothing": true,
+  "approvals_first_run": 38,
+  "hand_over": {
+    "copies": 26,
+    "extracts": 7,
+    "extract lines without the person": 0
+  },
+  "audit_log_lines": 66
+}

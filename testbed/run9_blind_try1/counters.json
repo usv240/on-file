@@ -1,0 +1,60 @@
+{
+  "identifiers_at_start": [
+    "name"
+  ],
+  "timing": {
+    "step1": 0.0,
+    "step2_3": 48.1,
+    "document_pass": 37.3,
+    "step4_5": 270.2,
+    "step6": 0.1
+  },
+  "files_in_scope": 65,
+  "step1_filename_candidates": 19,
+  "step2_3_candidates_total": 48,
+  "namesake_from": "Clients/Mitchell_Sarah_KBP-10388/intake_form.docx",
+  "identifiers_seeded_from": "Clients/Mitchell_Sarah_KBP-10427/intake_form.docx",
+  "identifiers_extracted": {
+    "email": "sarah.mitchell83@example.com",
+    "phone": "(503) 555-0147",
+    "dob": "09/22/1983",
+    "address": "17 Alder Crescent, Linden Cove, OR 97990",
+    "pid": "KBP-10427"
+  },
+  "identifiers_shared_with_namesake": [],
+  "document_pass_added": 0,
+  "questions": [
+    {
+      "question": "Several intake forms carry this exact name with different dates of birth. Which one is the requester's?",
+      "options": [
+        "Clients/Mitchell_Sarah_KBP-10388/intake_form.docx (born 05/30/1961)",
+        "Clients/Mitchell_Sarah_KBP-10427/intake_form.docx (born 09/22/1983)"
+      ],
+      "answer": "Clients/Mitchell_Sarah_KBP-10427/intake_form.docx"
+    }
+  ],
+  "decisions": {
+    "needs confirmation": 16,
+    "included": 18,
+    "excluded": 11,
+    "unreadable": 7
+  },
+  "plan": {
+    "access_action: extract": 6,
+    "erasure_action: edit by hand": 6,
+    "access_action: copy": 12,
+    "erasure_action: retain (clinical record)": 7,
+    "erasure_action: retain (billing record)": 2,
+    "erasure_action: delete": 3
+  },
+  "state": "completed",
+  "identifiers_at_end": [
+    "name",
+    "email",
+    "phone",
+    "dob",
+    "address",
+    "pid"
+  ],
+  "total_seconds": 318.4
+}

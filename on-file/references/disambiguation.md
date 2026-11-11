@@ -8,7 +8,7 @@ The most common error in a person search is including someone else who shares th
 |---|---|---|---|
 | Belongs to one person | patient or customer ID, personal email | include automatically | include automatically |
 | Personal, not unique | date of birth | include automatically, unless a same-name person shares it | the two checks; never automatic |
-| Can be shared by a household | phone number, postal address | the against-check runs first; any checked passage sends the file to the user, otherwise include and list it apart in the closing message | the two checks; never automatic |
+| Can be shared by a household | phone number, postal address | the user decides; such files are listed apart in the closing message | the two checks; never automatic |
 | Context | employer, role, a family member's name, a city | the two checks | not a hit |
 | Weak | first name alone, surname alone, initials | never a hit on its own; only widens the candidate list in step 1 | not a hit |
 
@@ -70,7 +70,7 @@ After the user picks the requester's form, the other form describes a same-name 
 
 ## A same-name relative with no form in scope
 
-The same-name rules need the other person's form. If a parent with the same name and the same home has no intake form in the folders searched, nothing marks the shared phone or address, and a file with the exact name and that phone or address is included once the check against finds nothing. Such files are listed apart in the closing message so the user can look them over before act mode. In the main test corpus these were four recall letters addressed to the requester at her home.
+The same-name rules need the other person's form. If a parent with the same name and the same home has no intake form in the folders searched, nothing marks the shared phone or address, so a file with the exact name and only that phone or address is never included automatically: it goes to the user, listed apart in the closing message. In the main test corpus these were four recall letters addressed to the requester at her home.
 
 ## Growing the identifier set
 

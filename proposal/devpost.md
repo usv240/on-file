@@ -26,7 +26,7 @@ Any clinic, dental office or shop with records on a NAS gets these requests. HIP
 
 Markdown only: SKILL.md and eight reference files. The parent Skill directs six UGOS expert agents (file, knowledge, document, photo, media, security monitor) through 31 catalog actions. Steps 1 to 5 only read the person's files and save progress to the case folder, so a stopped run resumes without searching again. Step 6 writes the index, enclosure list and letter to the case folder only. Step 7 is the only step that touches the person's files, one approval per file, and the user is told how many approvals to expect before the first one.
 
-The decisions are rules, not model guesses. A name counts only next to one of the person's identifiers; an ID or personal email belongs to one person, while a birth date, phone or address can be shared by a household. Files with only the name get one check for evidence it is the person and one for evidence it is not; clear cases of someone else are excluded with the quote as proof, and the rest go to the user with the evidence for and against. A model's opinion never includes a file, and never excludes one without a quote showing a different person. Every quoted passage must appear in the file, so a model cannot add a file by inventing a quote. Shared files are found by asking the model to list everyone named in the file, not by asking yes or no; in testing, a small model answered "no" for a sign-in sheet with three other patients and named all three when asked for a list.
+The decisions are rules, not model guesses. Only the person's own ID or email, or the name together with the date of birth, includes a file automatically; a name with only a phone or address, which a parent with the same name at the same home would share, always goes to the user. Files with only the name get one check for evidence it is the person and one for evidence it is not; clear cases of someone else are excluded with the quote as proof, and the rest go to the user with the evidence for and against. A model's opinion never includes a file, and never excludes one without a quote showing a different person. Every quoted passage must appear in the file, so a model cannot add a file by inventing a quote. Shared files are found by asking the model to list everyone named in the file, not by asking yes or no; in testing, a small model answered "no" for a sign-in sheet with three other patients and named all three when asked for a list.
 
 ### What has been measured
 
@@ -34,13 +34,13 @@ Three synthetic practices with answer keys and a scorer, run on a laptop with sm
 
 | Measure | Main dental | Harder dental | Blind physio |
 |---|---|---|---|
-| Requester's files found | 40 of 40 | 43 of 43 | 29 of 30 |
-| Included automatically | 37 | 34 | 18 |
+| Requester's files found | 40 of 40 | 43 of 43 | 30 of 30 |
+| Included automatically | 33 | 34 | 18 |
 | Wrongly included | 0 | 0 | 0 |
 | Look-alike files included | 0 of 22 | 0 of 26 | 0 of 18 |
 | Shared files flagged for extraction | 7 of 7 | 7 of 7 | 6 of 6 |
 
-The blind practice was first run before the fixes it led to: 18 of 30 found, none wrongly included. It exposed three rule flaws (a middle name on the intake form, a client named only in meeting minutes, a log listing both same-name women), now fixed. A stress test that caps the search at 10 results per term changed nothing: a direct pass over every document caught what the capped search dropped.
+The blind practice was first run before the fixes it led to: 18 of 30 found, none wrongly included. It exposed three rule flaws (a middle name on the intake form, a client named only in meeting minutes, a log listing both same-name women), now fixed. A stress test that caps the search at 10 results per term changed nothing: a direct pass over every document caught what the capped search dropped. In both blind runs under the current rules the text model misread the other Sarah Mitchell's email address on her intake form, so a reminder sent to her address by mistake went to the user instead of being excluded; read correctly, that reminder is excluded and missed (29 of 30).
 
 The harder corpus adds the requester's mother with the same name at the same address, a spouse, an accented name, a surname-first name with a differently written phone number, and a subtitle file. Its cases came from a review of the first version, so it is a stricter test, not a blind one. The corpora and scorer are public for other entrants to use.
 

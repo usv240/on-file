@@ -11,7 +11,7 @@ The Skill itself never sends anything off the NAS.
 | `on-file/` | The Skill package exactly as submitted: `SKILL.md` and eight files in `references/`. Markdown only. Passes the official Uliya Skill Kit checker with zero errors, warnings and notes. `python build_package.py <path to check-skill.mjs>` builds `dist/on-file.zip` (one folder, `on-file/`, as in UGREEN's own kit ZIP) and runs the checker on the unzipped copy. |
 | `testbed/` | Three synthetic practices with answer keys: two Lakeside Dental corpora and a blind Kestrel Bay Physiotherapy corpus written by an agent that never saw the rules. Also a scorer, a summary script, an audio round-trip script and a laptop stand-in harness that replays the Skill's workflow with small open models. Results are in `testbed/RESULTS.md`. |
 | `proposal/` | The Round 1 proposal (`final.md`, the PDF built from it by `build_pdf.py`, and the Devpost form text). |
-| `round2/` | The plan for a finalist's one day on a real NAS: a timed runbook with a cut list, the demo video's script and subtitles, a script that builds the four corpora with voicemails as recordings, a file-by-file comparison of the NAS index with the laptop's, and a stricter spare version of the Skill kept ready in case the NAS assistant mishandles one check. |
+| `round2/` | The plan for a finalist's one day on a real NAS: a timed runbook with a cut list, the demo video's script and subtitles, a script that builds the four corpora with voicemails as recordings, a file-by-file comparison of the NAS index with the laptop's. |
 
 ## The test corpora
 
@@ -49,14 +49,14 @@ Qwen3 4B and Qwen3-VL 2B instruct through Ollama stand in for the NAS models; vo
 
 | Measure | Main dental | Hard dental | Blind physio |
 |---|---|---|---|
-| Requester's files found | 40 of 40 | 43 of 43 | 29 of 30 |
-| Included automatically | 37 | 34 | 18 |
+| Requester's files found | 40 of 40 | 43 of 43 | 30 of 30 |
+| Included automatically | 33 | 34 | 18 |
 | Wrongly included | 0 | 0 | 0 |
 | Look-alike files included | 0 of 22 | 0 of 26 | 0 of 18 |
 | Included shared files flagged for extraction | 7 of 7 | 7 of 7 | 6 of 6 |
-| Items left for the user | 4 | 12 | 15 |
+| Items left for the user | 7 | 12 | 16 |
 
-The blind corpus's first run, before the fixes it led to, found 18 of 30 with none wrongly included; that is the unbiased number. Details, the stress test and the earlier runs are in `testbed/RESULTS.md`. These numbers will be replaced by NAS measurements in Round 2.
+The blind corpus's first run, before the fixes it led to, found 18 of 30 with none wrongly included; that is the unbiased number. In both blind runs under the current rules the text model misread the other Sarah Mitchell's email address on her intake form, so a reminder sent by mistake to her address went to the user instead of being excluded, and a newsletter list holding both women's addresses was included as an extract instead of going to the user. With the address read correctly, as in run 8, that reminder is excluded and missed (29 of 30) and the list goes to the user (17 included). Details, the stress test and the earlier runs are in `testbed/RESULTS.md`. These numbers will be replaced by NAS measurements in Round 2.
 
 ## Licence
 

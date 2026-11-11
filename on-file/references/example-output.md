@@ -26,10 +26,10 @@ Step 3 scans, photos, sound    text in scans and photos 5   captions and propert
 Step 4 confirm                 unreadable 3   excluded, no mention 3
 Step 5 disambiguate            identifiers taken from the scanned consent form dated 2025-01-14:
                                email, phone, date of birth, address, patient ID
-                               included 37   excluded, a different person 11   needs your decision 4
-                               of the 37: copy 30, extract 7 (other patients in the file)   progress saved
-Step 6 index and letter        duplicates 0   checksums recorded 57 (37 included + 20 sample)
-Total: 37 + 11 + 4 + 3 + 3 = 58 candidates
+                               included 33   excluded, a different person 12   needs your decision 7
+                               of the 33: copy 26, extract 7 (other patients in the file)   progress saved
+Step 6 index and letter        duplicates 0   checksums recorded 53 (33 included + 20 sample)
+Total: 33 + 12 + 7 + 3 + 3 = 58 candidates
 ```
 
 ## Evidence index (excerpt, 13 of 58 rows)
@@ -44,10 +44,10 @@ Columns: path, source, matched identifiers, passage, decision, decided by, other
 | Photos/IMG_20250114_0917.jpg | text in photo | name, ID | 09:10 Maria Lopez LD-10432 | included | auto; a, c: 1 no, 2 no, 3 yes | yes | clinical | extract |
 | Photos/DSC_0412.jpg | caption | name, ID | Post-treatment photo, Maria Lopez, LD-10432, 2025-01-26 | included | auto; a, c: 1 no, 2 no, 3 yes | no | clinical | copy |
 | Voicemail/vm_2025-02-15_10.m4a | recording | name, ID | this is Maria Lopez Asians ID Ld. 10432 I need to move my appointment please call me back on 555 142231 | included | auto; a, c: 1 no, 2 no, 3 yes | no | correspondence | copy |
-| Admin/Recall-Letters/recall-2025-07-05-01.pdf | content | name, address | Maria Lopez, 18 Birch Lane, Lakeside | included | auto; a, e: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) yes: check against clear | no | correspondence | copy |
+| Admin/Recall-Letters/recall-2025-07-05-01.pdf | content | name, address | Maria Lopez, 18 Birch Lane, Lakeside | needs your decision: name and home address only; a relative with the same name at the same home would match too | user; a, e: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) yes | | | |
 | Admin/calendar-2025-Q1.csv | content | name | 2025-01-13, 10:30, Maria Lopez, Dr. Anita Rowe | needs your decision: the same file lists Maria Lopez-Ruiz on 2025-01-15 | user; a: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) no: two checks | | | |
 | Patients/Lopez, Maria/treatment-plan-summary.docx | folder name, properties | name | last modified by: Maria Lopez | needs your decision: name only in the document properties | user; a: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) no: two checks | | | |
-| Admin/Invoices/invoices-2025-extractions-1.xlsx | content | longer name | no passage for the requester; the check against quoted another patient's row, not proof of a different Maria | needs your decision: a longer name is never included automatically | user; b: 1 no, 2 yes: two checks | | | |
+| Admin/Invoices/invoices-2025-extractions-1.xlsx | content | longer name | INV-D0M, 2025-02-10, Maria Lopez-Ruiz, Extraction, 380, LD-11871 | excluded, a different person | auto; b: 1 no, 2 yes: two checks | | | |
 | Email/2025-02-28_appointment_D2.txt | content | longer name | Dear Maria Lopez-Ruiz, | excluded, a different person | auto; b: 1 no, 2 yes: two checks | | | |
 | Admin/Suppliers/lopez-construction-invoice-1.pdf | file name | none | no mention of the person | excluded, no mention | auto; none: 1 to 5 no, 6 | | | |
 | Patients/Lopez, Maria/insurance-letter-protected.pdf | folder name | none | unreadable: password protected | unreadable | you check by hand | | | |
@@ -56,19 +56,17 @@ Surveillance section: no face identity named Maria Lopez in the camera system, a
 
 Unreadable list: insurance-letter-protected.pdf (password protected), old-notes-corrupt.docx (cannot be opened), scan_2025-01-30_blank.jpg (no text found).
 
-If this were a GDPR erasure request for the same person, the planned actions for the 37 included files would be: delete 12 (letters, emails, voicemails), retain 18 (15 clinical and 3 billing records, with the retention reason), edit by hand 7 (files that also hold other patients' data).
+If this were a GDPR erasure request for the same person, the planned actions for the 33 included files would be: delete 8 (emails and voicemails), retain 18 (15 clinical and 3 billing records, with the retention reason), edit by hand 7 (files that also hold other patients' data).
 
 ## Closing message (report-only mode)
 
 ```text
 Search complete for Maria Lopez (HIPAA access): 1 folder with its subfolders, 122 files.
 Due 2026-12-03, 26 days left.
-Included 37, excluded 14, needs your decision 4, unreadable 3, duplicates 0.
-Included on the name and home address only, please look over before act mode:
-  4 recall letters, Admin/Recall-Letters, July 2025.
+Included 33, excluded 15, needs your decision 7, unreadable 3, duplicates 0.
 Identifiers used: the name, plus email, phone, date of birth, address and patient ID
 from the scanned consent form dated 2025-01-14, which you confirmed as the requester's.
-Planned hand-over: 30 copies and 7 extracts. The 7 files also hold other patients'
+Planned hand-over: 26 copies and 7 extracts. The 7 files also hold other patients'
 data, so only Maria Lopez's own entries would be handed over from them.
 
 Saved in the case folder:
@@ -76,13 +74,15 @@ Saved in the case folder:
   enclosure list   dsar-2026-11-03-lopez-maria enclosure list.txt (sent with the letter)
   reply letter     dsar-2026-11-03-lopez-maria letter.txt (Template A, HIPAA access)
 
-Please decide these 4 items (include or exclude). Your answers are saved in
-dsar-2026-11-03-lopez-maria decisions.txt, so you are never asked twice:
-  1. Admin/calendar-2025-Q1.csv (name only; the file also lists Maria Lopez-Ruiz)
-  2. Patients/Lopez, Maria/treatment-plan-summary.docx (name only in document properties)
-  3. Patients/Lopez, Maria/referral-note-to-orthodontist.docx (name only in document properties)
-  4. Admin/Invoices/invoices-2025-extractions-1.xlsx (a longer name, Maria Lopez-Ruiz;
-     the check against found no quote that proves a different person)
+Please decide these 7 items (include or exclude). Your answers are saved in
+dsar-2026-11-03-lopez-maria decisions.txt, so you are never asked twice.
+Name and home address only (a relative with the same name at the same home
+would match too):
+  1 to 4. Admin/Recall-Letters, recall letters of 5, 12, 19 and 26 July 2025
+Name only:
+  5. Admin/calendar-2025-Q1.csv (the file also lists Maria Lopez-Ruiz)
+  6. Patients/Lopez, Maria/treatment-plan-summary.docx (name only in document properties)
+  7. Patients/Lopez, Maria/referral-note-to-orthodontist.docx (name only in document properties)
 
 Please check these 3 files by hand; I could not read them:
   Patients/Lopez, Maria/insurance-letter-protected.pdf (password protected)
@@ -93,8 +93,8 @@ No camera face identity or camera event matched. Nothing was copied or deleted (
 Also check systems outside these folders: practice software, x-ray archive, mail server.
 Approvals asked in this run: 6 (two progress saves, saving the index and the enclosure list,
 drafting and saving the letter).
-To hand over, run again in act mode with the same case name. Expect 42 approvals:
-30 copies, 7 extracts, 4 audit-log writes and the hand-over folder, each a single
+To hand over, run again in act mode with the same case name. Expect 38 approvals:
+26 copies, 7 extracts, 4 audit-log writes and the hand-over folder, each a single
 confirmation of a record already on the enclosure list. Tagging the case is optional
 (up to 3 more). Before act mode, confirm that Maria Lopez's identity was checked.
 I send nothing to Maria Lopez: deliver the letter and copies your usual way and tell me
@@ -102,7 +102,7 @@ the date and method. I then offer to close the case, which keeps a record and de
 the copies and the passages.
 ```
 
-## Enclosure list (excerpt, 6 of 37 rows; sent with the letter)
+## Enclosure list (excerpt, 6 of 33 rows; sent with the letter)
 
 Built from the included rows only. It holds no paths, no passages and no other person's name. The descriptions are written for this example; on the NAS they come from the step 5 description, checked to name no person.
 
@@ -128,7 +128,7 @@ We have completed a search of our records for information about you. The search
 covered our document, scanned-form, photo and recording folders and was carried out
 on our own system; your records were not sent to any outside service.
 
-We located 37 records. They are listed in the enclosed list. 30 are enclosed as
+We located 33 records. They are listed in the enclosed list. 26 are enclosed as
 copies. 7 records also contain information about other patients; for those we enclose
 an extract with only the entries about you.
 
@@ -153,4 +153,4 @@ The three bracketed fields stay bracketed because the enclosure list has nothing
 2026-11-07 14:03:05 | copy    | Voicemail/vm_2025-02-15_10.m4a                     | 5e88d0... | waiting_approval | pending  | revisited at close
 ```
 
-The sha256 column holds the full 64-character checksum recorded before any change; it is shortened here only for width. These lines reached the file at the first checkpoint, after 10 files. Step 8 then reports, for example, "untouched files verified: 20 of 20 unchanged", "handed over: 29 copies and 7 extracts; 1 declined", and the audit log's own checksum.
+The sha256 column holds the full 64-character checksum recorded before any change; it is shortened here only for width. These lines reached the file at the first checkpoint, after 10 files. Step 8 then reports, for example, "untouched files verified: 20 of 20 unchanged", "handed over: 25 copies and 7 extracts; 1 declined", and the audit log's own checksum.

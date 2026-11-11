@@ -5,8 +5,8 @@
 Run it right after the first demo run on the test day. Prints how many files got the same decision (included,
 excluded, needs confirmation, unreadable), lists each difference with the "decided by" path the NAS assistant wrote,
 and flags first any file the NAS included that the laptop did not: a wrong inclusion is the one failure that
-decides whether to install the strict variant (see RUNBOOK.md). With the answer key given, each difference also
-shows whose file it really is."""
+needs its "decided by" path read before going on (see RUNBOOK.md, decision point). With the answer key given,
+each difference also shows whose file it really is."""
 import json
 import sys
 from pathlib import Path

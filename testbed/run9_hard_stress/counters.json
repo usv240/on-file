@@ -1,0 +1,70 @@
+{
+  "identifiers_at_start": [
+    "name"
+  ],
+  "timing": {
+    "step1": 0.0,
+    "step2_3": 72.2,
+    "document_pass": 204.7,
+    "step4_5": 506.5,
+    "step6": 0.1
+  },
+  "files_in_scope": 129,
+  "step1_filename_candidates": 23,
+  "topk_cut": {
+    "name": 37,
+    "dob": 0,
+    "pid": 8,
+    "phone": 0,
+    "address": 0,
+    "email": 0
+  },
+  "step2_3_candidates_total": 40,
+  "namesake_from": "Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx",
+  "identifiers_seeded_from": "Forms-Scanned/scan_2025-01-14_041.pdf",
+  "identifiers_extracted": {
+    "email": "maria.lopez84@example.com",
+    "phone": "(555) 014-2231",
+    "dob": "1984-03-12",
+    "address": "18 Birch Lane, Lakeside",
+    "pid": "LD-10432"
+  },
+  "identifiers_shared_with_namesake": [
+    "address"
+  ],
+  "document_pass_added": 9,
+  "questions": [
+    {
+      "question": "Several intake forms carry this exact name with different dates of birth. Which one is the requester's?",
+      "options": [
+        "Forms-Scanned/scan_2025-01-14_041.pdf (born 1984-03-12)",
+        "Patients/Lopez, Maria (1958)/intake-form-2024-06-02.docx (born 1958-09-04)"
+      ],
+      "answer": "Forms-Scanned/scan_2025-01-14_041.pdf"
+    }
+  ],
+  "decisions": {
+    "included": 34,
+    "excluded": 16,
+    "needs confirmation": 11,
+    "unreadable": 3
+  },
+  "plan": {
+    "access_action: copy": 27,
+    "erasure_action: retain (clinical record)": 15,
+    "access_action: extract": 7,
+    "erasure_action: edit by hand": 7,
+    "erasure_action: retain (billing record)": 3,
+    "erasure_action: delete": 9
+  },
+  "state": "completed",
+  "identifiers_at_end": [
+    "name",
+    "email",
+    "phone",
+    "dob",
+    "address",
+    "pid"
+  ],
+  "total_seconds": 578.9
+}

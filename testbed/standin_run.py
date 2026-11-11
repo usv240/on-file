@@ -336,6 +336,8 @@ def main():
                     help="folder of <voicemail name>.transcript.txt files from real audio (audio_roundtrip.ps1) to use instead of the voicemail text files")
     ap.add_argument("--snippet-check", action="store_true",
                     help="stress test: check quotes from documents against the search snippets only, not the full file text")
+    ap.add_argument("--against-check", action="store_true",
+                    help="the rule before 2026-11-11: include the exact name with only a home phone or address when the check against finds nothing")
     a = ap.parse_args()
 
     root = Path(a.corpus)
@@ -684,9 +686,15 @@ def main():
             row["decision"] = "included"
             row["advocate"] = "exact name with identifier: " + ",".join(sorted(uniq + pers))
             row["passage"] = exact_passage(text, ids, m) or " / ".join(verified(qa(text, "Quote the passage that mentions the person or one of the identifiers."), text))
+        elif name and pers and not a.against_check:
+            # exact name with only a phone or address: a relative with the same name and the same home would
+            # match too, and no check can rule that out, so the user decides (listed apart in the closing message)
+            row["decision"], row["decided_by"] = "needs confirmation", "user, name with home phone or address only"
+            row["advocate"] = "exact name with household identifier: " + ",".join(sorted(pers))
+            row["passage"] = exact_passage(text, ids, m)
         elif name and pers:
-            # exact name with only a phone or address: a relative with the same name and the same home
-            # would match too, so the against-check runs first; any checked quote sends the file to the user
+            # runs before 2026-11-11 (--against-check): the against-check ran first; any checked quote sent the
+            # file to the user, otherwise it was included
             skp = verified(qa(text, SKP_Q), vtext)
             row["advocate"] = "exact name with household identifier: " + ",".join(sorted(pers))
             row["passage"] = exact_passage(text, ids, m)

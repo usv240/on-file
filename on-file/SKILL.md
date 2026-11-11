@@ -227,16 +227,15 @@ Then answer these questions in order and stop at the first one whose answer is y
 1. Is (f) yes? Then: is (c), (d) or (e) also yes? Yes: "needs confirmation". No: "excluded, identifiers of a same-name person", with the quote.
 2. Is (b) yes? Then run the two checks.
 3. Is (c) yes? Then "included, auto".
-4. Is (a) yes? Then: is (d) yes? Yes: "included, auto". No: is (e) yes? Yes: run the check against. No: run the two checks.
+4. Is (a) yes? Then: is (d) yes? Yes: "included, auto". No: is (e) yes? Yes: "needs confirmation", listed apart in the closing message as name and home phone or address only. No: run the two checks.
 5. Is (d) or (e) yes? Then run the two checks.
 6. All six are no: the file keeps its step 4 outcome. "Needs confirmation" if the step 4 reading quoted a checked passage holding the name or an identifier, even one shared with a same-name person, its file or folder name holds the full name, or the content search returned it; otherwise "excluded, no mention".
 
-Write the path to each decision in the index's "decided by" column: the letters that are yes, then each question's answer up to the first yes, for example "a, e: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) yes: check against". A reviewer can then re-check every decision from the row.
+Write the path to each decision in the index's "decided by" column: the letters that are yes, then each question's answer up to the first yes, for example "a, e: 1 no, 2 no, 3 no, 4 yes, (d) no, (e) yes: needs confirmation". A reviewer can then re-check every decision from the row.
 
 A file sent to a check is not decided until that check has returned. A checked passage is one that passed the quote check. The checks decide by the same kind of questions, in order:
 
-- The check against, from question 4. Did it return a checked passage, for example a different birth date or a "Sr."? Yes: "needs confirmation". No: "included, auto, against-check clear". A relative with the same name and home would match the name and the phone or address too, so the closing message lists these files apart: a same-name relative with no form in scope would pass this check.
-- The two checks, from questions 2, 4 and 5. They never include a file. First, did the check for return a checked passage holding the exact name or one of the requester's identifiers? Yes: "needs confirmation", with both quotes. No: second, did the check against return a checked passage holding a longer form of the name or a same-name person's identifier? Yes: "excluded, skeptic found a different person", with the quote. No: "needs confirmation", with both quotes.
+- The two checks, from questions 2 and 5. They never include a file. First, did the check for return a checked passage holding the exact name or one of the requester's identifiers? Yes: "needs confirmation", with both quotes. No: second, did the check against return a checked passage holding a longer form of the name or a same-name person's identifier? Yes: "excluded, skeptic found a different person", with the quote. No: "needs confirmation", with both quotes.
 
 `delegate --target document-agent --instruction 'Open the file at the given path. Quote every passage that shows the person named is the same person as the one described by the identifiers listed. If there is none, say none.'`
 
@@ -354,7 +353,7 @@ The list is the case-folder files. Files already tagged are skipped. The tag lin
 
 Run it on the not-included sample, on every included file that was not changed, and on the audit log. Report "untouched files verified: N of N unchanged" or each difference. For erasure, each deleted path must return not found.
 
-Close with: counters; the files included on the name with only a phone or address, for a look before act mode; approvals asked, approved, declined and pending; due date and days left; the saved paths, noting the index is never sent; the audit log's checksum; open confirmation items; retained files with reasons; shared files to edit by hand, with the passages; unreadable files; any surveillance identity to remove manually; and a reminder to check practice software, imaging systems and the mail server.
+Close with: counters; approvals asked, approved, declined and pending; due date and days left; the saved paths, noting the index is never sent; the audit log's checksum; open confirmation items; retained files with reasons; shared files to edit by hand, with the passages; unreadable files; any surveillance identity to remove manually; and a reminder to check practice software, imaging systems and the mail server.
 
 The Skill sends nothing to the requester. For access, the user delivers the letter and the hand-over folder by the practice's own method, for example on an encrypted USB drive, by secure email, on paper, or through a NAS sharing link with a password and an expiry date that the user creates. The user gives the date and method, and they are appended to the decisions file as part of the case record.
 

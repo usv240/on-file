@@ -101,7 +101,7 @@
   table { margin-top: 44px; width: 100%; border-collapse: collapse; table-layout: fixed; }
   th { text-align: left; font-weight: 720; font-size: 24px; padding: 0 20px 14px; vertical-align: bottom; }
   th small { display: block; font-weight: 450; font-size: 17px; color: var(--ink-2); margin-top: 4px; }
-  td { padding: 26px 20px; font-size: 25px; }
+  td { padding: 20px 20px; font-size: 25px; }
   td.num { font-stretch: 68%; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.01em; }
   td.num small { font-stretch: 100%; font-weight: 450; font-size: 18px; color: var(--ink-2); letter-spacing: 0; margin-left: 6px; }
   tr:nth-child(odd) td { background: var(--paper-2); }
@@ -228,9 +228,9 @@
     <div class="verify"><span class="n">8</span><span class="t">Verify</span><span class="s">Untouched files checked by sha256</span></div>
   </div>
   <div class="msg">
-    <b>Included 37, excluded 14, needs your decision 4, unreadable 3.</b> Due 2026-12-03, 26 days left.<br>
-    Planned hand-over: 30 copies and 7 extracts. The 7 files also hold other patients' data, so only her own entries would be handed over.<br>
-    Nothing was copied or deleted (report-only mode). To hand over, run again in act mode: expect 42 approvals.
+    <b>Included 33, excluded 15, needs your decision 7, unreadable 3.</b> Due 2026-12-03, 26 days left.<br>
+    Planned hand-over: 26 copies and 7 extracts. The 7 files also hold other patients' data, so only her own entries would be handed over.<br>
+    Nothing was copied or deleted (report-only mode). To hand over, run again in act mode: expect 38 approvals.
   </div>
   <div class="foot"><span>Closing message from the main test corpus, laptop stand-in run</span><span>On File</span></div>
 </section>
@@ -238,10 +238,11 @@
 <!-- 5. Results -->
 <section class="art results" id="g5">
   <h2>Measured on three invented practices</h2>
-  <p class="lede">Name only as input. Qwen3 4B and Qwen3-VL 2B on a laptop stood in for the NAS models; Round 2 replaces these numbers with runs on the NAS. The physiotherapy practice was written by a separate agent that never saw the rules.</p>
+  <p class="lede">Name only as input. Qwen3 4B and Qwen3-VL 2B on a laptop stood in for the NAS models; Round 2 replaces these numbers with runs on the NAS. The physiotherapy practice was written by a separate agent that never saw the rules; its 30th file was found because the model misread the other woman's email address (29 when read correctly).</p>
   <table>
     <tr><th></th><th>Dental<small>122 files</small></th><th>Harder dental<small>129 files, same-name mother</small></th><th>Physiotherapy<small>65 files, written blind</small></th></tr>
-    <tr><td>Requester's files found</td><td class="num">40<small>of 40</small></td><td class="num">43<small>of 43</small></td><td class="num">29<small>of 30</small></td></tr>
+    <tr><td>Requester's files found</td><td class="num">40<small>of 40</small></td><td class="num">43<small>of 43</small></td><td class="num">30<small>of 30</small></td></tr>
+    <tr><td>Included automatically</td><td class="num">33</td><td class="num">34</td><td class="num">18</td></tr>
     <tr><td>Wrongly included</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td></tr>
     <tr><td>Look-alike files included</td><td class="num zero">0<small>of 22</small></td><td class="num zero">0<small>of 26</small></td><td class="num zero">0<small>of 18</small></td></tr>
     <tr><td>Shared files flagged for extracts</td><td class="num">7<small>of 7</small></td><td class="num">7<small>of 7</small></td><td class="num">6<small>of 6</small></td></tr>

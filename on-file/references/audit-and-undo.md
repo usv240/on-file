@@ -12,7 +12,7 @@ One plain-text file in the case folder, written with the file expert in append m
 - `approval state` is approved, pending or declined as reported by the platform for that file.
 - `note` holds the recycle-bin path of a deleted file, the failure reason, "declined by user", "already done", or "duplicate of" plus the original path.
 
-When it is written: after every 10 files acted on, when the user stops the run, and at the end. Each write is an append and asks for one platform approval, so a 12-file erasure asks for 12 deletion and 2 log approvals, and a 37-file hand-over for 37 and 4. The log is never rewritten. If a run stops between two writes, the recycle-bin paths of the last few deletions are not in the log yet; a restore then finds those files by name in the share's recycle-bin folder.
+When it is written: after every 10 files acted on, when the user stops the run, and at the end. Each write is an append and asks for one platform approval, so an 8-file erasure asks for 8 deletion approvals and 1 log approval, and a 33-file hand-over for 33 and 4. The log is never rewritten. If a run stops between two writes, the recycle-bin paths of the last few deletions are not in the log yet; a restore then finds those files by name in the share's recycle-bin folder.
 
 At the close, the Skill reports the audit log's own sha256. The user keeps that value with the case; if the log is edited later, its checksum no longer matches. The log is a record, not a tamper-proof ledger.
 

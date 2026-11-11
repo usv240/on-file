@@ -12,7 +12,7 @@ Clinics and small businesses keeping client records on a NAS. When someone reque
 
 ## 3. What is your solution?
 
-Practice software holds the chart; the rest sits on the NAS. On File replaces opening every file by hand: a laptop run read 122 test files in 8.4 minutes. It separates same-name people, extracts from shared files and sends nothing; the practice delivers copies.
+Practice software holds the chart; the rest sits on the NAS. On File replaces opening every file by hand: a laptop run read 122 test files in 8.3 minutes. It separates same-name people, extracts from shared files and sends nothing; the practice delivers copies.
 
 ## 4. What is the main user flow?
 
@@ -32,7 +32,7 @@ It directs six NAS expert agents. Searching changes no file in scope; progress g
 
 ## 8. What have you built so far? What is not built yet? What still needs testing on a NAS?
 
-Built: SKILL.md, eight references (checker-clean), three answer-keyed test corpora, one written blind by another agent. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 37 and 34 auto-included, none wrongly. Blind: first 18 of 30 surfaced, none auto-included; after fixes 29 surfaced, 18 auto-included, none wrongly. Act replay changed only planned files. Every step written; untested until the NAS: its assistant applying the rules, recall, OCR, cameras, approvals.
+Built: SKILL.md, eight references (checker-clean), three answer-keyed test corpora, one written blind by another agent. Laptop stand-in (rules as code, small models, synthesized voicemails, name only): 40 of 40 and 43 of 43 requester files surfaced, 33 and 34 auto-included, none wrongly. Blind: first 18 of 30 surfaced, none auto-included; after fixes 29 to 30 surfaced, 18 auto-included, none wrongly. Act replay changed only planned files. Untested until the NAS: its assistant applying the rules, recall, OCR, cameras, approvals.
 
 ## 9. How will you test your Skill if you become a Finalist?
 

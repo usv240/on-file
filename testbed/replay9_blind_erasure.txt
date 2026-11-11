@@ -1,0 +1,37 @@
+{
+  "mode": "erasure",
+  "files_in_scope": 65,
+  "planned": {
+    "delete": 3,
+    "edit by hand": 6,
+    "retain (billing record)": 2,
+    "retain (clinical record)": 7
+  },
+  "first_run": {
+    "acted": 3,
+    "already done": 0,
+    "skipped (retain or edit by hand)": 15,
+    "extract refused": 0,
+    "log writes": 1
+  },
+  "second_run": {
+    "acted": 0,
+    "already done": 3,
+    "skipped (retain or edit by hand)": 15,
+    "extract refused": 0,
+    "log writes": 1
+  },
+  "integrity_after_first_run": {
+    "deleted": 3,
+    "deleted_equals_planned_deletions": true,
+    "changed": 0,
+    "added": 0
+  },
+  "second_run_changed_nothing": true,
+  "approvals_first_run": 4,
+  "restore": {
+    "path": "Clients/Mitchell_Sarah_KBP-10427/letter_to_GP_2026-04-20.docx",
+    "hash_matches_before": true
+  },
+  "audit_log_lines": 6
+}

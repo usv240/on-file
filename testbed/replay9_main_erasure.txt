@@ -1,0 +1,37 @@
+{
+  "mode": "erasure",
+  "files_in_scope": 122,
+  "planned": {
+    "delete": 8,
+    "edit by hand": 7,
+    "retain (billing record)": 3,
+    "retain (clinical record)": 15
+  },
+  "first_run": {
+    "acted": 8,
+    "already done": 0,
+    "skipped (retain or edit by hand)": 25,
+    "extract refused": 0,
+    "log writes": 1
+  },
+  "second_run": {
+    "acted": 0,
+    "already done": 8,
+    "skipped (retain or edit by hand)": 25,
+    "extract refused": 0,
+    "log writes": 1
+  },
+  "integrity_after_first_run": {
+    "deleted": 8,
+    "deleted_equals_planned_deletions": true,
+    "changed": 0,
+    "added": 0
+  },
+  "second_run_changed_nothing": true,
+  "approvals_first_run": 9,
+  "restore": {
+    "path": "Email/2025-01-11_appointment_01.txt",
+    "hash_matches_before": true
+  },
+  "audit_log_lines": 16
+}
