@@ -11,6 +11,7 @@ This is a complete, fictional case so the shape of every output is clear before 
 - Case folder: a restricted Requests share, outside the records folder
 - Case name: dsar-2026-11-03-lopez-maria, proposed by the Skill and confirmed by the user
 - Mode: report only
+- Camera search: yes, no retention period given, so the 90 days before the request
 - Identifiers: none supplied; the request arrived as a name only
 
 ## Counters shown after each step

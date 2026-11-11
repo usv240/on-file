@@ -76,7 +76,7 @@ def main() -> int:
     out = ROOT / "dist" / "on-file-strict.zip"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for f in [DST / "SKILL.md"] + sorted((DST / "references").glob("*.md")):
-            z.write(f, f.relative_to(DST).as_posix())
+            z.write(f, "on-file/" + f.relative_to(DST).as_posix())
     print(f"written {out}")
     if len(sys.argv) > 1:
         r = subprocess.run(["node", sys.argv[1], str(DST)], capture_output=True, text=True, encoding="utf-8")

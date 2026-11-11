@@ -46,8 +46,8 @@ Nicknames need supplied identifiers. Poor scans can hide a name. Archives and pr
 
 Team: Ujwal Vanjare, individual entrant.
 
-Third-party components: none inside the Skill package (Markdown only). Testing tools outside the package: Python 3.12 (PSF licence), python-docx (MIT), openpyxl (MIT), reportlab (BSD), Pillow (MIT-CMU), pypdf (BSD), requests (Apache 2.0), Ollama (MIT), Qwen3 4B and Qwen3-VL 2B instruct (Apache 2.0), Windows offline speech (System.Speech). Sources: official PyPI, GitHub and Ollama distributions.
+Third-party components: none inside the Skill package (Markdown only). Testing tools outside the package: Python 3.12 (PSF licence), python-docx (MIT), openpyxl (MIT), reportlab (BSD), Pillow (MIT-CMU), pypdf (BSD), requests (Apache 2.0), Ollama (MIT), Qwen3 4B and Qwen3-VL 2B instruct (Apache 2.0), Windows offline speech (System.Speech). Gallery images and video: Playwright (Apache 2.0) with Google Chrome, the Archivo typeface (SIL OFL 1.1, Google Fonts), FFmpeg (GPL 3.0 build, gyan.dev). Sources: official PyPI, GitHub, Ollama and Google Fonts distributions. Licence of this project: MIT.
 
-AI tools used: Claude Code (Anthropic) for rules research, collision scans, drafting SKILL.md, the references and these answers, the corpus generators, the scorer, the laptop harness and reviews against the judging criteria; a separate Claude agent, kept from the rules, wrote the blind test corpus. The idea, request types and naming are the team's own; the team directed the work, reviewed the drafts and made the final choices.
+AI tools used: Claude Code (Anthropic) for rules research, collision scans, drafting SKILL.md, the references and these answers, the corpus generators, the scorer, the laptop harness, the gallery images and video, and reviews against the judging criteria; a separate Claude agent, kept from the rules, wrote the blind test corpus. The idea, request types and naming are the team's own; the team directed the work, reviewed the drafts and made the final choices.
 
 Test corpora and scorer (optional): https://github.com/usv240/on-file

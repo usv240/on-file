@@ -4,7 +4,7 @@
 
 The Skill is a Markdown package: `SKILL.md` and the `references/` folder, nothing else. It has no scripts, no binaries and no configuration file.
 
-- Round 1 (static): unzip the package and run the official Uliya Skill Kit checker on the folder. Expected result: static-pass with zero errors, zero warnings and zero notes.
+- Round 1 (static): unzip the package, which holds one folder named `on-file`, and run the Uliya Skill Kit checker on that folder. Expected result: static-pass with zero errors, zero warnings and zero notes.
 - On the NAS: add the package through the UGOS AI assistant's Skills page, or install it from the UGREEN Skills Hub once published there. The Skill appears under the name `on-file` and is triggered by requests such as "a patient asked for everything we hold about them" or "a customer asked to be deleted".
 
 Nothing is installed outside the Skills directory. No model, library or service is downloaded.

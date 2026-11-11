@@ -1,6 +1,6 @@
 ---
 name: on-file
-description: Use when a patient or customer asks what personal data you hold about them or asks to be deleted (HIPAA right of access, GDPR access or erasure). Finds the files in the chosen NAS folders that mention the person, including scans, photos and recordings, shows the matching passage per file, tells same-name people apart, writes the reply letter and an evidence index, hands over copies or extracts and deletes files only after per-file approval, with an audit log.
+description: Use when a patient or customer asks what personal data you hold about them or asks to be deleted (HIPAA right of access, GDPR access or erasure). Finds the files in the chosen NAS folders that mention the person, including scans, photos, recordings and, if the user agrees, camera events, shows the matching passage per file, tells same-name people apart, writes the reply letter and an evidence index, hands over copies or extracts and deletes files only after per-file approval, with an audit log.
 ---
 
 # Goal
@@ -34,7 +34,8 @@ Collect these from the user before any delegation. Stop with `waiting_user` if t
 - Identity: before act mode on an access request, the user confirms that the requester's identity was checked, for example against the photo ID or contact details on file. The Skill does not verify identity itself, and it hands nothing to a requester whose identity the user has not confirmed.
 - Optional identifiers: email, phone, date of birth, patient or customer ID, postal address, nickname or former name. Each one improves disambiguation. See [disambiguation](references/disambiguation.md).
 - Optional: the language the request was written in, if not English.
-- Optional: how long the NAS cameras keep recordings, if the practice has cameras.
+- Camera search: asked once, with the reason that camera recordings of an identifiable person are personal data the request covers. The surveillance system is searched only if the user says yes; otherwise the index records "camera search not requested".
+- Optional, if the camera search is wanted: how long the NAS cameras keep recordings.
 
 Do not collect anything a child expert owns (album IDs, tag IDs, face IDs). Child experts resolve those themselves.
 
@@ -51,6 +52,8 @@ Do not collect anything a child expert owns (album IDs, tag IDs, face IDs). Chil
 # Workflow
 
 Steps 1 to 5 change no file in scope: they read every file in scope, and steps 3 and 5 end by saving the progress so far into the evidence index, so a stopped run resumes without searching again; step 6 completes the index and adds the enclosure list and letter. All of these writes go into the case folder and nowhere else, each through a platform-approved write. Step 7 is the only step that touches the person's files, only in act mode, one file per approval. Each delegation below is self-contained: it repeats the person's name, the identifiers, and the exact folder or file it applies to. Downstream steps use only the real result returned by the upstream delegation; nothing is assumed from a result that was not returned.
+
+Credential and system files are never searched, read or quoted, even inside a folder in scope: .env files, .git folders, config.json, key and certificate files, SSH folders and browser profiles. Every search and reading delegation below leaves them out.
 
 Keep running counters and show them after every step, together with the legal due date and the days left: folders scanned, files searched, candidates, confirmed, excluded, needs confirmation, unreadable, duplicates.
 
@@ -92,7 +95,7 @@ Build the search terms first: the full name as written, in surname-first order w
 
 For each folder in scope and for each search term (name forms first, then email, phone, ID, date of birth, address, nickname):
 
-`delegate --target knowledge-agent --instruction 'Collect evidence from the folder the user named for the exact term given, searching the full content of every file. Return every file that contains it, with the matching passage and the file path. Do not widen the search to similar names. If there are no results, say no results.'`
+`delegate --target knowledge-agent --instruction 'Collect evidence from the folder the user named for the exact term given, searching the full content of every file. Return every file that contains it, with the matching passage and the file path. Leave out .env files, .git folders, config.json, key and certificate files and SSH folders. Do not widen the search to similar names. If there are no results, say no results.'`
 
 Add every returned path with source "content" and the identifier that matched. Merge duplicates by path; keep all identifiers that matched a path. Every file the search reports it could not read is added to the unreadable list with the reason given.
 
@@ -149,6 +152,8 @@ Recordings are transcribed from a list of paths:
 `delegate --target knowledge-agent --instruction 'Transcribe the recordings at the given paths. For each file, report whether the transcript contains the person's full name or any identifier listed, and return the path and the matching sentence. List any file that could not be transcribed with the reason. Return no results if nothing matches.'`
 
 If a folder holds more than 2000 documents, 500 scans and images or 200 recordings, show the count and ask whether to process all, a date range, or none of that kind; record the choice in the index. Above 500 files in scope, the progress is also saved after each folder in steps 2 and 3, and step 4 reads the candidates back from the saved index instead of carrying them in the conversation.
+
+Only if the user said yes to the camera search:
 
 `delegate --target security-monitor-agent --instruction 'List the known face identities in the surveillance system and report whether any identity name equals the person's full name. Read only. Return the identity name and, if available, the cameras it appears on, or no results.'`
 
